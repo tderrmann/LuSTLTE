@@ -249,7 +249,7 @@ void TraCIScenarioManager::handleSelfMsg(cMessage *msg) {
 	if (msg == executeOneTimestepTrigger) {
 		if (simTime() > 1) {
 			if (vehicleTypeIds.size()==0) {
-				std::list<std::string> vehTypes = getCommandInterface()->getVehicleTypeIds();
+				std::list<std::string> vehTypes = getCommandInterface()->getVehicletypeIds();
 				for (std::list<std::string>::const_iterator i = vehTypes.begin(); i != vehTypes.end(); ++i) {
 					if (i->compare("DEFAULT_VEHTYPE")!=0) {
 						MYDEBUG << *i << std::endl;

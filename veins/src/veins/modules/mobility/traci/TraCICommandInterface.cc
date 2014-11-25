@@ -79,7 +79,7 @@ void TraCICommandInterface::Vehicle::setParking() {
 	ASSERT(buf.eof());
 }
 
-std::list<std::string> TraCICommandInterface::getVehicleTypeIds() {
+std::list<std::string> TraCICommandInterface::getVehicletypeIds() {
 	return genericGetStringList(CMD_GET_VEHICLETYPE_VARIABLE, "", ID_LIST, RESPONSE_GET_VEHICLETYPE_VARIABLE);
 }
 
@@ -348,6 +348,44 @@ bool TraCICommandInterface::Vehicle::changeVehicleRoute(const std::list<std::str
 	return true;
 }
 
+double TraCICommandInterface::Vehicle::getDistance(const Coord& position2, bool returnDrivingDistance) {
+	uint8_t variable = DISTANCE_REQUEST;
+	uint8_t variableType = TYPE_COMPOUND;
+	int32_t count = 2;
+	TraCICoord traciPosition = connection->omnet2traci(position2);
+	uint8_t dType = static_cast<uint8_t>(returnDrivingDistance ? REQUEST_DRIVINGDIST : REQUEST_AIRDIST);
+	TraCIBuffer buf = connection->query(CMD_GET_VEHICLE_VARIABLE, TraCIBuffer() << variable << nodeId << variableType << count << traciPosition << dType);
+
+	uint8_t cmdLength_resp;
+	buf >> cmdLength_resp;
+	uint8_t commandId_resp;
+	buf >> commandId_resp;
+	ASSERT(commandId_resp == RESPONSE_GET_VEHICLE_VARIABLE);
+	uint8_t variableId_resp;
+	buf >> variableId_resp;
+	ASSERT(variableId_resp == variable);
+	uint32_t string_length;
+	buf >> string_length;
+
+	// FIXME: use string reader
+	char nodeIdbuf[string_length + 1];
+	for (size_t i = 0; i < string_length; ++i) {
+		buf.read<char>(nodeIdbuf[i]);
+	}
+	nodeIdbuf[string_length] = 0;
+
+	ASSERT(nodeIdbuf == nodeId);
+	uint8_t typeId_resp;
+	buf >> typeId_resp;
+	ASSERT(typeId_resp == TYPE_DOUBLE);
+	double distance;
+	buf >> distance;
+
+	ASSERT(buf.eof());
+
+	return distance;
+}
+
 std::pair<double, double> TraCICommandInterface::getLonLat(const Coord& coord) {
 	TraCIBuffer request;
 	request << static_cast<uint8_t>(POSITION_CONVERSION) << std::string("sim0")
@@ -372,6 +410,34 @@ std::pair<double, double> TraCICommandInterface::getLonLat(const Coord& coord) {
 	double convPosLat; response >> convPosLat;
 
 	return std::make_pair(convPosLon, convPosLat);
+}
+
+double TraCICommandInterface::Vehicletype::getLength() {
+	return traci->genericGetDouble(CMD_GET_VEHICLETYPE_VARIABLE, typeId, VAR_LENGTH, RESPONSE_GET_VEHICLETYPE_VARIABLE);
+}
+
+std::list<std::string> TraCICommandInterface::Junction::getIncomingLaneIds() {
+	return traci->genericGetStringList(CMD_GET_JUNCTION_VARIABLE, junctionId, TL_CONTROLLED_LANES, RESPONSE_GET_JUNCTION_VARIABLE);
+}
+
+std::list<Coord> TraCICommandInterface::Junction::getShape() {
+	return traci->genericGetCoordList(CMD_GET_JUNCTION_VARIABLE, junctionId, VAR_SHAPE, RESPONSE_GET_JUNCTION_VARIABLE);
+}
+
+std::list<std::string> TraCICommandInterface::Lane::getLinks() {
+	return traci->genericGetCompoundObject(CMD_GET_LANE_VARIABLE, laneId, LANE_LINKS, RESPONSE_GET_LANE_VARIABLE);
+}
+
+double TraCICommandInterface::Vehicletype::getMaxSpeed() {
+	return traci->genericGetDouble(CMD_GET_VEHICLETYPE_VARIABLE, typeId, VAR_MAXSPEED, RESPONSE_GET_VEHICLETYPE_VARIABLE);
+}
+
+double TraCICommandInterface::Vehicletype::getMaxAcceleration() {
+	return traci->genericGetDouble(CMD_GET_VEHICLETYPE_VARIABLE, typeId, VAR_ACCEL, RESPONSE_GET_VEHICLETYPE_VARIABLE);
+}
+
+double TraCICommandInterface::Vehicletype::getMaxDeceleration() {
+	return traci->genericGetDouble(CMD_GET_VEHICLETYPE_VARIABLE, typeId, VAR_DECEL, RESPONSE_GET_VEHICLETYPE_VARIABLE);
 }
 
 void TraCICommandInterface::GuiView::setScheme(std::string name) {
@@ -584,6 +650,101 @@ std::list<Coord> TraCICommandInterface::genericGetCoordList(uint8_t commandId, s
 	ASSERT(buf.eof());
 
 	return res;
+}
+
+std::list<std::string> TraCICommandInterface::genericGetCompoundObject(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId) {
+
+	uint8_t resultTypeId = TYPE_COMPOUND;
+
+	TraCIBuffer buf = connection.query(commandId, TraCIBuffer() << variableId << objectId);
+
+	uint8_t cmdLength; buf >> cmdLength;
+	if (cmdLength == 0) {
+		uint32_t cmdLengthX;
+		buf >> cmdLengthX;
+	}
+	uint8_t commandId_r; buf >> commandId_r;
+	ASSERT(commandId_r == responseId);
+	uint8_t varId; buf >> varId;
+	ASSERT(varId == variableId);
+	std::string objectId_r; buf >> objectId_r;
+	ASSERT(objectId_r == objectId);
+	uint8_t resType_r; buf >> resType_r;
+	ASSERT(resType_r == resultTypeId);
+
+	uint32_t countElements; buf >> countElements;
+
+	std::list<std::string> compound;
+	std::stringstream tmp;
+
+	for(uint32_t i = 0; i < countElements; i++) {
+
+		uint8_t type; buf >> type;
+
+		switch (type) {
+			case TYPE_BOUNDINGBOX:
+				ASSERT(0);
+				//error("TYPE_BOUNDINGBOX: not implemented yet");
+				break;
+			case TYPE_POLYGON:
+				ASSERT(0);
+				//error("TYPE_POLYGON: not implemented yet");
+				break;
+			case TYPE_UBYTE:
+				bool byte; buf >> byte;
+				tmp << byte;
+				compound.push_back(tmp.str());
+				tmp.clear();
+				break;
+			case TYPE_BYTE:
+				ASSERT(0);
+				//error("TYPE_BYTE: not implemented yet");
+				break;
+			case TYPE_INTEGER:
+				uint32_t w; buf >> w;
+				tmp << w;
+				compound.push_back(tmp.str());
+				tmp.clear();
+				break;
+			case TYPE_FLOAT:
+				float f; buf >> f;
+				tmp << f;
+				compound.push_back(tmp.str());
+				tmp.clear();
+				break;
+			case TYPE_DOUBLE:
+				double d; buf >> d;
+				tmp << d;
+				compound.push_back(tmp.str());
+				tmp.clear();
+				break;
+			case TYPE_STRING: {
+				std::string var; buf >> var;
+				compound.push_back(var);
+				break;
+			}
+			case TYPE_TLPHASELIST:
+				ASSERT(0);
+				//error("TYPE_TLPHASELIST: not implemented yet");
+				break;
+			case TYPE_STRINGLIST:
+				ASSERT(0);
+				//error("TYPE_STRINGLIST: not implemented yet");
+				break;
+			case TYPE_COMPOUND:
+				ASSERT(0);
+				//error("TYPE_COMPOUND: not implemented yet");
+				break;
+			case TYPE_COLOR:
+				ASSERT(0);
+				//error("TYPE_COLOR: not implemented yet");
+				break;
+		}
+	}
+
+	ASSERT(buf.eof());
+
+	return compound;
 }
 
 }

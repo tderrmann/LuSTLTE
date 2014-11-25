@@ -54,6 +54,7 @@ class TraCICommandInterface
 				int32_t getLaneIndex();
 				std::string getTypeId();
 				bool changeVehicleRoute(const std::list<std::string>& roads);
+				double getDistance(const Coord& position2, bool returnDrivingDistance);
 
 			protected:
 				TraCICommandInterface* traci;
@@ -96,6 +97,7 @@ class TraCICommandInterface
 				double getLength();
 				double getMaxSpeed();
 				double getMeanSpeed();
+				std::list<std::string> getLinks();
 
 			protected:
 				TraCICommandInterface* traci;
@@ -176,6 +178,8 @@ class TraCICommandInterface
 				}
 
 				Coord getPosition();
+				std::list<Coord> getShape();
+				std::list<std::string> getIncomingLaneIds();
 
 			protected:
 				TraCICommandInterface* traci;
@@ -206,7 +210,26 @@ class TraCICommandInterface
 		}
 
 		// Vehicletype methods
-		std::list<std::string> getVehicleTypeIds();
+		std::list<std::string> getVehicletypeIds();
+		class Vehicletype {
+			public:
+				Vehicletype(TraCICommandInterface* traci, std::string typeId) : traci(traci), typeId(typeId) {
+					connection = &traci->connection;
+				}
+
+				double getMaxSpeed();
+				double getMaxAcceleration();
+				double getMaxDeceleration();
+				double getLength();
+
+			protected:
+				TraCICommandInterface* traci;
+				TraCIConnection* connection;
+				std::string typeId;
+		};
+		Vehicletype vehicletype(std::string typeId) {
+			return Vehicletype(this, typeId);
+		}
 
 		// GuiView methods
 		class GuiView {
@@ -239,6 +262,7 @@ class TraCICommandInterface
 		int32_t genericGetInt(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 		std::list<std::string> genericGetStringList(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 		std::list<Coord> genericGetCoordList(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
+		std::list<std::string> genericGetCompoundObject(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 };
 
 }
