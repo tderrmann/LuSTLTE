@@ -3,6 +3,8 @@
 	<name>veins</name>
 	<comment></comment>
 	<projects>
+		<project>inet</project>
+		<project>lte</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
