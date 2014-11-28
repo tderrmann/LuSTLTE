@@ -108,6 +108,7 @@ LteRealisticChannelModel::LteRealisticChannelModel(ParameterMap& params,
            << "create Realistic Channel Model:average Street Wide set from config.xml to "
            << wStreet_ << endl;
     }
+    else
     wStreet_ = 20;
 
     // get correlation distance from config

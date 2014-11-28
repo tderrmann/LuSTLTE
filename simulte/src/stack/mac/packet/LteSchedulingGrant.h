@@ -40,6 +40,9 @@ class LteSchedulingGrant : public LteSchedulingGrant_Base
     LteSchedulingGrant& operator=(const LteSchedulingGrant& other)
     {
         LteSchedulingGrant_Base::operator=(other);
+	userTxParams = other.userTxParams;
+	grantedBlocks = other.grantedBlocks;
+	grantedCwBytes = other.grantedCwBytes;
         return *this;
     }
 

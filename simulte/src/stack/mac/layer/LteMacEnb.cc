@@ -191,12 +191,14 @@ void LteMacEnb::deleteQueues(MacNodeId nodeId)
     LteMacBase::deleteQueues(nodeId);
 
     LteMacBufferMap::iterator bit;
-    for (bit = bsrbuf_.begin(); bit != bsrbuf_.end(); bit++)
+    for (bit = bsrbuf_.begin(); bit != bsrbuf_.end();)
     {
         if (MacCidToNodeId(bit->first) == nodeId)
         {
             delete bit->second; // Delete Queue
-            bsrbuf_.erase(bit); // Delete Elem
+            bsrbuf_.erase(bit++); // Delete Elem
+        } else {
+        	++bit;
         }
     }
 }

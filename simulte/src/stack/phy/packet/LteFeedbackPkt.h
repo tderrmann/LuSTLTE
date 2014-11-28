@@ -37,6 +37,9 @@ class LteFeedbackPkt : public LteFeedbackPkt_Base
     LteFeedbackPkt& operator=(const LteFeedbackPkt& other)
     {
         LteFeedbackPkt_Base::operator=(other);
+	lteFeedbackDoubleVectorDl_ = other.lteFeedbackDoubleVectorDl_;
+	lteFeedbackDoubleVectorUl_ = other.lteFeedbackDoubleVectorUl_;
+	sourceNodeId_ = other.sourceNodeId_;
         return *this;
     }
     virtual LteFeedbackPkt *dup() const
