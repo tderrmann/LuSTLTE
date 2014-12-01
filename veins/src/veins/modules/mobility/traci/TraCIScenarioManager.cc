@@ -33,6 +33,9 @@
 #include "veins/modules/obstacle/ObstacleControl.h"
 #include "veins/modules/mobility/traci/TraCIScenarioManagerInet.h"
 
+#include "LteMacEnb.h"
+#include "IMobility.h"
+
 using Veins::TraCIScenarioManager;
 using Veins::TraCIBuffer;
 using Veins::TraCICoord;
@@ -130,6 +133,17 @@ void TraCIScenarioManager::initialize(int stage) {
 	scheduleAt(connectAt, connectAndStartTrigger);
 	executeOneTimestepTrigger = new cMessage("step");
 	scheduleAt(firstStepAt, executeOneTimestepTrigger);
+
+	cModule *binderTmp = getParentModule()->getModuleByPath("scenario.binder");
+	binder = dynamic_cast<LteBinder*>(binderTmp);
+	if (!binder) {
+	   std::cerr << "No IPv4NetworkConfigurator found!" << std::endl;
+	}
+	cModule* configuratorTmp = getModuleByPath("scenario.configurator");
+	configurator = dynamic_cast<IPv4NetworkConfigurator*>(configuratorTmp);
+	if(!configurator){
+	   std::cerr << "No IPv4NetworkConfigurator found!" << std::endl;
+	}
 
 	MYDEBUG << "initialized TraCIScenarioManager" << endl;
 }
@@ -312,7 +326,6 @@ void TraCIScenarioManager::addModule(std::string nodeId, std::string type, std::
 	mod->finalizeParameters();
 	mod->getDisplayString().parse(displayString.c_str());
 	mod->buildInside();
-	mod->scheduleStart(simTime() + updateInterval);
 
 	// pre-initialize TraCIMobility
 	for (cModule::SubmoduleIterator iter(mod); !iter.end(); iter++) {
@@ -333,6 +346,28 @@ void TraCIScenarioManager::addModule(std::string nodeId, std::string type, std::
 		if (!mm) continue;
 		mm->changePosition();
 	}
+
+	MacNodeId macNodeId = binder->getMacNodeIdFromOmnetId(mod->getId());
+	macNodeIds[mod->getId()] = macNodeId;
+	configurator->updateTopology();
+	idToAddress.clear();
+	for(std::map<std::string, cModule*>::iterator it = hosts.begin(); it != hosts.end(); it++){
+		IPv4Address address = IPvXAddressResolver().resolve(it->second->getFullName()).get4();
+		idToAddress[it->first] = address;
+		binder->setMacNodeId(address, binder->getMacNodeIdFromOmnetId(it->second->getId()));
+	}
+	if(debug){
+		std::cout << "\t\t\t\tStoring id " << nodeId << ", " << mod->getFullName()
+			<< ", its address " << idToAddress[nodeId]
+			<< " and the MacNodeId " << macNodeId << std::endl;
+	}
+	LteAmc *amc = check_and_cast<LteMacEnb *>(
+			getParentModule()->getSubmodule("eNodeB1")->getSubmodule("nic")->getSubmodule("mac")
+			)->getAmc();
+	amc->attachUser(binder->getMacNodeIdFromOmnetId(mod->getId()), UL);
+	amc->attachUser(binder->getMacNodeIdFromOmnetId(mod->getId()), DL);
+
+	mod->scheduleStart(simTime() + updateInterval);
 }
 
 cModule* TraCIScenarioManager::getManagedModule(std::string nodeId) {
@@ -349,8 +384,25 @@ void TraCIScenarioManager::deleteManagedModule(std::string nodeId) {
 	cModule* mod = getManagedModule(nodeId);
 	if (!mod) error("no vehicle with Id \"%s\" found", nodeId.c_str());
 
-	cc->unregisterNic(mod->getSubmodule("nic"));
+	if(debug){
+		std::cout << getFullPath() << ": Removing node " << nodeId
+			<< " with IP " << idToAddress[nodeId]
+			<< " and MacNodeId " << macNodeIds[mod->getId()] << std::endl;
+	}
 
+	cModule* macModule = getParentModule()->
+		getSubmodule("eNodeB1")->getSubmodule("nic")->getSubmodule("mac");
+	LteMacEnb* mac = dynamic_cast<LteMacEnb*>(macModule);
+	if(!mac){
+		std::cout << "Not MAC" << std::endl;
+	} else {
+		mac->deleteQueues(macNodeIds[mod->getId()]);
+	}
+
+	cc->unregisterNic(mod->getSubmodule("nic80211p"));
+	configurator->removeNodeFromTopology(mod);
+	binder->unregisterNode(macNodeIds[mod->getId()]);
+	idToAddress.erase(nodeId);
 	hosts.erase(nodeId);
 	mod->callFinish();
 	mod->deleteModule();
@@ -753,3 +805,12 @@ void TraCIScenarioManager::processSubcriptionResult(TraCIBuffer& buf) {
 	}
 }
 
+
+IPv4Address TraCIScenarioManager::getIPAddressForID(std::string id){
+	std::map<std::string,  IPv4Address>::iterator it = idToAddress.find(id);
+	if(it != idToAddress.end()){
+		return it->second;
+	} else {
+		return IPv4Address(IPv4Address::UNSPECIFIED);
+	}
+}

@@ -36,6 +36,10 @@
 #include "veins/modules/mobility/traci/TraCIColor.h"
 #include "veins/modules/mobility/traci/TraCIConnection.h"
 #include "veins/modules/mobility/traci/TraCICoord.h"
+#include "LteBinder.h"
+#include "LteCommon.h"
+#include "IPv4NetworkConfigurator.h"
+#include "LteAmc.h"
 
 /**
  * @brief
@@ -144,6 +148,15 @@ class TraCIScenarioManager : public cSimpleModule
 
 		BaseWorldUtility* world;
 		BaseConnectionManager* cc;
+
+		// LTE
+		LteBinder *binder;
+		IPv4NetworkConfigurator *configurator;
+		std::map<int, int> macNodeIds;
+		std::map<std::string,  IPv4Address> idToAddress;
+	public:
+		IPv4Address getIPAddressForID(std::string id);
+	protected:
 
 		uint32_t getCurrentTimeMs(); /**< get current simulation time (in ms) */
 

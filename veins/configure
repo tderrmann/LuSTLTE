@@ -15,6 +15,7 @@ import fnmatch
 # Option handling
 parser = OptionParser()
 parser.add_option("--with-inet", dest="inet", help="link Veins with a version of the INET Framework installed in PATH [default: do not link with INET]", metavar="PATH")
+parser.add_option("--with-simulte", dest="simulte", help="link Veins with a version of simulte installed in PATH [default: do not link with simulte]", metavar="PATH")
 (options, args) = parser.parse_args()
 
 if args:
@@ -52,6 +53,30 @@ if options.inet:
     run_libs = [os.path.relpath(os.path.join(options.inet, 'src', 'inet'))] + run_libs
     run_neds = [os.path.relpath(os.path.join(options.inet, 'src'))] + run_neds
 
+# Add flags for simulte
+if options.simulte:
+    fname = os.path.join(options.simulte, 'Version')
+    try:
+        with open(fname, 'r') as file:
+            version = file.read().rstrip()
+            if not version == 'simulte-0.9.1':
+                warning('Unsupported simulte Version. Expecting simulte-0.9.1, found "%s"' % version)
+    except IOError as e:
+       error('Could not determine simulte Version: %s' % (fname, e))
+       sys.exit(1)
+
+    simulte_header_dirs = set()
+    simulte_src_path = os.path.join(options.simulte, 'src')
+    for root, dirnames, filenames in os.walk(simulte_src_path):
+        for filename in fnmatch.filter(filenames, '*.h'):
+            simulte_header_dirs.add(os.path.relpath(os.path.dirname(os.path.join(root, filename)), 'src'))
+    simulte_includes = ['-I'+s for s in simulte_header_dirs]
+    simulte_link=["-L"+os.path.join(os.path.relpath(options.simulte, 'src'), 'src'), "-llte"]
+    simulte_defs=[]
+
+    makemake_flags += simulte_includes + simulte_link + simulte_defs
+    run_libs = [os.path.relpath(os.path.join(options.simulte, 'src', 'lte'))] + run_libs
+    run_neds = [os.path.relpath(os.path.join(options.simulte, 'src'))] + run_neds
 
 # Start creating files
 if not os.path.isdir('out'):
