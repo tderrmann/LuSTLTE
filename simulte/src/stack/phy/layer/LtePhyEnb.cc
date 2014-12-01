@@ -96,6 +96,17 @@ void LtePhyEnb::handleSelfMessage(cMessage *msg)
 bool LtePhyEnb::handleControlPkt(UserControlInfo* lteinfo, LteAirFrame* frame)
 {
     EV << "Received control pkt " << endl;
+    MacNodeId senderMacNodeId = lteinfo->getSourceId();
+    try
+    {
+        binder_->getOmnetId(senderMacNodeId);
+    }
+    catch (std::out_of_range& e)
+    {
+        std::cerr << "Sender (" << senderMacNodeId << ") does not exist anymore!" << std::endl;
+        delete frame;
+        return true;    // FIXME ? make sure that nodes that left the simulation do not send
+    }
     if (lteinfo->getFrameType() == HANDOVERPKT)
     {
         // handover broadcast frames must not be relayed or processed by eNB
@@ -123,11 +134,23 @@ void LtePhyEnb::handleAirFrame(cMessage* msg)
 {
     UserControlInfo* lteInfo = check_and_cast<UserControlInfo*>(
         msg->removeControlInfo());
+    if (!lteInfo)
+    {
+        return;
+    }
     LteAirFrame* frame = static_cast<LteAirFrame*>(msg);
 
     EV << "LtePhy: received new LteAirFrame with ID " << frame->getId()
        << " from channel" << endl;
     connectedNodeId_ = lteInfo->getSourceId();
+
+    int sourceId = getBinder()->getOmnetId(connectedNodeId_);	// HACK
+    int senderId = getBinder()->getOmnetId(lteInfo->getDestId());
+    if(sourceId == 0 || senderId == 0){
+    	delete msg;
+    	return;
+    }
+
     //handle all control pkt
     if (handleControlPkt(lteInfo, frame))
         return; // If frame contain a control pkt no further action is needed

@@ -56,7 +56,17 @@ void LteMaxCi::prepareSchedule()
         cid = *it1;
 
         MacNodeId nodeId = MacCidToNodeId(cid);
-
+        if(nodeId == 0){    // HACK
+            activeConnectionSet_.erase(cid);
+            activeConnectionTempSet_.erase(cid);
+            continue;
+        }
+        OmnetId id = getBinder()->getOmnetId(nodeId);
+        if(id == 0){	// HACK?
+        	activeConnectionSet_.erase(cid);
+        	activeConnectionTempSet_.erase(cid);
+        	continue;
+        }
         // compute available blocks for the current user
         const UserTxParams& info = eNbScheduler_->mac_->getAmc()->computeTxParams(nodeId,direction_);
         const std::set<Band>& bands = info.readBands();

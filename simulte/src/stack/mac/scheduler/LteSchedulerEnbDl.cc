@@ -269,6 +269,13 @@ LteSchedulerEnbDl::rtxschedule()
     {
         // For each UE
         MacNodeId nodeId = it->first;
+
+        OmnetId id = getBinder()->getOmnetId(nodeId);
+        if(id == 0){    // HACK
+            harqQueues->erase(it);
+            unsigned int availableBlocks = allocator_->computeTotalRbs();
+            return (availableBlocks == 0);  // correct?
+        }
         LteHarqBufferTx* currHarq = it->second;
 
         // get harq status vector

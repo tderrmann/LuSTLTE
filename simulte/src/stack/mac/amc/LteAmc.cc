@@ -348,6 +348,10 @@ void LteAmc::pushFeedback(MacNodeId id, Direction dir, LteFeedback fb)
     // Put the feedback in the FBHB
     Remote antenna = fb.getAntennaId();
     TxMode txMode = fb.getTxMode();
+    if (nodeIndex->find(id) == nodeIndex->end())
+    {
+        return;
+    }
     int index = (*nodeIndex).at(id);
 
     EV << "ID: " << id << endl;

@@ -151,6 +151,7 @@ simple LteMacEnb extends LteMacBase {
         int kCqi = default(0);
        
     
+        int eNodeBCount;
         //#
         //# eNb Scheduler Parameters
         //#    

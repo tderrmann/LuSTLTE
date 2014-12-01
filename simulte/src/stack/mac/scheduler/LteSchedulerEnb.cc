@@ -697,6 +697,9 @@ void LteSchedulerEnb::update()
 void LteSchedulerEnb::backlog(MacCid cid)
 {
     EV << "LteSchedulerEnb::backlog - backlogged data for Logical Cid " << cid << endl;
+    if(cid == 1){   //HACK
+        return;
+    }
     scheduler_->notifyActiveConnection(cid);
 }
 

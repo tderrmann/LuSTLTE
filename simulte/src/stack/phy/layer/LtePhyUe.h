@@ -111,8 +111,6 @@ class LtePhyUe : public LtePhyBase
 
     void handoverHandler(LteAirFrame* frame, UserControlInfo* lteInfo);
 
-    void deleteOldBuffers(MacNodeId masterId);
-
   public:
     LtePhyUe();
     virtual ~LtePhyUe();
@@ -130,6 +128,10 @@ class LtePhyUe : public LtePhyBase
         double fd = (speed / SPEED_OF_LIGHT) * carrierFrequency_;
         return 0.1 / fd;
     }
+
+    void handover();
+
+    void deleteOldBuffers(MacNodeId masterId);
 };
 
 #endif  /* _LTE_AIRPHYUE_H_ */

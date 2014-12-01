@@ -108,8 +108,10 @@ void LtePdcpRrcBase::fromDataPort(cPacket *pkt)
        << " Destination: " << IPv4Address(lteInfo->getDstAddr()) << "@"
        << lteInfo->getDstPort() << " ]\n";
 
+    // HACK
+    // Because IP addresses can change when we add and remove nodes, ids are used instead of them
     LogicalCid mylcid;
-    if ((mylcid = ht_->find_entry(lteInfo->getSrcAddr(), lteInfo->getDstAddr(),
+    if ((mylcid = ht_->find_entry(lteInfo->getSourceId(), lteInfo->getDestId(),
         lteInfo->getSrcPort(), lteInfo->getDstPort())) == 0xFFFF)
     {
         // LCID not found
@@ -117,7 +119,7 @@ void LtePdcpRrcBase::fromDataPort(cPacket *pkt)
 
         EV << "LteRrc : Connection not found, new CID created with LCID " << mylcid << "\n";
 
-        ht_->create_entry(lteInfo->getSrcAddr(), lteInfo->getDstAddr(),
+        ht_->create_entry(lteInfo->getSourceId(), lteInfo->getDestId(),
             lteInfo->getSrcPort(), lteInfo->getDstPort(), mylcid);
     }
 
@@ -127,7 +129,6 @@ void LtePdcpRrcBase::fromDataPort(cPacket *pkt)
     // NOTE setLcid and setSourceId have been anticipated for using in "ctrlInfoToMacCid" function
     lteInfo->setLcid(mylcid);
     lteInfo->setSourceId(nodeId_);
-    MacCid cid = ctrlInfoToMacCid(lteInfo);
 
     // PDCP Packet creation
     LtePdcpPdu* pdcpPkt = new LtePdcpPdu("LtePdcpPdu");

@@ -292,10 +292,17 @@ void LtePhyBase::sendUnicast(LteAirFrame *frame)
     // dest MacNodeId from control info
     MacNodeId dest = ci->getDestId();
     // destination node (UE, RELAY or ENODEB) omnet id
+    try {
+        binder_->getOmnetId(dest);
+    } catch (std::out_of_range& e) {
+        delete frame;
+        return;         // FIXME HACK make sure that nodes that left the simulation do not send
+    }
     OmnetId destOmnetId = binder_->getOmnetId(dest);
-    if (destOmnetId == 0)
-        throw cRuntimeError("Dest module may not exist if the module with that IP address has not been deployed");
-
+    if (destOmnetId == 0){
+        delete frame;
+        return;		// HACK
+    }
     // get a pointer to receiving module
     cModule *receiver = simulation.getModule(destOmnetId);
     // receiver's gate

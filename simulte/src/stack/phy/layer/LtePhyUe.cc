@@ -93,10 +93,7 @@ void LtePhyUe::initialize(int stage)
     }
 }
 
-void LtePhyUe::handleSelfMessage(cMessage *msg)
-{
-    if (msg->isName("handoverStarter"))
-    {
+void LtePhyUe::handover(){
         // TODO: remove asserts after testing
         assert(masterId_ != candidateMasterId_);
 
@@ -134,13 +131,18 @@ void LtePhyUe::handleSelfMessage(cMessage *msg)
         // TODO: transfer buffers, delete MAC buffer
         // TODO: add delay to simulate handover
         // TODO: ensure everywhere masterId is updated for UEs!!! (pdcp done)
+}
+
+void LtePhyUe::handleSelfMessage(cMessage *msg) {
+    if (msg->isName("handoverStarter")) {
+        handover();
     }
 }
 
 // TODO: ***reorganize*** method
 void LtePhyUe::handleAirFrame(cMessage* msg)
 {
-    UserControlInfo* lteInfo = check_and_cast<UserControlInfo*>(msg->removeControlInfo());
+    UserControlInfo* lteInfo = dynamic_cast<UserControlInfo*>(msg->removeControlInfo());
 
     if (useBattery_)
     {

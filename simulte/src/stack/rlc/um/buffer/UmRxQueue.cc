@@ -72,6 +72,9 @@ bool UmRxQueue::defragment(cPacket* pkt)
         tSample_->id_ = srcId;
         nodeb = getRlcByMacNodeId(dstId, UM);
         ue = getRlcByMacNodeId(srcId, UM);
+        if(ue == NULL){		// HACK
+        	return false;
+        }
     }
 
     tSampleCell_->module_=nodeb;
@@ -197,7 +200,17 @@ void UmRxQueue::handleMessage(cMessage* msg)
 
         FlowControlInfo* lteInfo = fragbuf_.getLteInfo(tmsg->getEvent());
         MacNodeId srcId = lteInfo->getSourceId();
+        if(getBinder()->getOmnetId(srcId) == 0){  //HACK
+        	delete tmsg;
+        	delete lteInfo;
+        	return;
+        }
         MacNodeId dstId = lteInfo->getDestId();
+        if(getBinder()->getOmnetId(dstId) == 0){  //HACK
+        	delete tmsg;
+        	delete lteInfo;
+        	return;
+        }
         unsigned short dir = lteInfo->getDirection();
         tSample_->sample_ = 1;
         tSampleCell_->sample_ = 1;

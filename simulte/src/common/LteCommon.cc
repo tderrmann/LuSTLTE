@@ -510,11 +510,19 @@ LteDeployer* getDeployer(MacNodeId nodeId)
 cModule* getMacByMacNodeId(MacNodeId nodeId)
 {
     // TODO fix for relays
+	int id = getBinder()->getOmnetId(nodeId);	// HACK
+	if (id == 0){
+		return NULL;
+	}
     return (simulation.getModule(getBinder()->getOmnetId(nodeId))->getSubmodule("nic")->getSubmodule("mac"));
 }
 
 cModule* getRlcByMacNodeId(MacNodeId nodeId, LteRlcType rlcType)
 {
+	cModule* module = getMacByMacNodeId(nodeId);
+	if(module == NULL){
+		return NULL;
+	}
     return getMacByMacNodeId(nodeId)->getParentModule()->getSubmodule("rlc")->getSubmodule(rlcTypeToA(rlcType).c_str());
 }
 
@@ -634,7 +642,9 @@ void initializeAllChannels(cModule *mod)
         cGate* gate = i();
         if (gate->getChannel() != NULL)
         {
-            gate->getChannel()->callInitialize();
+        	if(!gate->getChannel()->initialized()){
+        			gate->getChannel()->callInitialize();
+        	}
         }
     }
 

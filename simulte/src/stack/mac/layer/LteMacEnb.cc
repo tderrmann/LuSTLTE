@@ -259,6 +259,8 @@ void LteMacEnb::initialize(int stage)
 
         tSample_->module_ = check_and_cast<cComponent*>(this);
         tSample_->id_ = nodeId_;
+
+        eNodeBCount = par("eNodeBCount");
         WATCH(numAntennas_);
         WATCH_MAP(bsrbuf_);
     }
@@ -604,7 +606,12 @@ bool LteMacEnb::bufferizePacket(cPacket* pkt)
 {
     FlowControlInfo* lteInfo = check_and_cast<FlowControlInfo*>(pkt->getControlInfo());
     MacCid cid = idToMacCid(lteInfo->getDestId(), lteInfo->getLcid());
-
+    MacNodeId nodeId = lteInfo->getDestId();
+    OmnetId id = getBinder()->getOmnetId(lteInfo->getDestId());
+    if(id == 0){  // HACK
+    	delete pkt;
+        return false;
+    }
     bool ret = false;
 
     if ((ret = LteMacBase::bufferizePacket(pkt)))
@@ -620,6 +627,10 @@ void LteMacEnb::handleSelfMessage()
      *  MAIN LOOP  *
      ***************/
 //    std::cout << "TTI: " << NOW << endl;
+    int nodeCount = binder_->getNodeCount();    // HACK to reduce unnecessary waiting in the end
+    if(nodeCount <= eNodeBCount){
+        return;
+    }
     EnbType nodeType = deployer_->getEnbType();
 
     EV << "-----" << ((nodeType==MACRO_ENB)?"MACRO":"MICRO") << " ENB MAIN LOOP -----" << endl;

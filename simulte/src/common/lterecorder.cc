@@ -11,6 +11,7 @@
 //
 
 #include "lterecorder.h"
+#include "LteBinder.h"
 
 /*
  * Register recorders
@@ -42,6 +43,10 @@ void LteStatisticsRecorder::finish(cResultFilter *prev)
     std::map<unsigned int, cStatistic*>::iterator it;
     for (it = stats_.begin(); it != stats_.end(); it++)
     {
+    	int id = getBinder()->getOmnetId(it->first);	// HACK
+    	if(id == 0){
+    		continue;
+    	}
         // Record metrics for all IDs
         ev.recordStatistic(moduleMap_[it->first], /*metricName*/ getResultName().c_str(), it->second, &attributes);
     }
@@ -147,6 +152,11 @@ void LteAvgRecorder::finish(cResultFilter *prev)
     for (it = vals_.begin(); it != vals_.end(); it++)
     {
         // Record metrics for all IDs
+
+    	int id = getBinder()->getOmnetId(it->first);	// HACK
+    	if(id == 0){
+    		continue;
+    	}
         totalSum += (it->second.sum_ / it->second.count_);
         ev.recordScalar(moduleMap_[it->first], getResultName().c_str(),
             it->second.sum_/it->second.count_, &attributes);
@@ -179,6 +189,10 @@ void LteRateRecorder::finish(cResultFilter *prev)
         interval = (simTime() - it->second.startTime_).dbl();
         totalSum += it->second.sum_ / interval;
 
+    	int id = getBinder()->getOmnetId(it->first);	// HACK
+    	if(id == 0){
+    		continue;
+    	}
         ev.recordScalar(moduleMap_[it->first], getResultName().c_str(),
             it->second.sum_/interval, &attributes);
     }

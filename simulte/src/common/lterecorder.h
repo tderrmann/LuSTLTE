@@ -74,6 +74,10 @@ class LteRecorder : public cNumericResultRecorder, private cObject
     {
     }
 
+    void deleteModule(unsigned int nodeId){
+    	moduleMap_.erase(nodeId);
+    }
+
   protected:
 
     /**

@@ -17,7 +17,7 @@
 #include <iostream>
 #include <omnetpp.h>
 
-#include "ChannelAccess.h"
+#include "world/radio/ChannelAccess.h"
 #include "ChannelControl.h"
 #include "LteCommon.h"
 #include "LteControlInfo.h"

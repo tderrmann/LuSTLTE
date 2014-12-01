@@ -50,7 +50,7 @@ class LteBinder : public cSimpleModule
 
     DeployerList deployersMap_;
     std::vector<MacNodeId> nextHop_; // MacNodeIdMaster --> MacNodeIdSlave
-    std::vector<OmnetId> nodeIds_; // MacNodeId --> OmnetId
+    std::map<int, OmnetId> nodeIds_;
 
     // list of static external cells. Used for intercell interference evaluation
     ExtCellList extCellList_;
@@ -150,6 +150,8 @@ class LteBinder : public cSimpleModule
      */
     MacNodeId registerNode(cModule *module, LteNodeType type, MacNodeId masterId = 0);
 
+    void unregisterNode(MacNodeId id);
+
     /**
      * registerNextHop() is called by LteDeployer at network startup
      * to bind each slave (UE or Relay) with its masters. It is also
@@ -181,6 +183,9 @@ class LteBinder : public cSimpleModule
      * @return OmnetId of the module
      */
     OmnetId getOmnetId(MacNodeId nodeId);
+
+
+    MacNodeId getMacNodeIdFromOmnetId(OmnetId id);
 
     /**
      * getNextHop() returns the master of
@@ -218,6 +223,10 @@ class LteBinder : public cSimpleModule
      */
     ConnectedUesMap getDeployedUes(MacNodeId localId, Direction dir);
     PhyPisaData phyPisaData;
+
+    int getNodeCount(){
+        return nodeIds_.size();
+    }
 
     int addExtCell(ExtCell* extCell)
     {

@@ -629,6 +629,16 @@ void LteBinder::attachAppModule(cModule *parentModule, std::string IPAddr,
 //    }
 }
 
+void LteBinder::unregisterNode(MacNodeId id){
+    nodeIds_.erase(id);
+    std::map<IPv4Address, MacNodeId>::iterator it;
+    for(it = macNodeIdToIPAddress_.begin(); it != macNodeIdToIPAddress_.end(); it++){
+        if(it->second == id){
+            macNodeIdToIPAddress_.erase(it->first);
+        }
+    }
+}
+
 MacNodeId LteBinder::registerNode(cModule *module, LteNodeType type,
     MacNodeId masterId)
 {
@@ -655,10 +665,6 @@ MacNodeId LteBinder::registerNode(cModule *module, LteNodeType type,
 
     // registering new node to LteBinder
 
-    if (nodeIds_.size() <= macNodeId)
-    {
-        nodeIds_.resize(macNodeId + 1);
-    }
     nodeIds_[macNodeId] = module->getId();
 
     module->par("macNodeId") = macNodeId;
@@ -753,10 +759,22 @@ void LteBinder::unregisterNextHop(MacNodeId masterId, MacNodeId slaveId)
 
 OmnetId LteBinder::getOmnetId(MacNodeId nodeId)
 {
-    Enter_Method("getOmnetId");
-    if (nodeId >= nodeIds_.size())
-        throw cRuntimeError("LteBinder::getOmnetId(): bad node %d", nodeId);
-    return nodeIds_[nodeId];
+    std::map<int, OmnetId>::iterator it = nodeIds_.find(nodeId);
+    if(it != nodeIds_.end()){
+    	return it->second;
+    } else {
+    	return 0;
+    }
+}
+
+MacNodeId LteBinder::getMacNodeIdFromOmnetId(OmnetId id){
+	std::map<int, OmnetId>::iterator it;
+	for (it = nodeIds_.begin(); it != nodeIds_.end(); ++it ){
+	    if (it->second == id){
+	        return it->first;
+	    }
+	}
+	return NULL;
 }
 
 MacNodeId LteBinder::getNextHop(MacNodeId slaveId)
