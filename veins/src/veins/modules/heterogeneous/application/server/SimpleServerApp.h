@@ -39,7 +39,7 @@
 using Veins::TraCIScenarioManager;
 using Veins::TraCIScenarioManagerAccess;
 
-class INET_API SimpleServerApp: public ApplicationBase {
+class SimpleServerApp: public ApplicationBase {
 	protected:
 		UDPSocket socket;
 		TraCIScenarioManager* manager;
