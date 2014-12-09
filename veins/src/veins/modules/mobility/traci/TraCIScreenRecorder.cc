@@ -22,6 +22,10 @@
 #include "veins/modules/mobility/traci/TraCIScenarioManager.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
+#ifdef _WIN32
+#define realpath(N,R) _fullpath((R),(N),_MAX_PATH)
+#endif /* _WIN32 */
+
 using Veins::TraCIScreenRecorder;
 
 Define_Module(Veins::TraCIScreenRecorder);
