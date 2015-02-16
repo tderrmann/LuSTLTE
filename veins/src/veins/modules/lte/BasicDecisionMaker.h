@@ -22,14 +22,14 @@
 #define DECISIONMAKER_H
 
 #include <omnetpp.h>
-#include "BaseApplLayer.h"
-#include "HeterogeneousMessage_m.h"
-#include "modules/mobility/traci/TraCIMobility.h"
+#include "veins/base/modules/BaseApplLayer.h"
+#include "veins/modules/heterogeneous/messages/HeterogeneousMessage_m.h"
+#include "veins/modules/mobility/traci/TraCIMobility.h"
 #include "UDPControlInfo_m.h"
-#include "modules/world/annotations/AnnotationManager.h"
-#include "base/connectionManager/ChannelAccess.h"
+#include "veins/modules/world/annotations/AnnotationManager.h"
+#include "veins/base/connectionManager/ChannelAccess.h"
 #include "MobilityBase.h"
-#include "Consts80211p.h"
+#include "veins/modules/utility/Consts80211p.h"
 
 using Veins::AnnotationManager;
 using Veins::AnnotationManagerAccess;
@@ -52,7 +52,7 @@ const simsignalwrap_t mobilityStateChangedSignal = simsignalwrap_t(MIXIM_SIGNAL_
  *
  */
 
-class DecisionMaker: public BaseApplLayer {
+class BasicDecisionMaker: public BaseApplLayer {
 
     protected:
         /** Various gates for the communication. */
@@ -75,8 +75,8 @@ class DecisionMaker: public BaseApplLayer {
         simsignal_t lteMessagesReceived;
 
     public:
-        DecisionMaker();
-        virtual ~DecisionMaker();
+        BasicDecisionMaker();
+        virtual ~BasicDecisionMaker();
         Coord getPosition() {
             return currentPosition;
         }

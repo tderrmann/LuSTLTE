@@ -74,7 +74,7 @@ module HeterogeneousCar {
                 @display("p=375,56;i=block/cogwheel");
         }
 
-        decisionMaker: DecisionMaker {
+        decisionMaker: ExampleDecisionMaker {
             parameters:
                 @display("p=196,140;i=block/fork");
         }
