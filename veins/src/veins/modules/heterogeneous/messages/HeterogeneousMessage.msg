@@ -1,8 +1,10 @@
 cplusplus {{
 #include "veins/modules/messages/WaveShortMessage_m.h"
-#define DONTCARE 0
-#define LTE 1
-#define DSRC 2
+#define DONTCARE 99
+#define LTE 100
+#define DSRC 101
+#define LOCAL 102
+#define OTHER 103
 
 #define CAM_TYPE 42
 #define CAM_ERROR_TYPE 43
