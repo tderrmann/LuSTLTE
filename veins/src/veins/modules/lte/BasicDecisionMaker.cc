@@ -156,9 +156,7 @@ void BasicDecisionMaker::sendLteMessage(HeterogeneousMessage* msg) {
 }
 
 void BasicDecisionMaker::sendDSRCMessage(HeterogeneousMessage* msg) {
-	msg->setBitLength(0);
 	msg->addBitLength(headerLength);
-	msg->addByteLength(64);
 	msg->setChannelNumber(Channels::CCH);
 	msg->setPsid(0);
 	// msg->setPriority(dataPriority);
@@ -171,8 +169,7 @@ void BasicDecisionMaker::sendDSRCMessage(HeterogeneousMessage* msg) {
 }
 
 void BasicDecisionMaker::sendDontCareMessage(HeterogeneousMessage* msg) {
-	srand(time(NULL));
-	if ((rand() % 100) > 50) {
+	if (dblrand() > 0.5) {
 		sendLteMessage(msg);
 	} else {
 		sendDSRCMessage(msg);

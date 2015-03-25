@@ -19,12 +19,9 @@ void ExampleDecisionMaker::sendLteMessage(HeterogeneousMessage* msg) {
 }
 
 void ExampleDecisionMaker::sendDSRCMessage(HeterogeneousMessage* msg) {
-	msg->setBitLength(0);
 	msg->addBitLength(headerLength);
-	msg->addByteLength(64);
 	msg->setChannelNumber(Channels::CCH);
 	msg->setPsid(0);
-	// msg->setPriority(dataPriority);
 	msg->setWsmVersion(2);
 	msg->setTimestamp(simTime());
 	msg->setRecipientAddress(BROADCAST);
@@ -34,8 +31,7 @@ void ExampleDecisionMaker::sendDSRCMessage(HeterogeneousMessage* msg) {
 }
 
 void ExampleDecisionMaker::sendDontCareMessage(HeterogeneousMessage* msg) {
-	srand(time(NULL));
-	if ((rand() % 100) > 50) {
+	if (dblrand() > 0.5) {
 		msg->setNetworkType(LTE);
 		sendLteMessage(msg);
 	} else {
