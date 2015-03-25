@@ -208,20 +208,24 @@ void LteMacBase::deleteQueues(MacNodeId nodeId)
 {
     LteMacBuffers::iterator mit;
     LteMacBufferMap::iterator vit;
-    for (mit = mbuf_.begin(); mit != mbuf_.end(); mit++)
+    for (mit = mbuf_.begin(); mit != mbuf_.end(); )
     {
         if (MacCidToNodeId(mit->first) == nodeId)
         {
             delete mit->second;        // Delete Queue
-            mbuf_.erase(mit);        // Delete Elem
+            mbuf_.erase(mit++);        // Delete Elem
+        } else {
+            mit++;
         }
     }
-    for (vit = macBuffers_.begin(); vit != macBuffers_.end(); vit++)
+    for (vit = macBuffers_.begin(); vit != macBuffers_.end(); )
     {
         if (MacCidToNodeId(vit->first) == nodeId)
         {
             delete vit->second;        // Delete Queue
-            macBuffers_.erase(vit);        // Delete Elem
+            macBuffers_.erase(vit++);        // Delete Elem
+        } else {
+            vit++;
         }
     }
 

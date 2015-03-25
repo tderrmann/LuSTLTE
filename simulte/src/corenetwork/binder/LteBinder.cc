@@ -632,9 +632,11 @@ void LteBinder::attachAppModule(cModule *parentModule, std::string IPAddr,
 void LteBinder::unregisterNode(MacNodeId id){
     nodeIds_.erase(id);
     std::map<IPv4Address, MacNodeId>::iterator it;
-    for(it = macNodeIdToIPAddress_.begin(); it != macNodeIdToIPAddress_.end(); it++){
+    for(it = macNodeIdToIPAddress_.begin(); it != macNodeIdToIPAddress_.end(); ){
         if(it->second == id){
-            macNodeIdToIPAddress_.erase(it->first);
+            macNodeIdToIPAddress_.erase(it++);
+        } else {
+        	it++;
         }
     }
 }
