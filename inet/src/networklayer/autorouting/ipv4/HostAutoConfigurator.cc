@@ -87,21 +87,12 @@ void HostAutoConfigurator::setupNetworkLayer()
 
         EV << "interface " << ifname << " gets " << myAddress.str() << "/" << netmask.str() << std::endl;
 
+        if(!ie->ipv4Data()){
+            ie->setIPv4Data(new IPv4InterfaceData());
+        }
         ie->ipv4Data()->setIPAddress(myAddress);
         ie->ipv4Data()->setNetmask(netmask);
         ie->setBroadcast(true);
-
-        // associate interface with default multicast groups
-        ie->ipv4Data()->joinMulticastGroup(IPv4Address::ALL_HOSTS_MCAST);
-        ie->ipv4Data()->joinMulticastGroup(IPv4Address::ALL_ROUTERS_MCAST);
-
-        // associate interface with specified multicast groups
-        cStringTokenizer interfaceTokenizer(mcastGroups.c_str());
-        const char *mcastGroup_s;
-        while ((mcastGroup_s = interfaceTokenizer.nextToken()) != NULL) {
-            IPv4Address mcastGroup(mcastGroup_s);
-            ie->ipv4Data()->joinMulticastGroup(mcastGroup);
-        }
     }
 }
 

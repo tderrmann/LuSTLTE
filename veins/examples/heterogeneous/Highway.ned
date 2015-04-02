@@ -82,9 +82,6 @@ module Highway
         eNodeB1: eNodeB {
             @display("p=200,200;is=vl");
         }
-        router: Router {
-            @display("p=247,151;i=device/smallrouter");
-        }
         server: StandardHost {
             @display("p=146,152;is=n;i=device/server");
         }
@@ -92,7 +89,6 @@ module Highway
             @display("p=34,274;is=s");
         }
     connections allowunconnected:
-        router.pppg++ <--> Eth10G <--> eNodeB1.ppp;
-        server.pppg++ <--> Eth10G <--> router.pppg++;
+        server.pppg++ <--> Eth10G <--> eNodeB1.ppp;
 }
 

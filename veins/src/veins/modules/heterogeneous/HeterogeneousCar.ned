@@ -13,7 +13,7 @@ import org.car2x.veins.modules.lte.*;
 import org.car2x.veins.modules.heterogeneous.application.*;
 import lte.corenetwork.nodes.*;
 
-import inet.nodes.inet.NetworkLayer;
+import inet.nodes.inet.NetworkLayerNoConfig;
 import lte.stack.phy.LteNicUe;
 import inet.transport.udp.UDP;
 import inet.transport.tcp.TCP;
@@ -23,6 +23,7 @@ import inet.networklayer.ipv4.RoutingTable;
 import inet.mobility.contract.IMobility;
 import inet.base.NotificationBoard;
 import inet.networklayer.common.InterfaceTable;
+import inet.networklayer.autorouting.ipv4.HostAutoConfigurator;
 
 module HeterogeneousCar {
     parameters:
@@ -84,7 +85,7 @@ module HeterogeneousCar {
                 @display("p=235,263;i=abstract/accesspoint");
         }
 
-        networkLayer: NetworkLayer {
+        networkLayer: NetworkLayerNoConfig {
             @display("p=235,420");
         }
 
@@ -96,6 +97,10 @@ module HeterogeneousCar {
 
         UDP: UDP {
             @display("p=235,340");
+        }
+
+        configurator: HostAutoConfigurator {
+            @display("p=171,335");
         }
 
     connections allowunconnected:

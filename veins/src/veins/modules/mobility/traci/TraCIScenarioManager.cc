@@ -349,7 +349,6 @@ void TraCIScenarioManager::addModule(std::string nodeId, std::string type, std::
 
 	MacNodeId macNodeId = binder->getMacNodeIdFromOmnetId(mod->getId());
 	macNodeIds[mod->getId()] = macNodeId;
-	configurator->updateTopology();
 	idToAddress.clear();
 	for(std::map<std::string, cModule*>::iterator it = hosts.begin(); it != hosts.end(); it++){
 		IPv4Address address = IPvXAddressResolver().resolve(it->second->getFullName()).get4();
@@ -400,7 +399,6 @@ void TraCIScenarioManager::deleteManagedModule(std::string nodeId) {
 	}
 
 	cc->unregisterNic(mod->getSubmodule("nic80211p"));
-	configurator->removeNodeFromTopology(mod);
 	binder->unregisterNode(macNodeIds[mod->getId()]);
 	idToAddress.erase(nodeId);
 	hosts.erase(nodeId);
