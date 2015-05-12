@@ -99,7 +99,6 @@ void IPv4NetworkConfigurator::computeConfiguration()
 {
     long initializeStartTime = clock();
     topology.clear();
-    topology.linkInfos.clear();
     // extract topology into the IPv4Topology object, then fill in a LinkInfo[] vector
     T(extractTopology(topology));
     // read the configuration from XML; it will serve as input for address assignment
@@ -734,6 +733,7 @@ void IPv4NetworkConfigurator::collectCompatibleInterfaces(const std::vector<Inte
 
     }
     // sort compatibleInterfaces moving the most constrained interfaces first
+    std::sort(compatibleInterfaces.begin(), compatibleInterfaces.end(), compareInterfaceInfos);
     EV_DEBUG << "Found " << compatibleInterfaces.size() << " compatible interfaces" << endl;
 }
 
@@ -2190,18 +2190,5 @@ bool IPv4NetworkConfigurator::getInterfaceIPv4Address(IPvXAddress &ret, Interfac
         if (interfaceInfo->configure)
             ret = netmask ? interfaceInfo->getNetmask() : interfaceInfo->getAddress();
         return interfaceInfo->configure;
-    }
-}
-void IPv4NetworkConfigurator::updateTopology(){
-    computeConfiguration();
-    configureAllInterfaces();
-    configureAllRoutingTables();
-}
-
-void IPv4NetworkConfigurator::removeNodeFromTopology(cModule* module){
-    topology.deleteNode(topology.getNodeFor(module));
-    if (simulation.getSimulationStage() != CTX_FINISH){
-        configureAllInterfaces();
-        configureAllRoutingTables();
     }
 }
