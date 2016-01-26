@@ -191,7 +191,7 @@ LteSchedulerEnbUl::rtxschedule()
     }
     catch(std::exception& e)
     {
-        throw cRuntimeError("Exception in LteSchedulerEnbUl::rtxschedule(): %s", e.what());
+        //throw cRuntimeError("Exception in LteSchedulerEnbUl::rtxschedule(): %s", e.what());
     }
     return 0;
 }

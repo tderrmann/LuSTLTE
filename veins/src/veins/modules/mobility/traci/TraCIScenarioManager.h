@@ -156,6 +156,7 @@ class TraCIScenarioManager : public cSimpleModule
 		std::map<std::string,  IPv4Address> idToAddress;
 	public:
 		IPv4Address getIPAddressForID(std::string id);
+		Coord getOmnetCoords(double sumo_x, double sumo_y);
 	protected:
 
 		uint32_t getCurrentTimeMs(); /**< get current simulation time (in ms) */

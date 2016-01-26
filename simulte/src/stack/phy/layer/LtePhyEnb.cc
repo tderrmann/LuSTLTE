@@ -74,11 +74,11 @@ void LtePhyEnb::initialize(int stage)
 
         // TODO: add a parameter not to generate broadcasts (no handovers scenario)
         // e.g.: if (bdcUpdateInterval_ != 0 && !!doHandovers)
-//        if (bdcUpdateInterval_ != 0) {
-//            // self message provoking the generation of a broadcast message
-//            bdcStarter_ = new cMessage("bdcStarter");
-//            scheduleAt(NOW, bdcStarter_);
-//        }
+        if (bdcUpdateInterval_ != 0) {
+            // self message provoking the generation of a broadcast message
+            bdcStarter_ = new cMessage("bdcStarter");
+            scheduleAt(NOW, bdcStarter_);
+        }
     }
 }
 
@@ -236,6 +236,8 @@ void LtePhyEnb::requestFeedback(UserControlInfo* lteinfo, LteAirFrame* frame,
     RbAllocationType rbtype = req.rbAllocationType;
     std::map<Remote, int> antennaCws = deployer_->getAntennaCws();
     unsigned int numPreferredBand = deployer_->getNumPreferredBands();
+    
+   try{
     for (Direction dir = UL; dir != UNKNOWN_DIRECTION;
         dir = ((dir == UL )? DL : UNKNOWN_DIRECTION))
     {
@@ -286,6 +288,12 @@ void LtePhyEnb::requestFeedback(UserControlInfo* lteinfo, LteAirFrame* frame,
         else
         pkt->setLteFeedbackDoubleVectorDl(fb_);
     }
+   }catch(std::exception& e){
+    EV << "EXCEPTION IN LtePhyEnb::requestFeedback - ";
+    EV << e.what() <<endl;
+
+}
+
     EV << "LtePhyEnb::requestFeedback : Pisa Feedback Generated for nodeId: "
        << nodeId_ << " with generator type "
        << fbGeneratorTypeToA(req.genType) << " Fb size: " << fb_.size() << endl;

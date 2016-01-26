@@ -1,0 +1,1021 @@
+file 3039640 1447251235                                         
+version 2
+run nodebug-0-20151111-15:09:54-26953
+attr RB 100
+attr configname nodebug
+attr datetime 20151111-15:09:54
+attr experiment nodebug
+attr inifile omnetpp.ini
+attr iterationvars "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000"
+attr iterationvars2 "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000, $repetition=0"
+attr maxBytesPerTti 3MiB
+attr measurement "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000"
+attr network scenario
+attr numUEs 1000
+attr processid 26953
+attr queue 2MiB
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr scheduler "\"MAXCI\""
+attr seedset 0
+
+vector 14  scenario.eNodeB1.ppp.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 15  scenario.eNodeB1.ppp.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 35  scenario.server.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 36  scenario.server.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 73  scenario.node[0].veinsmobility  posx  ETV
+vector 74  scenario.node[0].veinsmobility  posy  ETV
+vector 108  scenario.node[1].veinsmobility  posx  ETV
+vector 109  scenario.node[1].veinsmobility  posy  ETV
+vector 5  scenario.eNodeB1.nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 66  scenario.node[0].mobility  posx  ETV
+vector 67  scenario.node[0].mobility  posy  ETV
+vector 68  scenario.node[0].mobility  speed  ETV
+vector 75  scenario.node[0].veinsmobility  speed  ETV
+vector 101  scenario.node[1].mobility  posx  ETV
+vector 102  scenario.node[1].mobility  posy  ETV
+vector 103  scenario.node[1].mobility  speed  ETV
+vector 110  scenario.node[1].veinsmobility  speed  ETV
+vector 69  scenario.node[0].mobility  acceleration  ETV
+vector 70  scenario.node[0].mobility  co2emission  ETV
+vector 76  scenario.node[0].veinsmobility  acceleration  ETV
+vector 77  scenario.node[0].veinsmobility  co2emission  ETV
+vector 104  scenario.node[1].mobility  acceleration  ETV
+vector 105  scenario.node[1].mobility  co2emission  ETV
+vector 111  scenario.node[1].veinsmobility  acceleration  ETV
+vector 112  scenario.node[1].veinsmobility  co2emission  ETV
+vector 45  scenario.node[0].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 80  scenario.node[1].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 83  scenario.node[1].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 90  scenario.node[1].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 93  scenario.node[1].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 94  scenario.node[1].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 97  scenario.node[1].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 81  scenario.node[1].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 7  scenario.eNodeB1.nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 95  scenario.node[1].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 10  scenario.eNodeB1.nic.phy  averageCqiUlvect:vector  ETV
+attr source  averageCqiUlvect
+attr title  "Average Cqi reported in UL, vector"
+attr unit  cqi
+vector 8  scenario.eNodeB1.nic.mac  measuredItbs:vector  ETV
+attr source  measuredItbs
+attr title  "TBS index, vector"
+attr unit  ""
+vector 6  scenario.eNodeB1.nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 1  scenario.eNodeB1.nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 2  scenario.eNodeB1.nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 11  scenario.eNodeB1.ppp.queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 13  scenario.eNodeB1.ppp.queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 20  scenario.eNodeB1.ppp.ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 16  scenario.eNodeB1.ppp.ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 38  scenario.server.ppp[0].ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 42  scenario.server.ppp[0].ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 48  scenario.node[0].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 46  scenario.node[0].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 55  scenario.node[0].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 58  scenario.node[0].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 59  scenario.node[0].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 62  scenario.node[0].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 60  scenario.node[0].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 143  scenario.node[2].veinsmobility  posx  ETV
+vector 144  scenario.node[2].veinsmobility  posy  ETV
+vector 178  scenario.node[3].veinsmobility  posx  ETV
+vector 179  scenario.node[3].veinsmobility  posy  ETV
+vector 136  scenario.node[2].mobility  posx  ETV
+vector 137  scenario.node[2].mobility  posy  ETV
+vector 138  scenario.node[2].mobility  speed  ETV
+vector 145  scenario.node[2].veinsmobility  speed  ETV
+vector 139  scenario.node[2].mobility  acceleration  ETV
+vector 140  scenario.node[2].mobility  co2emission  ETV
+vector 146  scenario.node[2].veinsmobility  acceleration  ETV
+vector 147  scenario.node[2].veinsmobility  co2emission  ETV
+vector 171  scenario.node[3].mobility  posx  ETV
+vector 172  scenario.node[3].mobility  posy  ETV
+vector 173  scenario.node[3].mobility  speed  ETV
+vector 180  scenario.node[3].veinsmobility  speed  ETV
+vector 116  scenario.node[2].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 151  scenario.node[3].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 174  scenario.node[3].mobility  acceleration  ETV
+vector 175  scenario.node[3].mobility  co2emission  ETV
+vector 181  scenario.node[3].veinsmobility  acceleration  ETV
+vector 182  scenario.node[3].veinsmobility  co2emission  ETV
+vector 115  scenario.node[2].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 118  scenario.node[2].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 125  scenario.node[2].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 128  scenario.node[2].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 129  scenario.node[2].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 132  scenario.node[2].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 130  scenario.node[2].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 150  scenario.node[3].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 153  scenario.node[3].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 160  scenario.node[3].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 163  scenario.node[3].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 164  scenario.node[3].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 167  scenario.node[3].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 165  scenario.node[3].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 114  scenario.node[2].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 23  scenario.server.udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 24  scenario.server.udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 22  scenario.server.udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 32  scenario.server.ppp[0].queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 34  scenario.server.ppp[0].queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 41  scenario.server.ppp[0].ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 37  scenario.server.ppp[0].ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 17  scenario.eNodeB1.ppp.ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 21  scenario.eNodeB1.ppp.ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 0  scenario.eNodeB1.nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 3  scenario.eNodeB1.nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 4  scenario.eNodeB1.nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 134  scenario.node[2].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 131  scenario.node[2].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 126  scenario.node[2].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 127  scenario.node[2].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 119  scenario.node[2].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 120  scenario.node[2].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 117  scenario.node[2].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 79  scenario.node[1].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 99  scenario.node[1].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 96  scenario.node[1].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 91  scenario.node[1].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 92  scenario.node[1].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 84  scenario.node[1].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 85  scenario.node[1].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 82  scenario.node[1].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 44  scenario.node[0].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 64  scenario.node[0].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 61  scenario.node[0].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 56  scenario.node[0].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 57  scenario.node[0].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 49  scenario.node[0].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 50  scenario.node[0].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 47  scenario.node[0].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 213  scenario.node[4].veinsmobility  posx  ETV
+vector 214  scenario.node[4].veinsmobility  posy  ETV
+vector 206  scenario.node[4].mobility  posx  ETV
+vector 207  scenario.node[4].mobility  posy  ETV
+vector 208  scenario.node[4].mobility  speed  ETV
+vector 215  scenario.node[4].veinsmobility  speed  ETV
+vector 209  scenario.node[4].mobility  acceleration  ETV
+vector 210  scenario.node[4].mobility  co2emission  ETV
+vector 216  scenario.node[4].veinsmobility  acceleration  ETV
+vector 217  scenario.node[4].veinsmobility  co2emission  ETV
+vector 186  scenario.node[4].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 248  scenario.node[5].veinsmobility  posx  ETV
+vector 249  scenario.node[5].veinsmobility  posy  ETV
+vector 241  scenario.node[5].mobility  posx  ETV
+vector 242  scenario.node[5].mobility  posy  ETV
+vector 243  scenario.node[5].mobility  speed  ETV
+vector 250  scenario.node[5].veinsmobility  speed  ETV
+vector 244  scenario.node[5].mobility  acceleration  ETV
+vector 245  scenario.node[5].mobility  co2emission  ETV
+vector 251  scenario.node[5].veinsmobility  acceleration  ETV
+vector 252  scenario.node[5].veinsmobility  co2emission  ETV
+vector 185  scenario.node[4].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 184  scenario.node[4].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 188  scenario.node[4].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 195  scenario.node[4].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 198  scenario.node[4].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 199  scenario.node[4].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 202  scenario.node[4].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 221  scenario.node[5].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 200  scenario.node[4].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 204  scenario.node[4].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 201  scenario.node[4].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 196  scenario.node[4].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 197  scenario.node[4].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 189  scenario.node[4].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 190  scenario.node[4].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 187  scenario.node[4].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 220  scenario.node[5].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 219  scenario.node[5].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 223  scenario.node[5].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 230  scenario.node[5].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 233  scenario.node[5].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 234  scenario.node[5].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 237  scenario.node[5].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 235  scenario.node[5].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 149  scenario.node[3].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 169  scenario.node[3].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 166  scenario.node[3].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 161  scenario.node[3].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 162  scenario.node[3].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 154  scenario.node[3].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 155  scenario.node[3].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 152  scenario.node[3].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 283  scenario.node[6].veinsmobility  posx  ETV
+vector 284  scenario.node[6].veinsmobility  posy  ETV
+vector 276  scenario.node[6].mobility  posx  ETV
+vector 277  scenario.node[6].mobility  posy  ETV
+vector 278  scenario.node[6].mobility  speed  ETV
+vector 285  scenario.node[6].veinsmobility  speed  ETV
+vector 256  scenario.node[6].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 279  scenario.node[6].mobility  acceleration  ETV
+vector 280  scenario.node[6].mobility  co2emission  ETV
+vector 286  scenario.node[6].veinsmobility  acceleration  ETV
+vector 287  scenario.node[6].veinsmobility  co2emission  ETV
+vector 318  scenario.node[7].veinsmobility  posx  ETV
+vector 319  scenario.node[7].veinsmobility  posy  ETV
+vector 255  scenario.node[6].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 311  scenario.node[7].mobility  posx  ETV
+vector 312  scenario.node[7].mobility  posy  ETV
+vector 313  scenario.node[7].mobility  speed  ETV
+vector 320  scenario.node[7].veinsmobility  speed  ETV
+vector 314  scenario.node[7].mobility  acceleration  ETV
+vector 315  scenario.node[7].mobility  co2emission  ETV
+vector 321  scenario.node[7].veinsmobility  acceleration  ETV
+vector 322  scenario.node[7].veinsmobility  co2emission  ETV
+vector 291  scenario.node[7].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 239  scenario.node[5].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 236  scenario.node[5].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 231  scenario.node[5].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 232  scenario.node[5].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 224  scenario.node[5].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 225  scenario.node[5].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 222  scenario.node[5].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 290  scenario.node[7].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 293  scenario.node[7].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 300  scenario.node[7].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 303  scenario.node[7].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 304  scenario.node[7].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 307  scenario.node[7].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 305  scenario.node[7].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 258  scenario.node[6].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 265  scenario.node[6].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 268  scenario.node[6].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 269  scenario.node[6].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 272  scenario.node[6].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 270  scenario.node[6].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 254  scenario.node[6].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 274  scenario.node[6].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 271  scenario.node[6].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 266  scenario.node[6].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 267  scenario.node[6].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 259  scenario.node[6].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 260  scenario.node[6].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 257  scenario.node[6].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 353  scenario.node[8].veinsmobility  posx  ETV
+vector 354  scenario.node[8].veinsmobility  posy  ETV
+vector 326  scenario.node[8].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 346  scenario.node[8].mobility  posx  ETV
+vector 347  scenario.node[8].mobility  posy  ETV
+vector 348  scenario.node[8].mobility  speed  ETV
+vector 355  scenario.node[8].veinsmobility  speed  ETV
+vector 349  scenario.node[8].mobility  acceleration  ETV
+vector 350  scenario.node[8].mobility  co2emission  ETV
+vector 356  scenario.node[8].veinsmobility  acceleration  ETV
+vector 357  scenario.node[8].veinsmobility  co2emission  ETV
+vector 325  scenario.node[8].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 324  scenario.node[8].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 328  scenario.node[8].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 335  scenario.node[8].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 338  scenario.node[8].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 339  scenario.node[8].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 342  scenario.node[8].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 340  scenario.node[8].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 344  scenario.node[8].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 341  scenario.node[8].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 336  scenario.node[8].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 337  scenario.node[8].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 329  scenario.node[8].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 330  scenario.node[8].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 327  scenario.node[8].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 388  scenario.node[9].veinsmobility  posx  ETV
+vector 389  scenario.node[9].veinsmobility  posy  ETV
+vector 381  scenario.node[9].mobility  posx  ETV
+vector 382  scenario.node[9].mobility  posy  ETV
+vector 383  scenario.node[9].mobility  speed  ETV
+vector 390  scenario.node[9].veinsmobility  speed  ETV
+vector 384  scenario.node[9].mobility  acceleration  ETV
+vector 385  scenario.node[9].mobility  co2emission  ETV
+vector 391  scenario.node[9].veinsmobility  acceleration  ETV
+vector 392  scenario.node[9].veinsmobility  co2emission  ETV
+vector 361  scenario.node[9].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 360  scenario.node[9].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 289  scenario.node[7].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 309  scenario.node[7].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 306  scenario.node[7].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 301  scenario.node[7].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 302  scenario.node[7].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 294  scenario.node[7].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 295  scenario.node[7].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 292  scenario.node[7].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 363  scenario.node[9].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 370  scenario.node[9].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 373  scenario.node[9].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 374  scenario.node[9].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 377  scenario.node[9].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 375  scenario.node[9].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 359  scenario.node[9].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 379  scenario.node[9].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 376  scenario.node[9].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 371  scenario.node[9].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 372  scenario.node[9].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 364  scenario.node[9].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 365  scenario.node[9].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 362  scenario.node[9].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+47	35776 245 56654 584188 9.619 41.632 13 1 1 13 13
+46	36021 2957 11107 639197 2.600064795048 44.600068493121 107 1 1 107 107
+45	38978 739 2287 639079 0.6 44.6 45 1 1 45 45
+44	39717 219 56286 583318 9.6 41.6 13 1 1 13 13
+58	39936 581 19830 639091 4.6 44.6 33 29 39 1157 41353
+57	40517 258 56649 584183 9.619 41.632 13 28 28 364 10192
+56	40775 258 56649 584183 9.619 41.632 13 29 29 377 10933
+55	41033 581 19830 639091 4.6 44.6 33 28 38 1124 39072
+62	41614 2436 19836 639574 4.6 44.615 135 0 0 0 0
+61	44050 503 56643 584177 9.619 41.632 26 1 30 403 11713
+60	44553 4467 19871 639717 4.602 44.62 241 0 0 0 0
+59	49020 1149 19834 639100 4.6 44.6 66 1 30 1223 32133
+64	50169 254 56618 584129 9.616 41.629 13 15 15 195 2925
+50	50423 249 56652 584186 9.619 41.632 13 1 13 91 819
+49	50672 245 56652 584186 9.619 41.632 13 8 8 104 832
+48	50917 654 11090 639085 2.6 44.6 38 8 18 554 8932
+70	51571 13083 981 639074 0.3 44.6 444 0.973 4.618758870773 973.07601017263 2468.8939560499
+69	64654 13936 981 639074 0.3 44.6 444 -0.67525436356663 0.7988933160901 137.56112590719 90.818532691909
+68	78590 13415 548 639074 0.2 44.6 445 0.075609491981566 13.888699776623 3857.1835143199 42694.593451126
+67	92005 13387 548 639074 0.2 44.6 445 33.85 418.18517922372 75087.397725443 18901382.713253
+66	105392 9445 548 639074 0.2 44.6 445 223.35 223.35 99390.750000001 22198924.0125
+77	114837 13083 981 639074 0.3 44.6 444 0.973 4.618758870773 973.07601017263 2468.8939560499
+76	127920 13936 981 639074 0.3 44.6 444 -0.67525436356663 0.7988933160901 137.56112590719 90.818532691909
+75	141856 13415 548 639074 0.2 44.6 445 0.075609491981566 13.888699776623 3857.1835143199 42694.593451126
+74	155271 13404 105 639074 0.1 44.6 446 33.85 418.18517922372 75121.247725443 18902528.535753
+73	168675 9463 105 639074 0.1 44.6 446 223.35 223.35 99614.100000001 22248809.235
+82	178138 243 48593 639672 8.613 44.619 13 1 1 13 13
+81	178381 2908 2320 647855 0.600069901264 45.1000691293 105 1 1 105 105
+80	181289 739 2288 639080 0.6 44.6 45 1 1 45 45
+79	182028 217 48378 639081 8.6 44.6 13 1 1 13 13
+93	182245 530 2294 639092 0.6 44.6 30 29 39 1040 36790
+92	182775 256 48588 639667 8.613 44.619 13 28 28 364 10192
+91	183031 256 48588 639667 8.613 44.619 13 29 29 377 10933
+90	183287 530 2294 639092 0.6 44.6 30 28 38 1010 34740
+97	183817 1877 2301 639661 0.6 44.619 104 0 0 0 0
+96	185694 499 48582 639661 8.613 44.619 26 1 30 403 11713
+95	186193 3453 2333 639609 0.602 44.616 186 0 0 0 0
+94	189646 1047 2298 639102 0.6 44.6 60 1 30 1100 29070
+99	190693 249 48564 639608 8.61 44.616 13 15 15 195 2925
+85	190942 247 48591 639670 8.613 44.619 13 1 13 91 819
+84	191189 243 48591 639670 8.613 44.619 13 8 8 104 832
+83	191432 553 2291 639086 0.6 44.6 32 8 18 446 6988
+105	191985 13848 981 651089 0.3 45.3 451 0.973 4.6065671830232 977.23760602977 2407.7886862226
+104	205833 14611 981 651089 0.3 45.3 451 -0.7469589876011 0.79944675974549 137.88742842244 82.786451796358
+103	220444 14095 548 651089 0.2 45.3 452 0.075257243068889 13.889251314048 3858.9188896646 42085.274820462
+102	234539 10049 548 651089 0.2 45.3 452 223.35 223.35 100954.2 22548120.57
+101	244588 14061 548 651089 0.2 45.3 452 31.644511042075 416.15 127241.97339055 42107506.846163
+112	258649 13848 981 651089 0.3 45.3 451 0.973 4.6065671830232 977.23760602977 2407.7886862226
+111	272497 14611 981 651089 0.3 45.3 451 -0.7469589876011 0.79944675974549 137.88742842244 82.786451796358
+110	287108 14095 548 651089 0.2 45.3 452 0.075257243068889 13.889251314048 3858.9188896646 42085.274820462
+109	301203 10068 105 651089 0.1 45.3 453 223.35 223.35 101177.55 22598005.7925
+108	311271 14080 105 651089 0.1 45.3 453 31.644511042075 416.15 127658.12339055 42280687.668663
+152	325351 179 80759 628738 12.019 44.027 9 1 1 9 9
+151	325530 3588 24805 719652 5.600068786168 49.900069726222 125 1 1 125 125
+150	329118 708 27987 721169 6 50 45 1 1 45 45
+149	329826 143 80409 627975 12 44 9 1 1 9 9
+163	329969 454 27992 706167 6 49 27 29 39 963 34947
+162	330423 188 80754 628733 12.019 44.027 9 28 28 252 7056
+161	330611 188 80754 628733 12.019 44.027 9 29 29 261 7569
+160	330799 454 27992 706167 6 49 27 28 38 936 33048
+167	331253 1857 27998 706458 6 49.01 99 0 0 0 0
+166	333110 367 80748 628727 12.019 44.027 18 1 30 279 8109
+165	333477 3517 28028 706574 6.002 49.015 178 0 0 0 0
+164	336994 899 27996 706176 6 49 54 1 30 1017 26487
+169	337893 183 80719 628677 12.016 44.024 9 15 15 135 2025
+155	338076 179 80757 628736 12.019 44.027 9 1 9 45 285
+154	338255 179 80757 628736 12.019 44.027 9 8 8 72 576
+153	338434 525 27989 706161 6 49 32 8 18 486 8028
+175	338959 14022 25616 731560 5.7 50.7 451 0.973 4.3640915024899 972.75248048956 2393.5092122613
+174	352981 14748 25616 731560 5.7 50.7 451 -0.7482128219679 0.7999557197094 138.10547720408 81.999506249575
+173	367729 14216 24757 731560 5.6 50.7 452 0.078709523910657 13.889691197984 3856.8021716036 41704.765100679
+172	381945 14200 24757 731560 5.6 50.7 452 33.85 418.14129143593 76554.478414029 19182691.291781
+171	396145 10181 24757 731560 5.6 50.7 452 223.35 223.35 100954.2 22548120.57
+182	406326 14022 25616 731560 5.7 50.7 451 0.973 4.3640915024899 972.75248048956 2393.5092122613
+181	420348 14748 25616 731560 5.7 50.7 451 -0.7482128219679 0.7999557197094 138.10547720408 81.999506249575
+180	435096 14216 24757 731560 5.6 50.7 452 0.078709523910657 13.889691197984 3856.8021716036 41704.765100679
+179	449312 14220 23981 731560 5.5 50.7 453 33.85 418.14129143593 76588.328414029 19183837.114281
+178	463532 10202 23981 731560 5.5 50.7 453 223.35 223.35 101177.55 22598005.7925
+117	473734 196 35277 626548 6.913 43.919 10 1 1 10 10
+116	473930 3454 24795 713699 5.600067924987 49.500060861445 120 1 1 120 120
+115	477384 797 27156 719556 5.9 49.9 45 1 1 45 45
+114	478181 176 35074 626014 6.9 43.9 10 1 1 10 10
+128	478357 564 27161 704577 5.9 48.9 30 29 39 1070 38830
+127	478921 206 35272 626543 6.913 43.919 10 28 28 280 7840
+126	479127 206 35272 626543 6.913 43.919 10 29 29 290 8410
+125	479333 564 27161 704577 5.9 48.9 30 28 38 1040 36720
+132	479897 1579 27168 704677 5.9 48.904 83 0 0 0 0
+131	481476 402 35266 626537 6.913 43.919 20 1 30 310 9010
+130	481878 2934 27193 704789 5.902 48.909 149 0 0 0 0
+129	484812 1118 27165 704590 5.9 48.9 60 1 30 1130 29430
+134	485930 198 35242 626486 6.91 43.916 10 15 15 150 2250
+120	486128 197 35275 626546 6.913 43.919 10 1 10 55 385
+119	486325 196 35275 626546 6.913 43.919 10 8 8 80 640
+118	486521 573 27158 704568 5.9 48.9 31 8 18 458 7444
+140	487094 13999 24757 731560 5.6 50.7 452 0.973 4.5579145116443 975.23639740817 2389.4918071425
+139	501093 14778 24757 731560 5.6 50.7 452 -0.64527899734676 0.79783742856234 137.92061730729 82.119582464188
+138	515871 14243 23981 731560 5.5 50.7 453 0.078328985931352 13.888934710678 3854.0721089231 41803.283984321
+137	530114 10202 23981 731560 5.5 50.7 453 223.35 223.35 101177.55 22598005.7925
+136	540316 14199 23981 731560 5.5 50.7 453 32.12982817936 416.15 127512.55113014 42159669.046122
+147	554515 13999 24757 731560 5.6 50.7 452 0.973 4.5579145116443 975.23639740817 2389.4918071425
+146	568514 14778 24757 731560 5.6 50.7 452 -0.64527899734676 0.79783742856234 137.92061730729 82.119582464188
+145	583292 14243 23981 731560 5.5 50.7 453 0.078328985931352 13.888934710678 3854.0721089231 41803.283984321
+144	597535 10223 23377 731560 5.4 50.7 454 223.35 223.35 101400.9 22647891.015
+143	607758 14220 23377 731560 5.4 50.7 454 32.12982817936 416.15 127928.70113014 42332849.868622
+187	621978 177 68280 768862 10.927 53.921 9 1 1 9 9
+186	622155 3574 64621 772089 10.600061070035 54.200058834808 124 1 1 124 124
+185	625729 789 67810 768500 10.9 53.9 44 1 1 44 44
+184	626518 160 67811 768501 10.9 53.9 9 1 1 9 9
+198	626678 548 67818 768507 10.9 53.9 29 29 39 1041 37989
+197	627226 186 68275 768857 10.927 53.921 9 28 28 252 7056
+196	627412 186 68275 768857 10.927 53.921 9 29 29 261 7569
+195	627598 548 67818 768507 10.9 53.9 29 28 38 1012 35936
+202	628146 2442 67825 768851 10.9 53.921 126 0 0 0 0
+201	630588 363 68269 768851 10.927 53.921 18 1 30 279 8109
+200	630951 4493 67929 768817 10.902 53.918 226 0 0 0 0
+199	635444 1087 67822 768512 10.9 53.9 58 1 30 1099 28529
+204	636531 186 68241 768816 10.924 53.918 9 15 15 135 2025
+190	636717 177 68278 768860 10.927 53.921 9 1 9 45 285
+189	636894 177 68278 768860 10.927 53.921 9 8 8 72 576
+188	637071 558 67815 768504 10.9 53.9 30 8 18 450 7380
+210	637629 13740 64562 776590 10.6 54.6 441 0.973 4.3687516994024 967.52106303785 2418.8782776125
+209	651369 14515 64562 776590 10.6 54.6 441 -0.69515548776835 0.7924998536706 137.79929257972 86.136060545927
+208	665884 13988 63627 776590 10.5 54.6 442 0.078665219856426 13.888801899143 3852.6145862055 42440.615019436
+207	679872 13960 63627 776590 10.5 54.6 442 33.85 417.72559917276 75084.660276044 18910764.592483
+206	693832 10046 63627 776590 10.5 54.6 442 223.35 223.35 98720.700000001 22049268.345
+217	703878 13740 64562 776590 10.6 54.6 441 0.973 4.3687516994024 967.52106303785 2418.8782776125
+216	717618 14515 64562 776590 10.6 54.6 441 -0.69515548776835 0.7924998536706 137.79929257972 86.136060545927
+215	732133 13988 63627 776590 10.5 54.6 442 0.078665219856426 13.888801899143 3852.6145862055 42440.615019436
+214	746121 13981 62688 776590 10.4 54.6 443 33.85 417.72559917276 75118.510276044 18911910.414983
+213	760102 10068 62688 776590 10.4 54.6 443 223.35 223.35 98944.050000001 22099153.5675
+222	770170 240 132201 772378 16.323 54.219 12 1 1 12 12
+221	770410 3457 67869 770935 10.900059300639 54.10006394499 120 1 1 120 120
+220	773867 789 71336 772026 11.2 54.2 44 1 1 44 44
+219	774656 250 71337 772027 11.2 54.2 14 1 1 14 14
+233	774906 699 71346 772033 11.2 54.2 37 29 39 1303 46757
+232	775605 252 132196 772373 16.323 54.219 12 28 28 336 9408
+231	775857 252 132196 772373 16.323 54.219 12 29 29 348 10092
+230	776109 699 71346 772033 11.2 54.2 37 28 38 1266 44188
+237	776808 3506 71358 772367 11.2 54.219 181 0 0 0 0
+236	780314 492 132190 772367 16.323 54.219 24 1 30 372 10812
+235	780806 6415 71399 772337 11.202 54.216 324 0 0 0 0
+234	787221 1384 71354 772038 11.2 54.2 74 1 30 1377 36097
+239	788605 249 132159 772336 16.32 54.216 12 15 15 180 2700
+225	788854 243 132199 772376 16.323 54.219 12 1 12 78 650
+224	789097 240 132199 772376 16.323 54.219 12 8 8 96 768
+223	789337 685 71340 772030 11.2 54.2 37 8 18 526 8348
+245	790022 13559 67805 776590 10.9 54.6 438 0.973 4.5272013814405 964.64892437957 2438.4319714859
+244	803581 14412 67805 776590 10.9 54.6 438 -0.68023289348931 0.79942643139512 137.98886582311 88.139490632115
+243	817993 13907 66704 776590 10.8 54.6 439 0.079595295097679 13.889994104244 3853.6770749467 42820.066107372
+242	831900 9980 66704 776590 10.8 54.6 439 223.35 223.35 98050.650000001 21899612.6775
+241	841880 13876 66704 776590 10.8 54.6 439 32.170140693069 416.15 122977.44434051 40610193.078476
+252	855756 13559 67805 776590 10.9 54.6 438 0.973 4.5272013814405 964.64892437957 2438.4319714859
+251	869315 14412 67805 776590 10.9 54.6 438 -0.68023289348931 0.79942643139512 137.98886582311 88.139490632115
+250	883727 13907 66704 776590 10.8 54.6 439 0.079595295097679 13.889994104244 3853.6770749467 42820.066107372
+249	897634 10002 65600 776590 10.7 54.6 440 223.35 223.35 98274.000000001 21949497.9
+248	907636 13898 65600 776590 10.7 54.6 440 32.170140693069 416.15 123393.59434051 40783373.900976
+257	921534 320 157866 812046 18.032 59.019 16 1 1 16 16
+256	921854 3756 121800 818163 15.600062063772 59.800064112734 130 1 1 130 130
+255	925610 704 127306 811781 16 59 44 1 1 44 44
+254	926314 256 157198 811782 18 59 16 1 1 16 16
+268	926570 595 142325 811792 17 59 35 29 39 1205 42355
+267	927165 336 157861 812041 18.032 59.019 16 28 28 448 12544
+266	927501 336 157861 812041 18.032 59.019 16 29 29 464 13456
+265	927837 595 142325 811792 17 59 35 28 38 1170 39980
+272	928432 2842 142337 812035 17 59.019 149 0 0 0 0
+271	931274 656 157855 812035 18.032 59.019 32 1 30 496 14416
+270	931930 5272 142389 812014 17.002 59.016 264 0 0 0 0
+269	937202 1174 142334 811802 17 59 70 1 30 1275 33815
+274	938376 329 157821 812013 18.029 59.016 16 15 15 240 3600
+260	938705 327 157864 812044 18.032 59.019 16 1 16 136 1496
+259	939032 320 157864 812044 18.032 59.019 16 8 8 128 1024
+258	939352 613 142319 811786 17 59 37 8 18 506 7828
+280	939965 13802 123308 818124 15.7 59.8 442 0.973 4.4771020570171 966.78919041046 2425.0914892842
+279	953767 14579 123308 818124 15.7 59.8 442 -0.62752520553767 0.79825628123516 138.07047191421 86.988624225197
+278	968346 14064 121715 818124 15.6 59.8 443 0.072590296538547 13.889779359512 3857.302302984 42570.173149229
+277	982410 14026 121715 818124 15.6 59.8 443 33.85 418.19226654961 75176.373127256 18928114.479556
+276	996436 10101 121715 818124 15.6 59.8 443 223.35 223.35 98944.050000001 22099153.5675
+287	1006537 13802 123308 818124 15.7 59.8 442 0.973 4.4771020570171 966.78919041046 2425.0914892842
+286	1020339 14579 123308 818124 15.7 59.8 442 -0.62752520553767 0.79825628123516 138.07047191421 86.988624225197
+285	1034918 14064 121715 818124 15.6 59.8 443 0.072590296538547 13.889779359512 3857.302302984 42570.173149229
+284	1048982 14048 120418 818124 15.5 59.8 444 33.85 418.19226654961 75210.223127256 18929260.302056
+283	1063030 10124 120418 818124 15.5 59.8 444 223.35 223.35 99167.400000001 22149038.79
+292	1073154 160 230549 752775 22.518 52.513 8 1 1 8 8
+291	1073314 3434 130320 818153 16.20006026887 59.800063573905 119 1 1 119 119
+290	1076748 792 134747 815792 16.5 59.5 44 1 1 44 44
+289	1077540 144 230071 752536 22.5 52.5 8 1 1 8 8
+303	1077684 570 134752 807873 16.5 58.5 30 29 39 1090 40190
+302	1078254 168 230544 752770 22.518 52.513 8 28 28 224 6272
+301	1078422 168 230544 752770 22.518 52.513 8 29 29 232 6728
+300	1078590 570 134752 807873 16.5 58.5 30 28 38 1060 38040
+307	1079160 2059 134758 807920 16.5 58.504 106 0 0 0 0
+306	1081219 328 230538 752764 22.518 52.513 16 1 30 248 7208
+305	1081547 3875 134805 807982 16.502 58.509 194 0 0 0 0
+304	1085422 1132 134756 807878 16.5 58.5 60 1 30 1150 29670
+309	1086554 164 230494 752741 22.515 52.51 8 15 15 120 1800
+295	1086718 160 230547 752773 22.518 52.513 8 1 8 36 204
+294	1086878 160 230547 752773 22.518 52.513 8 8 8 64 512
+293	1087038 619 134749 807870 16.5 58.5 33 8 18 514 8612
+315	1087657 13681 130263 820127 16.2 60.1 440 0.973 4.4425376719482 964.82053813073 2428.7473469861
+314	1101338 14519 130263 820127 16.2 60.1 440 -0.67164634484797 0.79970611985773 137.77217148943 87.326173623076
+313	1115857 14001 128821 820127 16.1 60.1 441 0.076350875487551 13.88998506289 3860.4052620438 42797.012635358
+312	1129858 10055 128821 820127 16.1 60.1 441 223.35 223.35 98497.350000001 21999383.1225
+311	1139913 13978 128821 820127 16.1 60.1 441 31.494830598065 416.15 123479.3455847 40783148.94051
+322	1153891 13681 130263 820127 16.2 60.1 440 0.973 4.4425376719482 964.82053813073 2428.7473469861
+321	1167572 14519 130263 820127 16.2 60.1 440 -0.67164634484797 0.79970611985773 137.77217148943 87.326173623076
+320	1182091 14001 128821 820127 16.1 60.1 441 0.076350875487551 13.88998506289 3860.4052620438 42797.012635358
+319	1196092 10076 127301 820127 16 60.1 442 223.35 223.35 98720.700000001 22049268.345
+318	1206168 13999 127301 820127 16 60.1 442 31.494830598065 416.15 123895.4955847 40956329.76301
+362	1220167 220 424847 841539 33.019 64.827 11 1 1 11 11
+361	1220387 2941 213585 833646 21.6000652015 63.100069833518 102 1 1 102 102
+360	1223328 792 217166 841297 21.8 64.8 44 1 1 44 44
+359	1224120 198 420406 841298 32.8 64.8 11 1 1 11 11
+373	1224318 532 254230 841308 23.8 64.8 28 29 39 982 35108
+372	1224850 231 424842 841534 33.019 64.827 11 28 28 308 8624
+371	1225081 231 424842 841534 33.019 64.827 11 29 29 319 9251
+370	1225312 532 254230 841308 23.8 64.8 28 28 38 954 33172
+377	1225844 2306 254236 841528 23.8 64.827 118 0 0 0 0
+376	1228150 451 424836 841528 33.019 64.827 22 1 30 341 9911
+375	1228601 4275 254297 841516 23.802 64.824 214 0 0 0 0
+374	1232876 1053 254234 841318 23.8 64.8 56 1 30 1038 27268
+379	1233929 230 424796 841515 33.016 64.824 11 15 15 165 2475
+365	1234159 222 424845 841537 33.019 64.827 11 1 11 66 506
+364	1234381 220 424845 841537 33.019 64.827 11 8 8 88 704
+363	1234601 578 254227 841302 23.8 64.8 31 8 18 448 7184
+385	1235179 13616 211659 842290 21.5 65 436 0.973 4.5599857860588 957.00467746965 2424.0000295856
+384	1248795 14403 211659 842290 21.5 65 436 -0.64282633308322 0.7991070535034 137.42398499049 88.842712479223
+383	1263198 13877 209884 842290 21.4 65 437 0.076361120991409 13.889872434568 3852.1768037405 42783.174050122
+382	1277075 9963 209884 842290 21.4 65 437 223.35 223.35 97603.950000001 21799842.2325
+381	1287038 13837 209884 842290 21.4 65 437 32.31419558795 416.15 122166.98750293 40253150.097234
+392	1300875 13616 211659 842290 21.5 65 436 0.973 4.5599857860588 957.00467746965 2424.0000295856
+391	1314491 14403 211659 842290 21.5 65 436 -0.64282633308322 0.7991070535034 137.42398499049 88.842712479223
+390	1328894 13877 209884 842290 21.4 65 437 0.076361120991409 13.889872434568 3852.1768037405 42783.174050122
+389	1342771 9986 208115 842290 21.3 65 438 223.35 223.35 97827.300000001 21849727.455
+388	1352757 13860 208115 842290 21.3 65 438 32.31419558795 416.15 122583.13750293 40426330.919734
+327	1366617 320 205280 838336 21.127 64.119 16 1 1 16 16
+326	1366937 3176 196168 832326 20.60005918855 62.800070079369 110 1 1 110 110
+325	1370113 828 204703 845414 21.1 66.1 46 1 1 46 46
+324	1370941 288 204704 838137 21.1 64.1 16 1 1 16 16
+338	1371229 627 204713 838147 21.1 64.1 33 29 39 1127 39313
+337	1371856 336 205275 838331 21.127 64.119 16 28 28 448 12544
+336	1372192 336 205275 838331 21.127 64.119 16 29 29 464 13456
+335	1372528 627 204713 838147 21.1 64.1 33 28 38 1094 37092
+342	1373155 2260 204725 838325 21.1 64.119 116 0 0 0 0
+341	1375415 656 205269 838325 21.127 64.119 32 1 30 496 14416
+340	1376071 4111 204790 838312 21.102 64.116 206 0 0 0 0
+339	1380182 1238 204721 838157 21.1 64.1 66 1 30 1193 31773
+344	1381420 328 205233 838311 21.124 64.116 16 10 15 230 3350
+330	1381748 327 205278 838334 21.127 64.119 16 1 16 136 1496
+329	1382075 320 205278 838334 21.127 64.119 16 8 8 128 1024
+328	1382395 744 204707 838141 21.1 64.1 40 8 18 560 8800
+350	1383139 14165 199555 845689 20.8 66.2 455 0.973 4.5414282269282 982.45820651563 2439.2583819907
+349	1397304 14992 199555 845689 20.8 66.2 455 -0.76347377020866 0.7999515440315 137.7786914148 86.112069198142
+348	1412296 14478 197886 845689 20.7 66.2 456 0.072788136074319 13.889417518824 3858.1803712917 42154.932811718
+347	1426774 14444 197886 845689 20.7 66.2 456 33.85 418.28297140141 76172.381683019 19071763.8986
+346	1441218 10396 197886 845689 20.7 66.2 456 223.35 223.35 101847.6 22747661.46
+357	1451614 14165 199555 845689 20.8 66.2 455 0.973 4.5414282269282 982.45820651563 2439.2583819907
+356	1465779 14992 199555 845689 20.8 66.2 455 -0.76347377020866 0.7999515440315 137.7786914148 86.112069198142
+355	1480771 14478 197886 845689 20.7 66.2 456 0.072788136074319 13.889417518824 3858.1803712917 42154.932811718
+354	1495249 14466 196061 845689 20.6 66.2 457 33.85 418.28297140141 76206.231683019 19072909.7211
+353	1509715 10419 196061 845689 20.6 66.2 457 223.35 223.35 102070.95 22797546.6825
+0	1520134 2910 35218 841499 6.908000156 64.822000192 117 28 28 3276 91728
+1	1523044 5790 2419 841475 0.614 64.822 307 29 39 10803 387387
+2	1528834 5790 2419 841475 0.614 64.822 307 28 38 10496 366088
+3	1534624 2910 35218 841499 6.908000156 64.822000192 117 29 29 3393 98397
+4	1537534 5703 35222 841504 6.908000156 64.822000192 234 1 30 3627 105417
+5	1543237 1331873 126 845955 0.102 66.298 75717 0 0 0 0
+6	2875110 11463 2413 841464 0.614 64.822 614 1 30 11417 299407
+7	2886573 38908 2326 841507 0.601 64.823 2182 0 0 0 0
+8	2925481 9982 2371 841507 0.608 64.823 543 0 26 6753 150293
+10	2935463 12585 2351 841450 0.605 64.819 671 0 15 3469 31551
+11	2948048 6097 2421 841479 0.614 64.822 307 28 38 10496 366088
+13	2954145 6674 2421 841483 0.614 64.822000036 307 0 1e-07 2.892e-06 1.23312e-13
+14	2960819 3255 0 841483 0 64.822000036 149 0 3 92 114
+15	2964074 13869 0 841485 0 64.822000064 615 0 1 307 307
+16	2977943 6539 2422 841484 0.614 64.822000036 307 35 45 12645 528075
+17	2984482 3027 35216 841497 6.908000156 64.822000192 117 35 35 4095 143325
+20	2987509 6539 2422 841484 0.614 64.822000036 307 28 38 10496 366088
+21	2994048 3027 35216 841497 6.908000156 64.822000192 117 28 28 3276 91728
+22	2997075 2910 35211 841492 6.908000078 64.822000114 117 8 8 936 7488
+23	2999985 2910 35209 841490 6.908000078 64.822000114 117 8 8 936 7488
+24	3002895 3036 35209 841490 6.908000078 64.822000114 117 1 117 6903 540735
+32	3005931 3027 35213 841494 6.908000078 64.822000114 117 28 28 3276 91728
+34	3008958 2910 35213 841494 6.908000078 64.822000114 117 0 0 0 0
+35	3011868 9 0 0 0 0 1 0 0 0 0
+36	3011877 5829 0 841496 0 64.822000142 235 0 1 117 117
+37	3017706 3027 35214 841495 6.908000078 64.822000114 117 35 35 4095 143325
+38	3020733 7940 2428 841488 0.614000086 64.822000114 307 35 45 12645 528075
+41	3028673 3027 35214 841495 6.908000078 64.822000114 117 28 28 3276 91728
+42	3031700 7940 2428 841488 0.614000086 64.822000114 307 28 38 10496 366088

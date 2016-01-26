@@ -1,0 +1,39 @@
+inet/src/radio/ChannelControl.h
+-------------------------------
+changed modifiers to public. not exactly elegant.
+-> should be removed before public release
+
+simulte/src/stack/mac/layer/LteMacEnb.cc
+----------------------------------------
+added harq buffer clear into deleteQueues method
+
+simulte/src/stack/mac/scheduler/LteSchedulerEnbUl.cc
+----------------------------------------------------
+removed RunTimeError thrown in reception schedule, seems to occur once per client after handover
+-> should be fixed before public release, probably caused by an old harqbuffer entry that was not removed soon enough
+
+simulte/src/stack/phy/ChannelModel/LteRealisticChannelModel.cc
+--------------------------------------------------------------
+Removed RunTimeErrors on distance>5000m
+-> this should be debated, and a disconnect mode should be added
+
+simulte/src/stack/phy/layer/LtePhyBase.cc
+-----------------------------------------
+sendBroadcast method & removed no phy listeners error, since the majority of our eNBs don't have connections at the start of the simulation
+
+simulte/src/stack/phy/layer/LtePhyEnb.cc
+-----------------------------------------
+Start broadcast scheduling in initialize, catch exception on feedback due to remote/reporting set inaccuracies
+
+
+simulte/src/stack/phy/layer/LtePhyUe.cc
+---------------------------------------
+Added Dwell Time logging and removal from old master in handover method
+
+simulte/src/stack/phy/layer/LtePhyUe.h
+--------------------------------------
+Add Dwell Time vectors
+
+veins/...
+---------
+These modifications should all be optional, only have to verify that the try/catch block in HeterogeneousToLTE.cc can be removed safely

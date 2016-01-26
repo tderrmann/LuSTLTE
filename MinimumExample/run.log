@@ -1,0 +1,421 @@
+OMNeT++ Discrete Event Simulation  (C) 1992-2013 Andras Varga, OpenSim Ltd.
+Version: 4.4.1, build: 140307-1086eab, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+Setting up Tkenv...
+Loading NED files from ../simulte/src: 30
+Loading NED files from ../inet/src: 271
+Loading NED files from ../veins/src/veins: 36
+Loading NED files from .: 2
+Loading NED files from /home/thierry/sumoveinslte/veins-lte-master/MinimumExample: 2
+
+*** BLT Tcl/Tk extension not found -- please make sure it is installed, and TCL_LIBRARY is set properly.
+
+Loading images from /home/thierry/sumoveinslte/veins-lte-master/MinimumExample/bitmaps: *: 0  
+Loading images from ./bitmaps: *: 0  
+Loading images from ./images: *: 0  
+Loading images from /home/thierry/sumoveinslte/omnetpp-4.4.1/images: *: 0  misc/*: 70  old/*: 111  status/*: 28  block/*: 320  device/*: 195  background/*: 4  abstract/*: 90  msg/*: 55  maps/*: 9  
+
+Plugin path: ./plugins
+				Storing id 0, node[0], its address 10.0.0.89 and the MacNodeId 1025
+				Storing id 1, node[1], its address 10.0.0.120 and the MacNodeId 1026
+[0, 0.6] Sending message to node[1]
+[0, 0.6] Sending message also to server
+[1, 0.6] Sending message to node[0]
+[1, 0.6] Sending message also to server
+[scenario.node[1], 0.600069901264] Received message scenario.node[1].application.Heterogeneous Test Message< from 0
+[SimpleServerApp, 0.627000114] Received Heterogeneous Message from 1
+[SimpleServerApp, 0.627000114] Sending Message back to 10.0.0.120
+[DecisionMaker, 0.632] scenario.eNodeB1
+[scenario.node[1], 0.632] Received message scenario.node[1].application.Server Reply< from server
+[0, 1.6] Sending message to node[0]
+[0, 1.6] Sending message also to server
+[1, 1.6] Sending message to node[0]
+[1, 1.6] Sending message also to server
+[scenario.node[0], 1.600067799682] Received message scenario.node[0].application.Heterogeneous Test Message< from 1
+[SimpleServerApp, 1.614000078] Received Heterogeneous Message from 0
+[SimpleServerApp, 1.614000078] Sending Message back to 10.0.0.89
+[DecisionMaker, 1.619] scenario.eNodeB1
+[scenario.node[0], 1.619] Received message scenario.node[0].application.Server Reply< from server
+[SimpleServerApp, 1.623000078] Received Heterogeneous Message from 1
+[SimpleServerApp, 1.623000078] Sending Message back to 10.0.0.120
+[DecisionMaker, 1.628] scenario.eNodeB1
+[scenario.node[1], 1.628] Received message scenario.node[1].application.Server Reply< from server
+[0, 2.6] Sending message to node[1]
+[0, 2.6] Sending message also to server
+[1, 2.6] Sending message to node[1]
+[1, 2.6] Sending message also to server
+[SimpleServerApp, 2.614000078] Received Heterogeneous Message from 0
+[SimpleServerApp, 2.614000078] Sending Message back to 10.0.0.89
+[DecisionMaker, 2.619] scenario.eNodeB1
+[scenario.node[0], 2.619] Received message scenario.node[0].application.Server Reply< from server
+[SimpleServerApp, 2.627000078] Received Heterogeneous Message from 1
+[SimpleServerApp, 2.627000078] Sending Message back to 10.0.0.120
+[DecisionMaker, 2.632] scenario.eNodeB1
+[scenario.node[1], 2.632] Received message scenario.node[1].application.Server Reply< from server
+[0, 3.6] Sending message to node[1]
+[0, 3.6] Sending message also to server
+[1, 3.6] Sending message to node[0]
+[1, 3.6] Sending message also to server
+[scenario.node[1], 3.600062687144] Received message scenario.node[1].application.Heterogeneous Test Message< from 0
+[SimpleServerApp, 3.627000114] Received Heterogeneous Message from 1
+[SimpleServerApp, 3.627000114] Sending Message back to 10.0.0.120
+[DecisionMaker, 3.632] scenario.eNodeB1
+[scenario.node[1], 3.632] Received message scenario.node[1].application.Server Reply< from server
+[0, 4.6] Sending message to node[0]
+[0, 4.6] Sending message also to server
+[1, 4.6] Sending message to node[1]
+[1, 4.6] Sending message also to server
+				Storing id 3, node[2], its address 10.0.0.169 and the MacNodeId 1027
+				Storing id 2, node[3], its address 10.0.0.200 and the MacNodeId 1028
+[0, 5.6] Sending message to node[3]
+[0, 5.6] Sending message also to server
+[1, 5.6] Sending message to node[0]
+[1, 5.6] Sending message also to server
+[scenario.node[3], 5.600057822323] Received message scenario.node[3].application.Heterogeneous Test Message< from 0
+[scenario.node[1], 5.600058668557] Received message scenario.node[1].application.Heterogeneous Test Message< from 0
+[scenario.node[2], 5.600058685627] Received message scenario.node[2].application.Heterogeneous Test Message< from 0
+[SimpleServerApp, 5.607000078] Received Heterogeneous Message from 0
+[SimpleServerApp, 5.607000078] Sending Message back to 10.0.0.89
+[SimpleServerApp, 5.608000078] Received Heterogeneous Message from 0
+[SimpleServerApp, 5.608000078] Sending Message back to 10.0.0.89
+[DecisionMaker, 5.612] scenario.eNodeB1
+[scenario.node[0], 5.612] Received message scenario.node[0].application.Server Reply< from server
+[DecisionMaker, 5.613] scenario.eNodeB1
+[scenario.node[0], 5.613] Received message scenario.node[0].application.Server Reply< from server
+[3, 5.9] Sending message to node[1]
+[3, 5.9] Sending message also to server
+[SimpleServerApp, 5.914000114] Received Heterogeneous Message from 3
+[SimpleServerApp, 5.914000114] Sending Message back to 10.0.0.169
+[DecisionMaker, 5.919] scenario.eNodeB1
+[scenario.node[2], 5.919] Received message scenario.node[2].application.Server Reply< from server
+[2, 6] Sending message to node[0]
+[2, 6] Sending message also to server
+[0, 6.6] Sending message to node[0]
+[0, 6.6] Sending message also to server
+[1, 6.6] Sending message to node[0]
+[1, 6.6] Sending message also to server
+[scenario.node[3], 6.600067829251] Received message scenario.node[3].application.Heterogeneous Test Message< from 0
+[3, 6.9] Sending message to node[3]
+[3, 6.9] Sending message also to server
+[scenario.node[1], 6.900067731629] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[scenario.node[0], 6.900068575675] Received message scenario.node[0].application.Heterogeneous Test Message< from 3
+[scenario.node[3], 6.900068597459] Received message scenario.node[3].application.Heterogeneous Test Message< from 3
+[2, 7] Sending message to node[0]
+[2, 7] Sending message also to server
+[scenario.node[0], 7.000062629591] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 7.000063472036] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 7.000063495373] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[0, 7.6] Sending message to node[0]
+[0, 7.6] Sending message also to server
+[1, 7.6] Sending message to node[1]
+[1, 7.6] Sending message also to server
+[scenario.node[2], 7.600063508865] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[scenario.node[0], 7.600064315476] Received message scenario.node[0].application.Heterogeneous Test Message< from 1
+[scenario.node[3], 7.600064341027] Received message scenario.node[3].application.Heterogeneous Test Message< from 1
+[3, 7.9] Sending message to node[1]
+[3, 7.9] Sending message also to server
+[2, 8] Sending message to node[0]
+[2, 8] Sending message also to server
+[scenario.node[0], 8.00005937943] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 8.000060205843] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 8.000060233469] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[0, 8.6] Sending message to node[1]
+[0, 8.6] Sending message also to server
+[1, 8.6] Sending message to node[1]
+[1, 8.6] Sending message also to server
+[scenario.node[2], 8.600060248858] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[scenario.node[0], 8.600061033909] Received message scenario.node[0].application.Heterogeneous Test Message< from 1
+[scenario.node[3], 8.600061063961] Received message scenario.node[3].application.Heterogeneous Test Message< from 1
+[3, 8.9] Sending message to node[0]
+[3, 8.9] Sending message also to server
+[scenario.node[1], 8.900059293774] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[scenario.node[0], 8.90006010464] Received message scenario.node[0].application.Heterogeneous Test Message< from 3
+[scenario.node[3], 8.900060134911] Received message scenario.node[3].application.Heterogeneous Test Message< from 3
+[2, 9] Sending message to node[1]
+[2, 9] Sending message also to server
+[scenario.node[0], 9.000067179606] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 9.000067988257] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 9.000068020189] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[0, 9.6] Sending message to node[0]
+[0, 9.6] Sending message also to server
+[1, 9.6] Sending message to node[1]
+[1, 9.6] Sending message also to server
+[scenario.node[3], 9.60006722811] Received message scenario.node[3].application.Heterogeneous Test Message< from 0
+[scenario.node[1], 9.600067990578] Received message scenario.node[1].application.Heterogeneous Test Message< from 0
+[scenario.node[2], 9.600068026521] Received message scenario.node[2].application.Heterogeneous Test Message< from 0
+[3, 9.9] Sending message to node[3]
+[3, 9.9] Sending message also to server
+[scenario.node[1], 9.900067077758] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[scenario.node[0], 9.900067869321] Received message scenario.node[0].application.Heterogeneous Test Message< from 3
+[scenario.node[3], 9.900067903874] Received message scenario.node[3].application.Heterogeneous Test Message< from 3
+[2, 10] Sending message to node[2]
+[2, 10] Sending message also to server
+				Storing id 4, node[4], its address 10.0.1.16 and the MacNodeId 1029
+[0, 10.6] Sending message to node[3]
+[0, 10.6] Sending message also to server
+[1, 10.6] Sending message to node[2]
+[1, 10.6] Sending message also to server
+[scenario.node[2], 10.6000631336] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[scenario.node[0], 10.600063869477] Received message scenario.node[0].application.Heterogeneous Test Message< from 1
+[scenario.node[3], 10.600063909083] Received message scenario.node[3].application.Heterogeneous Test Message< from 1
+[scenario.node[4], 10.600063926263] Received message scenario.node[4].application.Heterogeneous Test Message< from 1
+				Storing id 5, node[5], its address 10.0.1.52 and the MacNodeId 1030
+[3, 10.9] Sending message to node[4]
+[3, 10.9] Sending message also to server
+[4, 10.9] Sending message to node[0]
+[4, 10.9] Sending message also to server
+[scenario.node[5], 10.900062156867] Received message scenario.node[5].application.Heterogeneous Test Message< from 3
+[scenario.node[1], 10.900062191561] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[scenario.node[3], 10.900062951582] Received message scenario.node[3].application.Heterogeneous Test Message< from 4
+[SimpleServerApp, 10.914000078] Received Heterogeneous Message from 4
+[SimpleServerApp, 10.914000078] Sending Message back to 10.0.1.16
+[DecisionMaker, 10.919] scenario.eNodeB1
+[scenario.node[4], 10.919] Received message scenario.node[4].application.Server Reply< from server
+[2, 11] Sending message to node[2]
+[2, 11] Sending message also to server
+[5, 11.2] Sending message to node[3]
+[5, 11.2] Sending message also to server
+[scenario.node[2], 11.200061182149] Received message scenario.node[2].application.Heterogeneous Test Message< from 5
+[scenario.node[1], 11.200061242261] Received message scenario.node[1].application.Heterogeneous Test Message< from 5
+[scenario.node[0], 11.200061999182] Received message scenario.node[0].application.Heterogeneous Test Message< from 5
+[scenario.node[3], 11.200062038842] Received message scenario.node[3].application.Heterogeneous Test Message< from 5
+[scenario.node[4], 11.200062057776] Received message scenario.node[4].application.Heterogeneous Test Message< from 5
+[0, 11.6] Sending message to node[2]
+[0, 11.6] Sending message also to server
+[1, 11.6] Sending message to node[2]
+[1, 11.6] Sending message also to server
+[scenario.node[2], 11.600069305186] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[scenario.node[5], 11.600069333089] Received message scenario.node[5].application.Heterogeneous Test Message< from 1
+[3, 11.9] Sending message to node[0]
+[3, 11.9] Sending message also to server
+[4, 11.9] Sending message to node[2]
+[4, 11.9] Sending message also to server
+[SimpleServerApp, 11.919000114] Received Heterogeneous Message from 4
+[SimpleServerApp, 11.919000114] Sending Message back to 10.0.1.16
+[DecisionMaker, 11.924] scenario.eNodeB1
+[scenario.node[4], 11.924] Received message scenario.node[4].application.Server Reply< from server
+[2, 12] Sending message to node[1]
+[2, 12] Sending message also to server
+[scenario.node[4], 12.000065094139] Received message scenario.node[4].application.Heterogeneous Test Message< from 2
+[scenario.node[0], 12.000065126788] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 12.000065869791] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 12.00006591542] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[scenario.node[5], 12.000065937557] Received message scenario.node[5].application.Heterogeneous Test Message< from 2
+[5, 12.2] Sending message to node[1]
+[5, 12.2] Sending message also to server
+[0, 12.6] Sending message to node[4]
+[0, 12.6] Sending message also to server
+[1, 12.6] Sending message to node[3]
+[1, 12.6] Sending message also to server
+[scenario.node[3], 12.600065196293] Received message scenario.node[3].application.Heterogeneous Test Message< from 0
+[scenario.node[4], 12.600065232689] Received message scenario.node[4].application.Heterogeneous Test Message< from 0
+[3, 12.9] Sending message to node[3]
+[3, 12.9] Sending message also to server
+[4, 12.9] Sending message to node[2]
+[4, 12.9] Sending message also to server
+[scenario.node[3], 12.900064271083] Received message scenario.node[3].application.Heterogeneous Test Message< from 4
+[scenario.node[0], 12.900064342788] Received message scenario.node[0].application.Heterogeneous Test Message< from 4
+[scenario.node[1], 12.900065053171] Received message scenario.node[1].application.Heterogeneous Test Message< from 4
+[scenario.node[2], 12.900065101073] Received message scenario.node[2].application.Heterogeneous Test Message< from 4
+[scenario.node[5], 12.900065127029] Received message scenario.node[5].application.Heterogeneous Test Message< from 4
+[SimpleServerApp, 12.914000078] Received Heterogeneous Message from 4
+[SimpleServerApp, 12.914000078] Sending Message back to 10.0.1.16
+[DecisionMaker, 12.919] scenario.eNodeB1
+[scenario.node[4], 12.919] Received message scenario.node[4].application.Server Reply< from server
+[2, 13] Sending message to node[4]
+[2, 13] Sending message also to server
+[5, 13.2] Sending message to node[4]
+[5, 13.2] Sending message also to server
+[0, 13.6] Sending message to node[2]
+[0, 13.6] Sending message also to server
+[1, 13.6] Sending message to node[5]
+[1, 13.6] Sending message also to server
+[scenario.node[3], 13.600060419627] Received message scenario.node[3].application.Heterogeneous Test Message< from 0
+[scenario.node[4], 13.600060462423] Received message scenario.node[4].application.Heterogeneous Test Message< from 0
+[3, 13.9] Sending message to node[5]
+[3, 13.9] Sending message also to server
+[4, 13.9] Sending message to node[2]
+[4, 13.9] Sending message also to server
+[scenario.node[3], 13.900059507091] Received message scenario.node[3].application.Heterogeneous Test Message< from 4
+[scenario.node[0], 13.900059586174] Received message scenario.node[0].application.Heterogeneous Test Message< from 4
+[scenario.node[1], 13.900060267869] Received message scenario.node[1].application.Heterogeneous Test Message< from 4
+[scenario.node[2], 13.900060319567] Received message scenario.node[2].application.Heterogeneous Test Message< from 4
+[scenario.node[5], 13.900060350278] Received message scenario.node[5].application.Heterogeneous Test Message< from 4
+[2, 14] Sending message to node[5]
+[2, 14] Sending message also to server
+[scenario.node[4], 14.000066552396] Received message scenario.node[4].application.Heterogeneous Test Message< from 2
+[scenario.node[0], 14.000066586916] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 14.000067276495] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 14.000067330772] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[scenario.node[5], 14.000067363126] Received message scenario.node[5].application.Heterogeneous Test Message< from 2
+[5, 14.2] Sending message to node[0]
+[5, 14.2] Sending message also to server
+[0, 14.6] Sending message to node[3]
+[0, 14.6] Sending message also to server
+[1, 14.6] Sending message to node[4]
+[1, 14.6] Sending message also to server
+[3, 14.9] Sending message to node[3]
+[3, 14.9] Sending message also to server
+[4, 14.9] Sending message to node[5]
+[4, 14.9] Sending message also to server
+[scenario.node[3], 14.900067603333] Received message scenario.node[3].application.Heterogeneous Test Message< from 4
+[scenario.node[0], 14.90006769014] Received message scenario.node[0].application.Heterogeneous Test Message< from 4
+[scenario.node[1], 14.900068340932] Received message scenario.node[1].application.Heterogeneous Test Message< from 4
+[scenario.node[2], 14.90006839669] Received message scenario.node[2].application.Heterogeneous Test Message< from 4
+[scenario.node[5], 14.900068431951] Received message scenario.node[5].application.Heterogeneous Test Message< from 4
+[SimpleServerApp, 14.911000078] Received Heterogeneous Message from 4
+[SimpleServerApp, 14.911000078] Sending Message back to 10.0.1.16
+[SimpleServerApp, 14.914000078] Received Heterogeneous Message from 4
+[SimpleServerApp, 14.914000078] Sending Message back to 10.0.1.16
+[DecisionMaker, 14.916] scenario.eNodeB1
+[scenario.node[4], 14.916] Received message scenario.node[4].application.Server Reply< from server
+[DecisionMaker, 14.919] scenario.eNodeB1
+[scenario.node[4], 14.919] Received message scenario.node[4].application.Server Reply< from server
+[2, 15] Sending message to node[2]
+[2, 15] Sending message also to server
+[scenario.node[4], 15.000061654864] Received message scenario.node[4].application.Heterogeneous Test Message< from 2
+[scenario.node[0], 15.000061690957] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 15.000062350571] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 15.000062409493] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[scenario.node[5], 15.000062446754] Received message scenario.node[5].application.Heterogeneous Test Message< from 2
+[5, 15.2] Sending message to node[2]
+[5, 15.2] Sending message also to server
+				Storing id 6, node[6], its address 10.0.1.139 and the MacNodeId 1031
+[0, 15.6] Sending message to node[0]
+[0, 15.6] Sending message also to server
+[1, 15.6] Sending message to node[2]
+[1, 15.6] Sending message also to server
+[scenario.node[2], 15.600062440454] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[scenario.node[5], 15.600062495211] Received message scenario.node[5].application.Heterogeneous Test Message< from 1
+[scenario.node[0], 15.600063016647] Received message scenario.node[0].application.Heterogeneous Test Message< from 1
+[scenario.node[3], 15.600063083794] Received message scenario.node[3].application.Heterogeneous Test Message< from 1
+[scenario.node[4], 15.600063126258] Received message scenario.node[4].application.Heterogeneous Test Message< from 1
+[scenario.node[6], 15.600063144062] Received message scenario.node[6].application.Heterogeneous Test Message< from 1
+[3, 15.9] Sending message to node[2]
+[3, 15.9] Sending message also to server
+[4, 15.9] Sending message to node[1]
+[4, 15.9] Sending message also to server
+[scenario.node[5], 15.900061497032] Received message scenario.node[5].application.Heterogeneous Test Message< from 3
+[scenario.node[1], 15.900061532541] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[scenario.node[6], 15.900062151038] Received message scenario.node[6].application.Heterogeneous Test Message< from 4
+[scenario.node[3], 15.900062182919] Received message scenario.node[3].application.Heterogeneous Test Message< from 4
+[2, 16] Sending message to node[0]
+[2, 16] Sending message also to server
+[6, 16] Sending message to node[1]
+[6, 16] Sending message also to server
+				Storing id 7, node[7], its address 10.0.1.181 and the MacNodeId 1032
+[5, 16.2] Sending message to node[7]
+[5, 16.2] Sending message also to server
+[scenario.node[7], 16.200060035385] Received message scenario.node[7].application.Heterogeneous Test Message< from 5
+[scenario.node[2], 16.200060070427] Received message scenario.node[2].application.Heterogeneous Test Message< from 5
+[scenario.node[1], 16.200060164696] Received message scenario.node[1].application.Heterogeneous Test Message< from 5
+[scenario.node[0], 16.200060777232] Received message scenario.node[0].application.Heterogeneous Test Message< from 5
+[scenario.node[3], 16.200060837979] Received message scenario.node[3].application.Heterogeneous Test Message< from 5
+[scenario.node[4], 16.200060877644] Received message scenario.node[4].application.Heterogeneous Test Message< from 5
+[scenario.node[6], 16.200060896692] Received message scenario.node[6].application.Heterogeneous Test Message< from 5
+[7, 16.5] Sending message to node[4]
+[7, 16.5] Sending message also to server
+[SimpleServerApp, 16.514000114] Received Heterogeneous Message from 7
+[SimpleServerApp, 16.514000114] Sending Message back to 10.0.1.181
+[DecisionMaker, 16.519] scenario.eNodeB1
+[scenario.node[7], 16.519] Received message scenario.node[7].application.Server Reply< from server
+[0, 16.6] Sending message to node[6]
+[0, 16.6] Sending message also to server
+[1, 16.6] Sending message to node[5]
+[1, 16.6] Sending message also to server
+[scenario.node[3], 16.600068877445] Received message scenario.node[3].application.Heterogeneous Test Message< from 0
+[scenario.node[4], 16.600068937986] Received message scenario.node[4].application.Heterogeneous Test Message< from 0
+[scenario.node[6], 16.600068967852] Received message scenario.node[6].application.Heterogeneous Test Message< from 0
+[scenario.node[1], 16.600069412515] Received message scenario.node[1].application.Heterogeneous Test Message< from 0
+[scenario.node[2], 16.600069485725] Received message scenario.node[2].application.Heterogeneous Test Message< from 0
+[scenario.node[5], 16.600069534429] Received message scenario.node[5].application.Heterogeneous Test Message< from 0
+[scenario.node[7], 16.600069556047] Received message scenario.node[7].application.Heterogeneous Test Message< from 0
+[3, 16.9] Sending message to node[0]
+[3, 16.9] Sending message also to server
+[4, 16.9] Sending message to node[3]
+[4, 16.9] Sending message also to server
+[scenario.node[6], 16.90006796991] Received message scenario.node[6].application.Heterogeneous Test Message< from 4
+[scenario.node[3], 16.90006800021] Received message scenario.node[3].application.Heterogeneous Test Message< from 4
+[scenario.node[5], 16.900068548511] Received message scenario.node[5].application.Heterogeneous Test Message< from 3
+[scenario.node[7], 16.900068577102] Received message scenario.node[7].application.Heterogeneous Test Message< from 3
+[scenario.node[1], 16.900068584841] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[SimpleServerApp, 16.916000078] Received Heterogeneous Message from 4
+[SimpleServerApp, 16.916000078] Sending Message back to 10.0.1.16
+[DecisionMaker, 16.921] scenario.eNodeB1
+[scenario.node[4], 16.921] Received message scenario.node[4].application.Server Reply< from server
+[2, 17] Sending message to node[5]
+[2, 17] Sending message also to server
+[6, 17] Sending message to node[0]
+[6, 17] Sending message also to server
+[scenario.node[4], 17.00006206298] Received message scenario.node[4].application.Heterogeneous Test Message< from 2
+[scenario.node[6], 17.00006209562] Received message scenario.node[6].application.Heterogeneous Test Message< from 2
+[scenario.node[0], 17.000062103587] Received message scenario.node[0].application.Heterogeneous Test Message< from 2
+[scenario.node[1], 17.000062698211] Received message scenario.node[1].application.Heterogeneous Test Message< from 2
+[scenario.node[2], 17.000062766269] Received message scenario.node[2].application.Heterogeneous Test Message< from 2
+[scenario.node[5], 17.000062812926] Received message scenario.node[5].application.Heterogeneous Test Message< from 2
+[scenario.node[7], 17.000062835259] Received message scenario.node[7].application.Heterogeneous Test Message< from 2
+[5, 17.2] Sending message to node[7]
+[5, 17.2] Sending message also to server
+[scenario.node[7], 17.200065843772] Received message scenario.node[7].application.Heterogeneous Test Message< from 5
+[scenario.node[2], 17.200065877523] Received message scenario.node[2].application.Heterogeneous Test Message< from 5
+[scenario.node[1], 17.200065978686] Received message scenario.node[1].application.Heterogeneous Test Message< from 5
+[scenario.node[0], 17.200066557453] Received message scenario.node[0].application.Heterogeneous Test Message< from 5
+[scenario.node[3], 17.200066622116] Received message scenario.node[3].application.Heterogeneous Test Message< from 5
+[scenario.node[4], 17.200066665375] Received message scenario.node[4].application.Heterogeneous Test Message< from 5
+[scenario.node[6], 17.200066689492] Received message scenario.node[6].application.Heterogeneous Test Message< from 5
+[SimpleServerApp, 17.310000114] Received Heterogeneous Message from 6
+[SimpleServerApp, 17.310000114] Sending Message back to 10.0.1.139
+[DecisionMaker, 17.315] scenario.eNodeB1
+[scenario.node[6], 17.315] Received message scenario.node[6].application.Server Reply< from server
+[7, 17.5] Sending message to node[0]
+[7, 17.5] Sending message also to server
+[0, 17.6] Sending message to node[0]
+[0, 17.6] Sending message also to server
+[1, 17.6] Sending message to node[3]
+[1, 17.6] Sending message also to server
+[scenario.node[2], 17.600061082691] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[3, 17.9] Sending message to node[7]
+[3, 17.9] Sending message also to server
+[4, 17.9] Sending message to node[7]
+[4, 17.9] Sending message also to server
+[scenario.node[5], 17.900060151109] Received message scenario.node[5].application.Heterogeneous Test Message< from 3
+[scenario.node[7], 17.900060187529] Received message scenario.node[7].application.Heterogeneous Test Message< from 3
+[scenario.node[1], 17.900060188877] Received message scenario.node[1].application.Heterogeneous Test Message< from 3
+[scenario.node[0], 17.900060756021] Received message scenario.node[0].application.Heterogeneous Test Message< from 3
+[scenario.node[3], 17.900060828393] Received message scenario.node[3].application.Heterogeneous Test Message< from 3
+[scenario.node[4], 17.900060877019] Received message scenario.node[4].application.Heterogeneous Test Message< from 3
+[scenario.node[6], 17.900060906205] Received message scenario.node[6].application.Heterogeneous Test Message< from 3
+[SimpleServerApp, 17.920000114] Received Heterogeneous Message from 4
+[SimpleServerApp, 17.920000114] Sending Message back to 10.0.1.16
+[DecisionMaker, 17.925] scenario.eNodeB1
+[scenario.node[4], 17.925] Received message scenario.node[4].application.Server Reply< from server
+[2, 18] Sending message to node[5]
+[2, 18] Sending message also to server
+[6, 18] Sending message to node[1]
+[6, 18] Sending message also to server
+[SimpleServerApp, 18.014000078] Received Heterogeneous Message from 6
+[SimpleServerApp, 18.014000078] Sending Message back to 10.0.1.139
+[DecisionMaker, 18.019] scenario.eNodeB1
+[scenario.node[6], 18.019] Received message scenario.node[6].application.Server Reply< from server
+[5, 18.2] Sending message to node[7]
+[5, 18.2] Sending message also to server
+[7, 18.5] Sending message to node[3]
+[7, 18.5] Sending message also to server
+[scenario.node[5], 18.500059692464] Received message scenario.node[5].application.Heterogeneous Test Message< from 7
+[scenario.node[2], 18.500059764131] Received message scenario.node[2].application.Heterogeneous Test Message< from 7
+[scenario.node[1], 18.500059874707] Received message scenario.node[1].application.Heterogeneous Test Message< from 7
+[scenario.node[0], 18.500060400784] Received message scenario.node[0].application.Heterogeneous Test Message< from 7
+[scenario.node[3], 18.500060467175] Received message scenario.node[3].application.Heterogeneous Test Message< from 7
+[scenario.node[4], 18.500060513386] Received message scenario.node[4].application.Heterogeneous Test Message< from 7
+[scenario.node[6], 18.500060542934] Received message scenario.node[6].application.Heterogeneous Test Message< from 7
+[0, 18.6] Sending message to node[1]
+[0, 18.6] Sending message also to server
+[1, 18.6] Sending message to node[3]
+[1, 18.6] Sending message also to server
+[scenario.node[2], 18.600066986012] Received message scenario.node[2].application.Heterogeneous Test Message< from 1
+[scenario.node[5], 18.60006705822] Received message scenario.node[5].application.Heterogeneous Test Message< from 1
+[scenario.node[7], 18.60006710025] Received message scenario.node[7].application.Heterogeneous Test Message< from 1
+[scenario.node[0], 18.600067442845] Received message scenario.node[0].application.Heterogeneous Test Message< from 1
+[scenario.node[3], 18.600067528069] Received message scenario.node[3].application.Heterogeneous Test Message< from 1
+[scenario.node[4], 18.600067585259] Received message scenario.node[4].application.Heterogeneous Test Message< from 1
+[scenario.node[6], 18.600067621328] Received message scenario.node[6].application.Heterogeneous Test Message< from 1

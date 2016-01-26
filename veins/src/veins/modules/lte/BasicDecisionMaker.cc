@@ -19,7 +19,7 @@
 //
 
 #include "BasicDecisionMaker.h"
-
+#include "LtePhyUe.h"
 /*
  * A simple implementation of the decision maker. In case of LTE or DSRC it sends the packet via the
  * associated technology. In case of DONTCARE it randomly chooses one of the two channels.
@@ -106,10 +106,27 @@ void BasicDecisionMaker::handleLowerMessage(cMessage* msg){
 	        WARN_DM("Unknown message kind " << messageKind);
 	    }
 	    emit(lteMessagesReceived, 1);
+	
+	std::stringstream ss;
+	ss << "scenario.eNodeB" << getAncestorPar("masterId").longValue();
+
+	std::string eNBpath = ss.str();
+	MobilityBase* eNodeBMobility = dynamic_cast<MobilityBase*>(getModuleByPath(eNBpath.c_str())->getSubmodule("mobility"));
+	ASSERT(eNodeBMobility);
+	PRINT_DM(eNBpath);
+	/*MobilityBase* eNodeBMobility = dynamic_cast<MobilityBase*>(
+			getModuleByPath("scenario.eNodeB1")->getSubmodule("mobility")
+			);
+	ASSERT(eNodeBMobility);*/
+	AnnotationManager* annotations = AnnotationManagerAccess().getIfExists();
+	annotations->scheduleErase(2.5, annotations->drawLine(
+			eNodeBMobility->getCurrentPosition(), getPosition(), "green")
+			);
+/*
 		MobilityBase* eNodeBMobility = dynamic_cast<MobilityBase*>(getModuleByPath("scenario.eNodeB1")->getSubmodule("mobility"));
 		ASSERT(eNodeBMobility);
 		AnnotationManager* annotations = AnnotationManagerAccess().getIfExists();
-		annotations->scheduleErase(0.25,annotations->drawLine(eNodeBMobility->getCurrentPosition(), getPosition(),"yellow"));
+		annotations->scheduleErase(0.25,annotations->drawLine(eNodeBMobility->getCurrentPosition(), getPosition(),"yellow"));*/
 	    send(msg, toApplication);
 	} else if (arrivalGate == fromDSRC) {
 	      HeterogeneousMessage* tmpMessage = dynamic_cast<HeterogeneousMessage*>(msg);
@@ -144,13 +161,24 @@ void BasicDecisionMaker::sendWSM(WaveShortMessage* wsm) {
 }
 
 void BasicDecisionMaker::sendLteMessage(HeterogeneousMessage* msg) {
-	MobilityBase* eNodeBMobility = dynamic_cast<MobilityBase*>(
+	//draw line to current eNB
+	/*cModule* senderModule = msg->getSenderModule();
+	//HeterogeneousCar* car = dynamic_cast<HeterogeneousCar*>(senderModule);
+	LtePhyUe* phy = dynamic_cast<LtePhyUe*>(senderModule->getSubmodule("nic")->getSubmodule("phy"));
+	unsigned short masterId = phy->getMasterId();*/
+	std::stringstream ss;
+	ss << "scenario.eNodeB" << getAncestorPar("masterId").longValue();
+	std::string eNBpath = ss.str();
+	MobilityBase* eNodeBMobility = dynamic_cast<MobilityBase*>(getModuleByPath(eNBpath.c_str())->getSubmodule("mobility"));
+	ASSERT(eNodeBMobility);
+	PRINT_DM(eNBpath);
+	/*MobilityBase* eNodeBMobility = dynamic_cast<MobilityBase*>(
 			getModuleByPath("scenario.eNodeB1")->getSubmodule("mobility")
 			);
-	ASSERT(eNodeBMobility);
+	ASSERT(eNodeBMobility);*/
 	AnnotationManager* annotations = AnnotationManagerAccess().getIfExists();
-	annotations->scheduleErase(0.25, annotations->drawLine(
-			eNodeBMobility->getCurrentPosition(), getPosition(), "red")
+	annotations->scheduleErase(2.5, annotations->drawLine(
+			eNodeBMobility->getCurrentPosition(), getPosition(), "green")
 			);
 	send(msg, toLte);
 }

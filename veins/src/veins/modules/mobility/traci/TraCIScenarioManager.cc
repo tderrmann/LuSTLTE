@@ -812,3 +812,10 @@ IPv4Address TraCIScenarioManager::getIPAddressForID(std::string id){
 		return IPv4Address(IPv4Address::UNSPECIFIED);
 	}
 }
+
+
+Coord TraCIScenarioManager::getOmnetCoords(double sumo_x, double sumo_y){
+	return connection->traci2omnet(TraCICoord(sumo_x,sumo_y));
+}
+
+

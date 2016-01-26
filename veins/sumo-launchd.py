@@ -329,8 +329,14 @@ def copy_and_modify_files(basedir, copy_nodes, runpath, remote_port, seed):
 
         # Read from disk?
         if copy_node.hasAttribute("file"):
-            file_src_name = copy_node.getAttribute("file")
-            file_src_path = os.path.join(basedir, file_src_name)
+            file_src_name = os.path.basename(copy_node.getAttribute("file"))
+            file_src_path = os.path.join(basedir, copy_node.getAttribute("file"))
+	    print("base")
+	    print(basedir)
+	    print("path")
+	    print(file_src_path)
+	    print("name")
+	    print(file_src_name)
 
             # Sanity check
             if file_src_name.find("/") != -1:

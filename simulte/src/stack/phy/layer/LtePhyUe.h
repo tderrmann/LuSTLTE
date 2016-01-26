@@ -86,6 +86,14 @@ class LtePhyUe : public LtePhyBase
     LteRlcUm *rlcUm_;
 
     simtime_t lastFeedback_;
+    
+    //thierry
+	    cOutVector dwellTimeVector;
+	    /**
+	    * Handover switch
+	    */
+	    bool logDwellTimes_;
+
 
   protected:
 

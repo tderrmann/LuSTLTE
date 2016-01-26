@@ -35,7 +35,7 @@ module HeterogeneousCar {
 
         // Following Parameters taken from Ue.ned to make LTE work
         string nodeType = "UE";  // DO NOT CHANGE
-        int masterId;
+        volatile int masterId = default(1);
         int macNodeId = default(0); // TODO: this is not a real parameter
         int macCellId = default(0); // TODO: this is not a real parameter
 
@@ -128,3 +128,5 @@ module HeterogeneousCar {
 
         radioIn --> nic.radioIn;
 }
+
+

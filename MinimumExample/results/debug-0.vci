@@ -1,0 +1,579 @@
+                                                                
+version 2
+run debug-0-20160122-14:09:41-6735
+attr RB 100
+attr configname debug
+attr datetime 20160122-14:09:41
+attr experiment debug
+attr inifile omnetpp.ini
+attr iterationvars "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000"
+attr iterationvars2 "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000, $repetition=0"
+attr maxBytesPerTti 3MiB
+attr measurement "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000"
+attr network scenario
+attr numUEs 1000
+attr processid 6735
+attr queue 2MiB
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr scheduler "\"MAXCI\""
+attr seedset 0
+
+vector 14  scenario.eNodeB1.ppp.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 15  scenario.eNodeB1.ppp.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 36  scenario.eNodeB2.ppp.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 37  scenario.eNodeB2.ppp.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 58  scenario.eNodeB3.ppp.queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 59  scenario.eNodeB3.ppp.ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 79  scenario.server.ppp[0].queue  queueLength:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "queue length, vector"
+vector 80  scenario.server.ppp[0].ppp  txState:vector  ETV
+attr interpolationmode  sample-hold
+attr title  "tx state, vector"
+vector 117  scenario.node[0].veinsmobility  posx  ETV
+vector 118  scenario.node[0].veinsmobility  posy  ETV
+vector 153  scenario.node[1].veinsmobility  posx  ETV
+vector 154  scenario.node[1].veinsmobility  posy  ETV
+vector 5  scenario.eNodeB1.nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 110  scenario.node[0].mobility  posx  ETV
+vector 111  scenario.node[0].mobility  posy  ETV
+vector 112  scenario.node[0].mobility  speed  ETV
+vector 119  scenario.node[0].veinsmobility  speed  ETV
+vector 146  scenario.node[1].mobility  posx  ETV
+vector 147  scenario.node[1].mobility  posy  ETV
+vector 148  scenario.node[1].mobility  speed  ETV
+vector 155  scenario.node[1].veinsmobility  speed  ETV
+vector 113  scenario.node[0].mobility  acceleration  ETV
+vector 114  scenario.node[0].mobility  co2emission  ETV
+vector 120  scenario.node[0].veinsmobility  acceleration  ETV
+vector 121  scenario.node[0].veinsmobility  co2emission  ETV
+vector 149  scenario.node[1].mobility  acceleration  ETV
+vector 150  scenario.node[1].mobility  co2emission  ETV
+vector 156  scenario.node[1].veinsmobility  acceleration  ETV
+vector 157  scenario.node[1].veinsmobility  co2emission  ETV
+vector 89  scenario.node[0].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 88  scenario.node[0].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 125  scenario.node[1].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 124  scenario.node[1].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 92  scenario.node[0].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 128  scenario.node[1].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 99  scenario.node[0].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 102  scenario.node[0].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 135  scenario.node[1].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 138  scenario.node[1].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 103  scenario.node[0].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 139  scenario.node[1].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 106  scenario.node[0].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 142  scenario.node[1].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 126  scenario.node[1].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 7  scenario.eNodeB1.nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 104  scenario.node[0].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 140  scenario.node[1].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 10  scenario.eNodeB1.nic.phy  averageCqiUlvect:vector  ETV
+attr source  averageCqiUlvect
+attr title  "Average Cqi reported in UL, vector"
+attr unit  cqi
+vector 8  scenario.eNodeB1.nic.mac  measuredItbs:vector  ETV
+attr source  measuredItbs
+attr title  "TBS index, vector"
+attr unit  ""
+vector 6  scenario.eNodeB1.nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 1  scenario.eNodeB1.nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 2  scenario.eNodeB1.nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 11  scenario.eNodeB1.ppp.queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 13  scenario.eNodeB1.ppp.queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 20  scenario.eNodeB1.ppp.ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 16  scenario.eNodeB1.ppp.ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 82  scenario.server.ppp[0].ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 86  scenario.server.ppp[0].ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 67  scenario.server.udp  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 68  scenario.server.udp  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 66  scenario.server.udp  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 76  scenario.server.ppp[0].queue  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr title  "received packets, vector(packetBytes)"
+vector 78  scenario.server.ppp[0].queue  queueingTime:vector  ETV
+attr interpolationmode  none
+attr title  "queueing time, vector"
+vector 85  scenario.server.ppp[0].ppp  rcvdPkFromHL:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, vector(packetBytes)"
+vector 81  scenario.server.ppp[0].ppp  txPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets transmitted, vector(packetBytes)"
+vector 17  scenario.eNodeB1.ppp.ppp  rxPkOk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rxPkOk
+attr title  "packets received OK, vector(packetBytes)"
+vector 21  scenario.eNodeB1.ppp.ppp  passedUpPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, vector(packetBytes)"
+vector 0  scenario.eNodeB1.nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 3  scenario.eNodeB1.nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 4  scenario.eNodeB1.nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 144  scenario.node[1].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 141  scenario.node[1].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 136  scenario.node[1].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 137  scenario.node[1].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 129  scenario.node[1].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 130  scenario.node[1].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 127  scenario.node[1].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 90  scenario.node[0].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 108  scenario.node[0].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 105  scenario.node[0].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 100  scenario.node[0].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 101  scenario.node[0].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 93  scenario.node[0].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 94  scenario.node[0].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 91  scenario.node[0].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 158  scenario.node[1].nic.phy  dwelltime  ETV
+vector 189  scenario.node[2].veinsmobility  posx  ETV
+vector 190  scenario.node[2].veinsmobility  posy  ETV
+vector 225  scenario.node[3].veinsmobility  posx  ETV
+vector 226  scenario.node[3].veinsmobility  posy  ETV
+vector 182  scenario.node[2].mobility  posx  ETV
+vector 183  scenario.node[2].mobility  posy  ETV
+vector 184  scenario.node[2].mobility  speed  ETV
+vector 191  scenario.node[2].veinsmobility  speed  ETV
+vector 185  scenario.node[2].mobility  acceleration  ETV
+vector 186  scenario.node[2].mobility  co2emission  ETV
+vector 192  scenario.node[2].veinsmobility  acceleration  ETV
+vector 193  scenario.node[2].veinsmobility  co2emission  ETV
+vector 218  scenario.node[3].mobility  posx  ETV
+vector 219  scenario.node[3].mobility  posy  ETV
+vector 220  scenario.node[3].mobility  speed  ETV
+vector 227  scenario.node[3].veinsmobility  speed  ETV
+vector 198  scenario.node[3].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 162  scenario.node[2].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 221  scenario.node[3].mobility  acceleration  ETV
+vector 222  scenario.node[3].mobility  co2emission  ETV
+vector 228  scenario.node[3].veinsmobility  acceleration  ETV
+vector 229  scenario.node[3].veinsmobility  co2emission  ETV
+vector 161  scenario.node[2].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 160  scenario.node[2].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 164  scenario.node[2].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 171  scenario.node[2].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 174  scenario.node[2].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 175  scenario.node[2].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 178  scenario.node[2].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 176  scenario.node[2].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 180  scenario.node[2].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 177  scenario.node[2].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 172  scenario.node[2].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 173  scenario.node[2].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 165  scenario.node[2].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 166  scenario.node[2].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 163  scenario.node[2].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 197  scenario.node[3].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 196  scenario.node[3].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 200  scenario.node[3].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 207  scenario.node[3].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 210  scenario.node[3].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 211  scenario.node[3].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 214  scenario.node[3].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 122  scenario.node[0].nic.phy  dwelltime  ETV
+vector 194  scenario.node[2].nic.phy  dwelltime  ETV
+vector 212  scenario.node[3].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 230  scenario.node[3].nic.phy  dwelltime  ETV
+vector 261  scenario.node[4].veinsmobility  posx  ETV
+vector 262  scenario.node[4].veinsmobility  posy  ETV
+vector 254  scenario.node[4].mobility  posx  ETV
+vector 255  scenario.node[4].mobility  posy  ETV
+vector 256  scenario.node[4].mobility  speed  ETV
+vector 263  scenario.node[4].veinsmobility  speed  ETV
+vector 257  scenario.node[4].mobility  acceleration  ETV
+vector 258  scenario.node[4].mobility  co2emission  ETV
+vector 264  scenario.node[4].veinsmobility  acceleration  ETV
+vector 265  scenario.node[4].veinsmobility  co2emission  ETV
+vector 234  scenario.node[4].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 297  scenario.node[5].veinsmobility  posx  ETV
+vector 298  scenario.node[5].veinsmobility  posy  ETV
+vector 290  scenario.node[5].mobility  posx  ETV
+vector 291  scenario.node[5].mobility  posy  ETV
+vector 292  scenario.node[5].mobility  speed  ETV
+vector 299  scenario.node[5].veinsmobility  speed  ETV
+vector 293  scenario.node[5].mobility  acceleration  ETV
+vector 294  scenario.node[5].mobility  co2emission  ETV
+vector 300  scenario.node[5].veinsmobility  acceleration  ETV
+vector 301  scenario.node[5].veinsmobility  co2emission  ETV
+vector 233  scenario.node[4].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 232  scenario.node[4].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 236  scenario.node[4].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 243  scenario.node[4].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 246  scenario.node[4].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 247  scenario.node[4].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 250  scenario.node[4].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 270  scenario.node[5].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 248  scenario.node[4].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 252  scenario.node[4].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 249  scenario.node[4].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 244  scenario.node[4].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 245  scenario.node[4].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 237  scenario.node[4].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 238  scenario.node[4].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 235  scenario.node[4].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 302  scenario.node[5].nic.phy  dwelltime  ETV
+vector 269  scenario.node[5].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 268  scenario.node[5].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 272  scenario.node[5].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 279  scenario.node[5].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 282  scenario.node[5].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 283  scenario.node[5].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 286  scenario.node[5].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 333  scenario.node[6].veinsmobility  posx  ETV
+vector 334  scenario.node[6].veinsmobility  posy  ETV
+vector 326  scenario.node[6].mobility  posx  ETV
+vector 327  scenario.node[6].mobility  posy  ETV
+vector 328  scenario.node[6].mobility  speed  ETV
+vector 335  scenario.node[6].veinsmobility  speed  ETV
+vector 306  scenario.node[6].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 329  scenario.node[6].mobility  acceleration  ETV
+vector 330  scenario.node[6].mobility  co2emission  ETV
+vector 336  scenario.node[6].veinsmobility  acceleration  ETV
+vector 337  scenario.node[6].veinsmobility  co2emission  ETV
+vector 369  scenario.node[7].veinsmobility  posx  ETV
+vector 370  scenario.node[7].veinsmobility  posy  ETV
+vector 305  scenario.node[6].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 304  scenario.node[6].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 308  scenario.node[6].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 315  scenario.node[6].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 318  scenario.node[6].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 319  scenario.node[6].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 322  scenario.node[6].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 320  scenario.node[6].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 362  scenario.node[7].mobility  posx  ETV
+vector 363  scenario.node[7].mobility  posy  ETV
+vector 364  scenario.node[7].mobility  speed  ETV
+vector 371  scenario.node[7].veinsmobility  speed  ETV
+vector 365  scenario.node[7].mobility  acceleration  ETV
+vector 366  scenario.node[7].mobility  co2emission  ETV
+vector 372  scenario.node[7].veinsmobility  acceleration  ETV
+vector 373  scenario.node[7].veinsmobility  co2emission  ETV
+vector 342  scenario.node[7].decisionMaker  DSRCMessagesReceived:vector  ETV
+attr source  DSRCMessagesReceived
+attr title  "DSRCMessagesReceived, vector"
+vector 341  scenario.node[7].decisionMaker  dontCareMessagesSent:vector  ETV
+attr source  dontCareMessagesSent
+attr title  "dontCareMessagesSent, vector"
+vector 340  scenario.node[7].decisionMaker  lteMessagesSent:vector  ETV
+attr source  lteMessagesSent
+attr title  "lteMessagesSent, vector"
+vector 344  scenario.node[7].UDP  sentPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPk
+attr title  "packets sent, vector(packetBytes)"
+vector 351  scenario.node[7].nic.pdcpRrc  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 354  scenario.node[7].nic.pdcpRrc  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 355  scenario.node[7].nic.mac  receivedPacketFromUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromUpperLayer
+vector 358  scenario.node[7].nic.mac  sentPacketToLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToLowerLayer
+vector 356  scenario.node[7].nic.mac  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 360  scenario.node[7].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 357  scenario.node[7].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 352  scenario.node[7].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 353  scenario.node[7].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 345  scenario.node[7].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 346  scenario.node[7].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 343  scenario.node[7].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"
+vector 374  scenario.node[7].nic.phy  dwelltime  ETV
+vector 324  scenario.node[6].nic.phy  averageCqiDlvect:vector  ETV
+attr source  averageCqiDlvect
+attr title  "Average Cqi reported in DL, vector"
+attr unit  cqi
+vector 321  scenario.node[6].nic.mac  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 316  scenario.node[6].nic.pdcpRrc  receivedPacketFromLowerLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  receivedPacketFromLowerLayer
+vector 317  scenario.node[6].nic.pdcpRrc  sentPacketToUpperLayer:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  sentPacketToUpperLayer
+vector 309  scenario.node[6].UDP  rcvdPk:vector(packetBytes)  ETV
+attr interpolationmode  none
+attr source  rcvdPk
+attr title  "packets received, vector(packetBytes)"
+vector 310  scenario.node[6].UDP  passedUpPk:vector(count)  ETV
+attr interpolationmode  none
+attr title  "packets passed up, vector(count)"
+vector 307  scenario.node[6].decisionMaker  lteMessagesReceived:vector  ETV
+attr source  lteMessagesReceived
+attr title  "lteMessagesReceived, vector"

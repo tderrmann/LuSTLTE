@@ -25,6 +25,7 @@
 #include "veins/modules/heterogeneous/messages/HeterogeneousMessage_m.h"
 #include "veins/modules/mobility/traci/TraCIScenarioManager.h"
 #include "veins/modules/mobility/traci/TraCIMobility.h"
+//#include <LtePhyUe.h>
 
 using Veins::TraCIScenarioManager;
 using Veins::TraCIScenarioManagerAccess;

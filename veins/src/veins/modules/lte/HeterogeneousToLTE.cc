@@ -44,31 +44,38 @@ void HeterogeneousToLTE::initialize() {
 }
 
 void HeterogeneousToLTE::handleMessage(cMessage *msg) {
-	int gateId = msg->getArrivalGateId();
+	//try-catch block to catch error if destination node has left the simulation	
+	try{
+		int gateId = msg->getArrivalGateId();
 
-	if (gateId == fromApplication) {
-		HeterogeneousMessage *heterogeneousMessage = dynamic_cast<HeterogeneousMessage *>(msg);
-		std::string destinationAddress = heterogeneousMessage->getDestinationAddress();
-		if (destinationAddress == id) {
-			PRINT("Sender and receiver are the same, message not sent!");
-			delete msg;
-			return;
-		} else {
-			IPv4Address address = IPvXAddressResolver().resolve(destinationAddress.c_str()).get4();
-			if (address.isUnspecified()) {
-				address = manager->getIPAddressForID(destinationAddress);
-			}
-			if(address.isUnspecified()){
-				PRINT("Address " << destinationAddress << " still unspecified!");
+		if (gateId == fromApplication) {
+			HeterogeneousMessage *heterogeneousMessage = dynamic_cast<HeterogeneousMessage *>(msg);
+			std::string destinationAddress = heterogeneousMessage->getDestinationAddress();
+			if (destinationAddress == id) {
+				PRINT("Sender and receiver are the same, message not sent!");
 				delete msg;
 				return;
+			} else {
+				IPv4Address address = IPvXAddressResolver().resolve(destinationAddress.c_str()).get4();
+				if (address.isUnspecified()) {
+					address = manager->getIPAddressForID(destinationAddress);
+				}
+				if(address.isUnspecified()){
+					PRINT("Address " << destinationAddress << " still unspecified!");
+					delete msg;
+					return;
+				}
+				socket.sendTo(heterogeneousMessage, address, ltePort);
 			}
-			socket.sendTo(heterogeneousMessage, address, ltePort);
+		} else if (gateId == fromLTE) {
+			send(msg, toApplication);
+		} else {
+			PRINT("Unknown gate: " << msg->getArrivalGate()->getFullName());
 		}
-	} else if (gateId == fromLTE) {
-		send(msg, toApplication);
-	} else {
-		PRINT("Unknown gate: " << msg->getArrivalGate()->getFullName());
+	}
+	catch(...)
+	{
+		PRINT("Exception in HeterogeneousToLTE::handleMessage - missing receiver?");
 	}
 }
 

@@ -63,7 +63,7 @@ struct IChannelControl::RadioEntry {
  */
 class INET_API ChannelControl : public cSimpleModule, public IChannelControl
 {
-  protected:
+  public:
     typedef std::list<RadioEntry> RadioList;
     typedef std::vector<RadioRef> RadioRefVector;
 
@@ -91,7 +91,7 @@ class INET_API ChannelControl : public cSimpleModule, public IChannelControl
     /** the number of controlled channels */
     int numChannels;
 
-  protected:
+  public:
     virtual void updateConnections(RadioRef h);
 
     /** Calculate interference distance*/

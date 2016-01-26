@@ -1,0 +1,28 @@
+version 2
+run handover-0-20160119-12:18:39-5707
+attr RB 100
+attr configname handover
+attr datetime 20160119-12:18:39
+attr experiment handover
+attr inifile omnetpp.ini
+attr iterationvars "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000"
+attr iterationvars2 "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000, $repetition=0"
+attr maxBytesPerTti 3MiB
+attr measurement "$queue=2MiB, $maxBytesPerTti=3MiB, $scheduler=\"MAXCI\", $RB=100, $numUEs=1000"
+attr network scenario
+attr numUEs 1000
+attr processid 5707
+attr queue 2MiB
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr scheduler "\"MAXCI\""
+attr seedset 0
+
+scalar . 	RB 	100
+scalar . 	maxBytesPerTti 	3
+attr unit  MiB
+scalar . 	numUEs 	1000
+scalar . 	queue 	2
+attr unit  MiB

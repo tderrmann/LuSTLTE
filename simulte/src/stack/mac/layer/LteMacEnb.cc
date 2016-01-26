@@ -201,6 +201,37 @@ void LteMacEnb::deleteQueues(MacNodeId nodeId)
         	++bit;
         }
     }
+
+
+	
+    //thierry
+	HarqTxBuffers::iterator hit;
+	for (hit = harqTxBuffers_.begin(); hit != harqTxBuffers_.end();)
+	    {
+		if (MacCidToNodeId(hit->first) == nodeId)
+		{
+		    delete hit->second; // Delete Queue
+		    harqTxBuffers_.erase(hit++); // Delete Elem
+		} else {
+			++hit;
+		}
+	    }
+	HarqRxBuffers::iterator hit2;
+
+	for (hit2 = harqRxBuffers_.begin(); hit2 != harqRxBuffers_.end();)
+	    {
+		if (MacCidToNodeId(hit2->first) == nodeId)
+		{
+		    delete hit2->second; // Delete Queue
+		    harqRxBuffers_.erase(hit2++); // Delete Elem
+		} else {
+			++hit2;
+		}
+	    }
+	/*update harq status in schedulers*/
+	//enbSchedulerDl_->updateHarqDescs();
+	enbSchedulerUl_->updateHarqDescs();
+
 }
 
 void LteMacEnb::initialize(int stage)

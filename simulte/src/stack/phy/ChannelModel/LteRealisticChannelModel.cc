@@ -1183,15 +1183,15 @@ double LteRealisticChannelModel::computeIndoor(double d, MacNodeId nodeId)
     double a, b;
     if (losMap_[nodeId])
     {
-        if (d > 150 || d < 3)
-            throw cRuntimeError("Error LOS indoor path loss model is valid for 3<d<150");
+        /*if (d > 150 || d < 3)
+            throw cRuntimeError("Error LOS indoor path loss model is valid for 3<d<150");*/
         a = 16.9;
         b = 32.8;
     }
     else
     {
-        if (d > 250 || d < 6)
-            throw cRuntimeError("Error NLOS indoor path loss model is valid for 6<d<250");
+       /* if (d > 250 || d < 6)
+            throw cRuntimeError("Error NLOS indoor path loss model is valid for 6<d<250");*/
         a = 43.3;
         b = 11.5;
     }
@@ -1202,21 +1202,22 @@ double LteRealisticChannelModel::computeUrbanMicro(double d, MacNodeId nodeId)
 {
     if (d < 10)
         d = 10;
-
+    if (d > 5000)
+        d = 5000;
     double dbp = 4 * (hNodeB_ - 1) * (hUe_ - 1)
         * ((carrierFrequency_ * 1000000000) / SPEED_OF_LIGHT);
     if (losMap_[nodeId])
     {
-        if (d > 5000)
-            throw cRuntimeError("Error LOS urban microcell path loss model is valid for d<5000 m");
+        /*if (d > 5000)
+            throw cRuntimeError("Error LOS urban microcell path loss model is valid for d<5000 m");*/
         if (d < dbp)
             return 22 * log10(d) + 28 + 20 * log10(carrierFrequency_);
         else
             return 40 * log10(d) + 7.8 - 18 * log10(hNodeB_ - 1)
                 - 18 * log10(hUe_ - 1) + 2 * log10(carrierFrequency_);
     }
-    if (d > 2000 || d < 10)
-        throw cRuntimeError("Error NLOS urban microcell path loss model is valid for 10d<2000 m");
+    /*if (d > 2000 || d < 10)
+        throw cRuntimeError("Error NLOS urban microcell path loss model is valid for 10d<2000 m");*/
     return 36.7 * log10(d) + 22.7 + 26 * log10(carrierFrequency_);
 }
 
@@ -1224,7 +1225,8 @@ double LteRealisticChannelModel::computeUrbanMacro(double d, MacNodeId nodeId)
 {
     if (d < 10)
         d = 10;
-
+    if (d > 5000)
+        d = 5000;
     double dbp = 4 * (hNodeB_ - 1) * (hUe_ - 1)
         * ((carrierFrequency_ * 1000000000) / SPEED_OF_LIGHT);
     if (losMap_[nodeId])
@@ -1252,7 +1254,8 @@ double LteRealisticChannelModel::computeSubUrbanMacro(double d, double& dbp,
 {
     if (d < 10)
         d = 10;
-
+    if (d > 5000)
+        d = 5000;
     dbp = 4 * (hNodeB_ - 1) * (hUe_ - 1)
         * ((carrierFrequency_ * 1000000000) / SPEED_OF_LIGHT);
     if (losMap_[nodeId])
@@ -1290,13 +1293,15 @@ double LteRealisticChannelModel::computeRuralMacro(double d, double& dbp,
 {
     if (d < 10)
         d = 10;
+    if (d > 5000)
+        d = 5000;
 
     dbp = 4 * (hNodeB_ - 1) * (hUe_ - 1)
         * ((carrierFrequency_ * 1000000000) / SPEED_OF_LIGHT);
     if (losMap_[nodeId])
     {
-        if (d > 5000)
-            throw cRuntimeError("Error LOS urban microcell path loss model is valid for d<5000 m");
+        /*if (d > 5000)
+            throw cRuntimeError("Error LOS urban microcell path loss model is valid for d<5000 m");*/
         double a1 = (0.03 * pow(hBuilding_, 1.72));
         double b1 = 0.044 * pow(hBuilding_, 1.72);
         double a = (a1 < 10) ? a1 : 10;
@@ -1309,8 +1314,8 @@ double LteRealisticChannelModel::computeRuralMacro(double d, double& dbp,
                 + a * log10(dbp) - b + 0.002 * log10(hBuilding_) * dbp
                 + 40 * log10(d / dbp);
     }
-    if (d > 10000)
-        throw cRuntimeError("Error NLOS urban microcell path loss model is valid for 10d<2000 m");
+    /*if (d > 10000)
+        throw cRuntimeError("Error NLOS urban microcell path loss model is valid for 10d<2000 m");*/
     double att = 161.04 - 7.1 * log10(wStreet_) + 7.5 * log10(hBuilding_)
         - (24.37 - 3.7 * pow(hBuilding_ / hNodeB_, 2)) * log10(hNodeB_)
         + (43.42 - 3.1 * log10(hNodeB_)) * (log10(d) - 3)

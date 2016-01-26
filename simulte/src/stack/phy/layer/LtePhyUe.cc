@@ -48,6 +48,14 @@ void LtePhyUe::initialize(int stage)
         // disabled
         useBattery_ = false;
 
+	/*std::stringstream dtname;
+	dtname <<"dwelltime_ue_" << nodeId_;
+	std::string dtnamestr = dtname.str();
+	*/
+
+	dwellTimeVector.setName("dwelltime"); //(dtnamestr.c_str());
+	logDwellTimes_ = true;
+	//par("logDwellTimes");
         enableHandover_ = par("enableHandover"); // TODO : USE IT
         int index = intuniform(0, binder_->phyPisaData.maxChannel() - 1);
         //int index2=intuniform(0,binder_->phyPisaData.maxChannel2()-1);
@@ -131,6 +139,20 @@ void LtePhyUe::handover(){
         // TODO: transfer buffers, delete MAC buffer
         // TODO: add delay to simulate handover
         // TODO: ensure everywhere masterId is updated for UEs!!! (pdcp done)
+	
+
+	//unregister UE from old master
+	binder_->unregisterNode(nodeId_);
+		//already implicitly done above by binder
+        //binder_->registerNode(candidateMasterId_, nodeId_);
+
+	//set ancestor masterid in HeterogeneousCar!
+	
+	getParentModule()->getParentModule()->par("masterId").setLongValue((long)masterId_);
+
+	//ancPar=masterId_;
+	//log dwelltime
+	if(logDwellTimes_) {dwellTimeVector.record(masterId_);}
 }
 
 void LtePhyUe::handleSelfMessage(cMessage *msg) {
