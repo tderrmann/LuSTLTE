@@ -1,0 +1,3 @@
+package minimumexample;
+
+@license(LGPL);

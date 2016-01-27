@@ -1,3 +1,4 @@
-# Partial Tkenv config file -- see $HOME/.tkenvrc as well
-inspector "scenario" "scenario" "2" "607x336+1735+-4:normal"
+# Partial OMNeT++/Tkenv config file -- see $HOME/.tkenvrc as well
+config default-configname	{}
+config default-runnumber	{}
 
