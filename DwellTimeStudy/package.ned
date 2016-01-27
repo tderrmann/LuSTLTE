@@ -1,0 +1,3 @@
+package dwelltimestudy;
+
+@license(LGPL);
