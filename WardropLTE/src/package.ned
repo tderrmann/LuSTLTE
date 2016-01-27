@@ -1,0 +1,3 @@
+package wardroplte;
+
+@license(LGPL);

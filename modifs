@@ -37,3 +37,7 @@ Add Dwell Time vectors
 veins/...
 ---------
 These modifications should all be optional, only have to verify that the try/catch block in HeterogeneousToLTE.cc can be removed safely
+
+SUMO 0.xx.0
+veins/modules/mobility/traci/TraCIScenarioManager.cc
+Changed from error to warning when we use unsupported sumo versions.
