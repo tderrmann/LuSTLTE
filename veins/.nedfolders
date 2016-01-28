@@ -1,3 +1,4 @@
-examples/veins
 examples/heterogeneous
+examples/lte
+examples/veins
 src/veins
