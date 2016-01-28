@@ -58,12 +58,12 @@ void SimpleApp::handleMessage(cMessage *msg) {
 			cModule *tmpMobility = getParentModule()->getSubmodule("veinsmobility");
 			Veins::TraCIMobility* mobility = dynamic_cast<Veins::TraCIMobility *>(tmpMobility);
 			TraCIScenarioManager* mgr = mobility->getManager();
-			
+
 			std::ifstream theFile("/home/thierry/eggs.csv");
 
 
 			std::ofstream outFile("/home/thierry/eggsomnet.csv");
-	
+
 			std::string x, y, site_name, system, commune, carrier, lat, lon, sumo_x, sumo_y, line;
 			double coord_sumo_x;
 			double coord_sumo_y;
@@ -106,10 +106,10 @@ void SimpleApp::handleMessage(cMessage *msg) {
 
 			theFile.close();
 			outFile.close();
-			
+
 
 		}
-	*/	
+	*/
 	if (msg->isSelfMessage()) {
 		/*
 		 * Send a message to a random node in the network. Note that only the most necessary values
@@ -127,19 +127,19 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		std::map<std::string, cModule*>::iterator it = hosts.begin();
 		std::advance(it, intrand(hosts.size()));
 		std::string destination("node[" + it->first + "]");
-		std::cout << "[" << sumoId << ", " << simTime() <<  "] Sending message to " << destination << std::endl;
+		EV << "[" << sumoId << ", " << simTime() <<  "] Sending message to " << destination << std::endl;
 		testMessage->setDestinationAddress(destination.c_str());
 
 		/* Finish the message and send it */
 		testMessage->setSourceAddress(sumoId.c_str());
 		send(testMessage, toDecisionMaker);
-		
+
 		/*
 		 * At 25% of the time send also a message to the main server. This message is sent via LTE
 		 * and is then simply handed to the decision maker.
 		 */
 		if(dblrand() < 1){
-			std::cout << "[" << sumoId << ", " << simTime() <<  "] Sending message also to server" << std::endl;
+			EV << "[" << sumoId << ", " << simTime() <<  "] Sending message also to server" << std::endl;
 			HeterogeneousMessage* serverMessage = new HeterogeneousMessage();
 			serverMessage->setName("Server Message Test");
 			testMessage->setByteLength(10);
@@ -152,6 +152,6 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		scheduleAt(simTime() + 1, new cMessage("Send"));
 	} else {
 		HeterogeneousMessage *testMessage = dynamic_cast<HeterogeneousMessage *>(msg);
-		std::cout << "[" << getParentModule()->getFullPath() << ", " << simTime() << "] Received message " << msg->getFullPath() << "< from " << testMessage->getSourceAddress() << std::endl;
+		EV << "[" << getParentModule()->getFullPath() << ", " << simTime() << "] Received message " << msg->getFullPath() << "< from " << testMessage->getSourceAddress() << std::endl;
 	}
 }

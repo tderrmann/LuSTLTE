@@ -400,7 +400,7 @@ void TraCIScenarioManager::deleteManagedModule(std::string nodeId) {
 
 	cModule* Nic11p = mod->getSubmodule("nic80211p");
 	if (Nic11p)	cc->unregisterNic(Nic11p);
-	else std::cout << "Not Nic11p" << std::endl;
+	else EV << "Not Nic11p" << std::endl;
 	binder->unregisterNode(macNodeIds[mod->getId()]);
 	idToAddress.erase(nodeId);
 	hosts.erase(nodeId);

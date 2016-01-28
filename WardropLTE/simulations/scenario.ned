@@ -18,6 +18,6 @@
 
 package wardroplte.simulations;
 
-network scenario extends Highway
+network scenario extends LuSTLTEScenario
 {
 }

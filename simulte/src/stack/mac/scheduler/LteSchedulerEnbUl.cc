@@ -137,10 +137,13 @@ LteSchedulerEnbUl::rtxschedule()
 
         HarqRxBuffers::iterator it= harqRxBuffers_->begin() , et=harqRxBuffers_->end();
 
-        for(; it != et; ++it)
+        for(; it != et;)
         {
             // get current nodeId
             MacNodeId nodeId = it->first;
+
+            // the increment has to be done here in order to avoid iterator invalid after erase.
+            ++it;
 
             if(nodeId == 0){	// HACK
                 harqRxBuffers_->erase(nodeId);

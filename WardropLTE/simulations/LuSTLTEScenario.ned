@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-package common.lustscenario;
+package wardroplte.simulations;
 
 import org.car2x.veins.base.connectionManager.ConnectionManager;
 import org.car2x.veins.base.modules.BaseWorldUtility;
@@ -37,7 +37,7 @@ import inet.networklayer.ipv4.RoutingTableRecorder;
 import lte.corenetwork.binder.*;
 import lte.corenetwork.nodes.*;
 
-module Highway
+module LuSTLTEScenario
 {
     parameters:
         double playgroundSizeX @unit(m); // x size of the area the nodes are in (in meters)
