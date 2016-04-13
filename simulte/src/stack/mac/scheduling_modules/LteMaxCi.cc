@@ -55,8 +55,11 @@ void LteMaxCi::prepareSchedule()
         // Current connection.
         cid = *it1;
 
+<<<<<<< Updated upstream
         // the increment has to be done here in order to avoid iterator invalid after erase.
         ++it1;
+=======
+>>>>>>> Stashed changes
 
         MacNodeId nodeId = MacCidToNodeId(cid);
         if(nodeId == 0){    // HACK
@@ -64,6 +67,14 @@ void LteMaxCi::prepareSchedule()
             activeConnectionTempSet_.erase(cid);
             continue;
         }
+	
+	
+        if(getBinder()->getNextHop(nodeId) != eNbScheduler_->mac_->getMacNodeId()){    // HACK for Handovers, breaks Relays, sorry :(
+            activeConnectionSet_.erase(cid);
+            activeConnectionTempSet_.erase(cid);
+            continue;
+        }
+
         OmnetId id = getBinder()->getOmnetId(nodeId);
         if(id == 0){	// HACK?
         	activeConnectionSet_.erase(cid);

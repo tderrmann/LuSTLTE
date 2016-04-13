@@ -24,7 +24,7 @@
 
 Define_Module(HeterogeneousToLTE);
 
-#define PRINT(x) if(debug) {std::cout << "[" << id << ", Heterogeneous2LTE, " << simTime() << "] " << x << std::endl;}
+#define PRINT(x) std::cout << "[" << id << ", Heterogeneous2LTE, " << simTime() << "] " << x << std::endl;
 
 void HeterogeneousToLTE::initialize() {
 	toApplication = findGate("toApplication");
@@ -51,12 +51,14 @@ void HeterogeneousToLTE::handleMessage(cMessage *msg) {
 		if (gateId == fromApplication) {
 			HeterogeneousMessage *heterogeneousMessage = dynamic_cast<HeterogeneousMessage *>(msg);
 			std::string destinationAddress = heterogeneousMessage->getDestinationAddress();
-			if (destinationAddress == id) {
+			//if (destinationAddress == id) {
+			if (destinationAddress == getParentModule()->getFullPath()) {
 				PRINT("Sender and receiver are the same, message not sent!");
 				delete msg;
 				return;
 			} else {
 				IPv4Address address = IPvXAddressResolver().resolve(destinationAddress.c_str()).get4();
+				PRINT("Resolve: " << destinationAddress << " is : " << address);
 				if (address.isUnspecified()) {
 					address = manager->getIPAddressForID(destinationAddress);
 				}
@@ -66,17 +68,29 @@ void HeterogeneousToLTE::handleMessage(cMessage *msg) {
 					return;
 				}
 				socket.sendTo(heterogeneousMessage, address, ltePort);
+				//delete msg;
+				//return;
 			}
 		} else if (gateId == fromLTE) {
 			send(msg, toApplication);
 		} else {
 			PRINT("Unknown gate: " << msg->getArrivalGate()->getFullName());
 		}
+		
+		//delete msg;
+		//return;
 	}
-	catch(...)
+
+	catch (std::exception &e) {
+	PRINT("std::exception in HeterogeneousToLTE::handleMessage - missing receiver?");
+	std::cout << e.what() << std::endl;
+  	}
+	/*catch(...)
 	{
 		PRINT("Exception in HeterogeneousToLTE::handleMessage - missing receiver?");
-	}
+		delete msg;
+
+	}*/
 }
 
 HeterogeneousToLTE::HeterogeneousToLTE() {

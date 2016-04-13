@@ -44,7 +44,11 @@ module Highway
         double playgroundSizeY @unit(m); // y size of the area the nodes are in (in meters)
         double playgroundSizeZ @unit(m); // z size of the area the nodes are in (in meters)
         @display("bgb=14000,12000");
+<<<<<<< Updated upstream
         int numUe = default(100);
+=======
+        int numUe = default(100000);
+>>>>>>> Stashed changes
 
     submodules:
         obstacles: ObstacleControl {
@@ -80,9 +84,15 @@ module Highway
         binder: LteBinder {
             @display("p=34,152;is=s");
         }
+<<<<<<< Updated upstream
 
         //TANGO LUXEMBOURG LTE
 
+=======
+
+        //TANGO LUXEMBOURG LTE
+
+>>>>>>> Stashed changes
         eNodeB1: eNodeB {
             @display("p=1517,4336;is=vl");
         }
@@ -207,5 +217,43 @@ module Highway
 
     connections allowunconnected:
         server.pppg++ <--> Eth10G <--> eNodeB1.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB2.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB3.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB4.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB5.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB6.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB7.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB8.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB9.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB10.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB11.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB12.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB13.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB14.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB15.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB16.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB17.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB18.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB19.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB20.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB21.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB22.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB23.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB24.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB25.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB26.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB27.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB28.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB29.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB30.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB31.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB32.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB33.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB34.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB35.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB36.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB37.ppp;
+	server.pppg++ <--> Eth10G <--> eNodeB38.ppp;
 }
+
 

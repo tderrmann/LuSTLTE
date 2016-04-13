@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for common
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -L../../inet/out/$$\(CONFIGNAME\)/src -L../../simulte/out/$$\(CONFIGNAME\)/src -L../../veins/out/$$\(CONFIGNAME\)/src -linet -lsimulte -lveins -DINET_IMPORT -KINET_PROJ=../../inet -KSIMULTE_PROJ=../../simulte -KVEINS_PROJ=../../veins
+#  opp_makemake -f --deep
 #
 
 # Name of target to be created (-o option)
@@ -20,12 +20,11 @@ INCLUDE_PATH = -I.
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L../../inet/out/$(CONFIGNAME)/src -L../../simulte/out/$(CONFIGNAME)/src -L../../veins/out/$(CONFIGNAME)/src  -linet -lsimulte -lveins
-LIBS += -Wl,-rpath,`abspath ../../inet/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath ../../simulte/out/$(CONFIGNAME)/src` -Wl,-rpath,`abspath ../../veins/out/$(CONFIGNAME)/src`
+LIBS =
 
 # Output directory
 PROJECT_OUTPUT_DIR = ../out
-PROJECTRELATIVE_PATH = src
+PROJECTRELATIVE_PATH = /src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
@@ -33,11 +32,6 @@ OBJS =
 
 # Message files
 MSGFILES =
-
-# Other makefile variables (-K)
-INET_PROJ=../../inet
-SIMULTE_PROJ=../../simulte
-VEINS_PROJ=../../veins
 
 #------------------------------------------------------------------------------
 
@@ -63,7 +57,7 @@ include $(CONFIGFILE)
 OMNETPP_LIB_SUBDIR = $(OMNETPP_LIB_DIR)/$(TOOLCHAIN_NAME)
 OMNETPP_LIBS = -L"$(OMNETPP_LIB_SUBDIR)" -L"$(OMNETPP_LIB_DIR)" -loppmain$D $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
 
-COPTS = $(CFLAGS) -DINET_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+COPTS = $(CFLAGS)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
 MSGCOPTS = $(INCLUDE_PATH)
 
 # we want to recompile everything if COPTS changes,

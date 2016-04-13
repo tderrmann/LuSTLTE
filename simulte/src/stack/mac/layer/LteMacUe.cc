@@ -462,6 +462,30 @@ void LteMacUe::handleSelfMessage()
 }
 
 void
+LteMacUe::clearHarqBuffers(){
+/*
+ HarqTxBuffers::iterator it;
+
+    for(it = harqTxBuffers_.begin(); it != harqTxBuffers_.end(); it++)
+    {
+        LteHarqBufferTx* currHarq = it->second;
+	currHarq->clear();
+        }
+    }
+
+ HarqRxBuffers::iterator it;
+
+    for(it = harqRxBuffers_.begin(); it != harqRxBuffers_.end(); it++)
+    {
+        LteHarqBufferRx* currHarq = it->second;
+	currHarq->clear();
+        }
+    }
+
+EV<<NOW<<" LteMacUe::clearHarqBuffers - cleared Harq Buffers on Handover" << endl;*/
+}
+
+void
 LteMacUe::macHandleGrant(cPacket* pkt)
 {
     EV << NOW << " LteMacUe::macHandleGrant - UE [" << nodeId_ << "] - Grant received " << endl;
@@ -535,6 +559,7 @@ LteMacUe::macHandleRac(cPacket* pkt)
 void
 LteMacUe::checkRAC()
 {
+    cellId_ = getParentModule()->getParentModule()->par("masterId");
     EV << NOW << " LteMacUe::checkRAC , Ue  " << nodeId_ << ", racTimer : " << racBackoffTimer_ << " maxRacTryOuts : " << maxRacTryouts_
        << ", raRespTimer:" << raRespTimer_ << endl;
 

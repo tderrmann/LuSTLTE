@@ -84,6 +84,7 @@ class LteAmc
     public:
     LteAmc(LteMacEnb *mac, LteBinder *binder, LteDeployer *deployer, int numAntennas);
     void initialize();
+    void refresh();
     ~LteAmc()
     {
     }

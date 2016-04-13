@@ -42,7 +42,8 @@ void LtePhyUe::initialize(int stage)
         currentMasterRssi_ = 0;
         candidateMasterRssi_ = 0;
         hysteresisTh_ = 0;
-        hysteresisFactor_ = 10;
+        //hysteresisFactor_ = 10;
+        hysteresisFactor_ = 5;
         handoverDelta_ = 0.00001;
 
         // disabled
@@ -98,12 +99,20 @@ void LtePhyUe::initialize(int stage)
             getParentModule()-> // nic
             getSubmodule("rlc")->
                 getSubmodule("um"));
+	
+	mac_->updateCellId();
+	//getAncestorPar("macNodeId").setLongValue(mac_->getMacNodeId());
+	//mac_.setNodeId(getAncestorPar("macNodeId").LongValue());
     }
 }
 
 void LtePhyUe::handover(){
         // TODO: remove asserts after testing
-        assert(masterId_ != candidateMasterId_);
+	//nodeId_ = mac_->getMacNodeId();
+	
+	//getAncestorPar("macNodeId").setLongValue(mac_->getMacNodeId());
+        
+	assert(masterId_ != candidateMasterId_);
 
         EV << "####Handover starting:####" << endl;
         EV << "current master: " << masterId_ << endl;
@@ -112,8 +121,6 @@ void LtePhyUe::handover(){
         EV << "candidate rssi: " << candidateMasterRssi_ << endl;
         EV << "############" << endl;
 
-        // Delete Old Buffers
-        deleteOldBuffers(masterId_);
 
         // amc calls
         LteAmc *oldAmc = getAmcModule(masterId_);
@@ -122,36 +129,106 @@ void LtePhyUe::handover(){
         // TODO verify the amc is the relay one and remove after tests
         assert(newAmc != NULL);
 
-        oldAmc->detachUser(nodeId_, UL);
+
+/*	try{
+	}
+	catch(...){
+	std::cout << "error detaching" << nodeId_ << " from " << masterId_ << endl;
+	}*/
+
+//        oldAmc->detachUser(binder_->getMacNodeIdFromOmnetId(getId()), DL);
+
+
+        /*oldAmc->detachUser(nodeId_, DL);
+        newAmc->attachUser(nodeId_, UL);
+        newAmc->attachUser(nodeId_, DL);*/
+
+        // binder calls
+
+	/*std::cout<<"unbinding omnet: " << getId() << " - "<< nodeId_ << " =? " << (binder_->getMacNodeIdFromOmnetId(getParentModule()->getParentModule()->getId())) << endl;
+	std::cout<<"unbinding omnet2: " << getId() << " - "<< nodeId_ << " =? " << mac_->getMacNodeId() << " =? "<< getAncestorPar("macNodeId").longValue() << endl;
+       	
+	binder_->printDebug();*/
+
+        // Delete Old Buffers
+        deleteOldBuffers(masterId_);
+
+	//try{
+	oldAmc->detachUser(nodeId_, UL);
         oldAmc->detachUser(nodeId_, DL);
+        binder_->unregisterNextHop(masterId_, nodeId_);
+	//binder_->unregisterNode(nodeId_);
+
+	/*}
+	catch(...){
+		std::cout<<"exception while detaching user:" << nodeId_ << " with omnet id " << binder_->getOmnetId(nodeId_) << " from master " << masterId_ <<endl;
+	}*/
+
+	//update the cell id value in the mac layer for it to send to the right master
+	//std::cout<<"updateCellId"<<endl;
+	mac_->clearHarqBuffers();
+	//binder_->printDebug();
+
+	/*nodeId_ = mac_->getMacNodeId();
+	oldAmc->detachUser(nodeId_, UL);
+        oldAmc->detachUser(nodeId_, DL);*/
+
+	//cModule *ue = getParentModule()->getParentModule();
+	//binder_->registerNode(ue, UE, candidateMasterId_);
+	
+	//std::cout<<"registerNode"<<endl;
+
+	//binder_->printDebug();
+
+	
+
+        binder_->registerNextHop(candidateMasterId_, nodeId_);
+        das_->setMasterRuSet(candidateMasterId_);
+
+	//newAmc->refresh();
         newAmc->attachUser(nodeId_, UL);
         newAmc->attachUser(nodeId_, DL);
 
-        // binder calls
-        binder_->unregisterNextHop(masterId_, nodeId_);
-        binder_->registerNextHop(candidateMasterId_, nodeId_);
-        das_->setMasterRuSet(candidateMasterId_);
+
+        OmnetId masterOmnetId = binder_->getOmnetId(masterId_);
+	LteMacEnb *masterMac = check_and_cast<LteMacEnb *>(simulation.getModule(masterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));
+	//masterMac->notifyNewCid(cid);
+	masterMac->removeRacEntry(nodeId_);
+
 
         masterId_ = candidateMasterId_;
         currentMasterRssi_ = candidateMasterRssi_;
         hysteresisTh_ = updateHysteresisTh(currentMasterRssi_);
 
+
+
+
+
+
+
         // TODO: transfer buffers, delete MAC buffer
         // TODO: add delay to simulate handover
-        // TODO: ensure everywhere masterId is updated for UEs!!! (pdcp done)
-	
 
 	//unregister UE from old master
-	binder_->unregisterNode(nodeId_);
-		//already implicitly done above by binder
-        //binder_->registerNode(candidateMasterId_, nodeId_);
+
+	//get connection id
+	//MacCid cid = idToMacCid(getId(), 0);
+
+	
+
+	
 
 	//set ancestor masterid in HeterogeneousCar!
 	
 	getParentModule()->getParentModule()->par("masterId").setLongValue((long)masterId_);
+	getParentModule()->getParentModule()->par("macCellId").setLongValue((long)masterId_);
 
+	mac_->updateCellId();
+
+	//std::cout<<"handover done on ue side" << endl;
 	//ancPar=masterId_;
 	//log dwelltime
+
 	if(logDwellTimes_) {dwellTimeVector.record(masterId_);}
 }
 
@@ -178,18 +255,21 @@ void LtePhyUe::handleAirFrame(cMessage* msg)
     if (lteInfo->getFrameType() == HANDOVERPKT)
     {
         handoverHandler(frame, lteInfo);
+	//delete lteInfo;
+	//delete frame;//done in handoverhandler!!
+	//delete msg;
         return;
     }
 
     // Check if the frame is for us ( MacNodeId matches )
-    if (lteInfo->getDestId() != nodeId_)
+    /*if (lteInfo->getDestId() != nodeId_)
     {
         EV << "ERROR: Frame is not for us. Delete it." << endl;
         EV << "Packet Type: " << phyFrameTypeToA((LtePhyFrameType)lteInfo->getFrameType()) << endl;
         EV << "Frame MacNodeId: " << lteInfo->getDestId() << endl;
         EV << "Local MacNodeId: " << nodeId_ << endl;
         endSimulation();
-    }
+    }*/
 
         /*
          * This could happen if the ue associates with a new master while the old one
@@ -331,6 +411,11 @@ double LtePhyUe::updateHysteresisTh(double v)
         return v / hysteresisFactor_;
 }
 
+double LtePhyUe::getSINR()
+{
+	return currentMasterRssi_;
+}
+
 void LtePhyUe::handoverHandler(LteAirFrame* frame, UserControlInfo* lteInfo)
 {
     lteInfo->setDestId(nodeId_);
@@ -345,7 +430,6 @@ void LtePhyUe::handoverHandler(LteAirFrame* frame, UserControlInfo* lteInfo)
         }
 
         delete frame;
-        delete lteInfo;
         return;
     }
 
@@ -409,8 +493,8 @@ void LtePhyUe::handoverHandler(LteAirFrame* frame, UserControlInfo* lteInfo)
         }
     }
 
+    //std::cout << "rssi: " << rssi <<"," <<currentMasterRssi_ <<endl;
     delete frame;
-
     return;
 }
 

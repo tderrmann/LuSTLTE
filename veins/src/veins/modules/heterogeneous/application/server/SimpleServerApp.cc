@@ -56,8 +56,14 @@ void SimpleServerApp::handleMessageWhenUp(cMessage *msg){
 		HeterogeneousMessage *reply = new HeterogeneousMessage("Server Reply");
 		IPv4Address address = manager->getIPAddressForID(sourceAddress);
 		reply->setSourceAddress("server");
+<<<<<<< Updated upstream
 		EV << "[SimpleServerApp, " << simTime() << "] Sending Message back to " << address << std::endl;
 		socket.sendTo(reply, address, 4242);
+=======
+		IPv4Address target = IPvXAddressResolver().resolve(sourceAddress.c_str()).get4();
+		std::cout << "[SimpleServerApp, " << simTime() << "] Sending Message back to " << target << std::endl;
+		socket.sendTo(reply, target, 4242);
+>>>>>>> Stashed changes
 	}
 	delete msg;
 }

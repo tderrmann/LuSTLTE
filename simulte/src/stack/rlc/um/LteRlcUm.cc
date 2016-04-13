@@ -98,7 +98,8 @@ void LteRlcUm::handleUpperMessage(cPacket *pkt)
     FlowControlInfo* lteInfo = check_and_cast<FlowControlInfo*>(pkt->removeControlInfo());
 //    UmTxQueue* txbuf = getTxBuffer(lteInfo->getDestId(),lteInfo->getLcid());
     UmTxQueue* txbuf = getTxBuffer(ctrlInfoToUeId(lteInfo), lteInfo->getLcid());
-
+    lteInfo->setDestId(getAncestorPar("masterId"));
+    lteInfo->setSourceId(getAncestorPar("macNodeId"));
     // Create a new RLC packet
     LteRlcSdu* rlcPkt = new LteRlcSdu("rlcUmPkt");
     rlcPkt->setSnoMainPacket(lteInfo->getSequenceNumber());

@@ -122,6 +122,7 @@ void LteSchedulerEnb::initialize(Direction dir, LteMacEnb* mac)
 LteMacScheduleList* LteSchedulerEnb::schedule()
 {
     EV << "LteSchedulerEnb::schedule performed by Node: " << mac_->getMacNodeId() << endl;
+    //std::cout << "LteSchedulerEnb::schedule performed by Node: " << mac_->getMacNodeId() << endl;
 
     // clearing structures for new scheduling
     scheduleList_.clear();
@@ -132,16 +133,22 @@ LteMacScheduleList* LteSchedulerEnb::schedule()
     //reset AMC structures
     mac_->getAmc()->cleanAmcStructures(direction_,scheduler_->readActiveSet());
 
+
+    //std::cout << "start rtx" << endl;
     // scheduling of retransmission and transmission
     EV << "___________________________start RTX __________________________________" << endl;
     if(!(scheduler_->scheduleRetransmissions()))
     {
         EV << "____________________________ end RTX __________________________________" << endl;
         EV << "___________________________start SCHED ________________________________" << endl;
+	//std::cout << "updateSchedulingInfo" <<endl;
         scheduler_->updateSchedulingInfo();
+	//std::cout << "updated sched info";
         scheduler_->schedule();
         EV << "____________________________ end SCHED ________________________________" << endl;
     }
+
+    //std::cout << "end rtx" << endl;
 
     // record assigned resource blocks statistics
     resourceBlockStatistics();

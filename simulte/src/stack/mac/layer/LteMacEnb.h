@@ -168,6 +168,13 @@ class LteMacEnb : public LteMacBase
     LteMacEnb();
     virtual ~LteMacEnb();
 
+
+    //notify / backlog cid (handover)
+    void notifyNewCid(MacCid cid);
+
+    //remove RAC entry (handover)
+    void removeRacEntry(MacNodeId id);
+
     /// Returns the BSR virtual buffers
     LteMacBufferMap* getBsrVirtualBuffers()
     {

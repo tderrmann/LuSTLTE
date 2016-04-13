@@ -34,6 +34,9 @@ import inet.nodes.inet.StandardHost;
 import inet.nodes.ethernet.Eth10G;
 import inet.networklayer.ipv4.RoutingTableRecorder;
 
+import inet.linklayer.ethernet.EthernetInterface;
+import inet.nodes.ethernet.EtherSwitch;
+
 import lte.corenetwork.binder.*;
 import lte.corenetwork.nodes.*;
 
@@ -81,10 +84,10 @@ module Highway
             @display("p=34,152;is=s");
         }
         eNodeB1: eNodeB {
-            @display("p=200,200;is=vl");
+            @display("p=500,100;is=vl");
         }
 	eNodeB2: eNodeB {
-            @display("p=500,100;is=vl");
+            @display("p=200,200;is=vl");
         }
 	eNodeB3: eNodeB {
             @display("p=300,300;is=vl");
@@ -95,7 +98,25 @@ module Highway
         routingRecorder: RoutingTableRecorder {
             @display("p=34,274;is=s");
         }
+
+	router1: Router {
+	     @display("p=40,150");
+	}
+	router2: Router {
+	     @display("p=46,151");
+	}
+	router3: Router {
+	     @display("p=51,161");
+	}
+
     connections allowunconnected:
-        server.pppg++ <--> Eth10G <--> eNodeB1.ppp;
+        server.pppg++ <--> Eth10G <--> router1.pppg++;
+        router1.pppg++ <--> Eth10G <--> eNodeB1.ppp;
+        router1.pppg++ <--> Eth10G <--> eNodeB2.ppp;
+        router1.pppg++ <--> Eth10G <--> eNodeB3.ppp;
+	//eNodeB1.ppp <--> Eth10G <--> router1.pppg++;
+	//eNodeB2.ppp <--> Eth10G <--> router1.pppg++;
+	//eNodeB3.ppp <--> Eth10G <--> router1.pppg++;
+
 }
 

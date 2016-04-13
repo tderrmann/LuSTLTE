@@ -31,16 +31,18 @@ AmcPilot* LteAmc::getAmcPilot(cPar p)
 
 MacNodeId LteAmc::getNextHop(MacNodeId dst)
 {
+    //EV << "LteAmc::getNextHop towards dst : " << dst << endl;
     MacNodeId nh = binder_->getNextHop(dst);
 
     if (nh == nodeId_)
     {
-        // I'm the master for this slave (it is directly connected)
+        EV << "LteAmc::getNextHop - I'm the master for this slave (it is directly connected)" <<endl;
         return dst;
     }
 
-    EV << "LteAmc::getNextHop Node Id dst : " << dst << endl;
-
+    //EV << "LteAmc::getNextHop Node Id dst : " << dst << endl;
+    //EV << "LteAmc::getNextHop Node Id nh : " << nh << endl;
+    
     // The UE is connected to a relay
     // XXX assert(nodeType_==ENODEB);
     return nh;
@@ -306,6 +308,122 @@ void LteAmc::initialize()
     //printTxParams(DL);
     //printTxParams(UL);
 }
+void LteAmc::refresh()
+{
+    /** Get MacNodeId and MacCellId **/
+    nodeId_ = mac_->getMacNodeId();
+    cellId_ = mac_->getMacCellId();
+
+    /** Get deployed UEs maps from Binder **/
+    dlConnectedUe_ = binder_->getDeployedUes(nodeId_, DL);
+    ulConnectedUe_ = binder_->getDeployedUes(nodeId_, UL);
+
+    /** Get parameters from Deployer **/
+    numBands_ = deployer_->getNumBands();
+    mcsScaleDl_ = deployer_->getMcsScaleDl();
+    mcsScaleUl_ = deployer_->getMcsScaleUl();
+
+    /** Get AMC parameters from MAC module NED **/
+    fbhbCapacityDl_ = mac_->par("fbhbCapacityDl");
+    fbhbCapacityUl_ = mac_->par("fbhbCapacityUl");
+    pmiComputationWeight_ = mac_->par("pmiWeight");
+    cqiComputationWeight_ = mac_->par("cqiWeight");
+    kCqi_ = mac_->par("kCqi");
+    pilot_ = getAmcPilot(mac_->par("amcMode"));
+    allocationType_ = getRbAllocationType(mac_->par("rbAllocationType").stringValue());
+    lb_ = mac_->par("summaryLowerBound");
+    ub_ = mac_->par("summaryUpperBound");
+
+    printParameters();
+
+    /** Structures initialization **/
+
+    // Scale Mcs Tables
+    dlMcsTable_.rescale(mcsScaleDl_);
+    ulMcsTable_.rescale(mcsScaleUl_);
+
+    // Initialize DAS structures
+    for (int i = 0; i < numAntennas_; i++)
+    {
+        EV << "Adding Antenna: " << dasToA(Remote(i)) << endl;
+        remoteSet_.insert(Remote(i));
+    }
+
+        // Initializing feedback and scheduling structures
+
+        /**
+         * Preparing iterators.
+         * Note: at initialization ALL dlConnectedUe_ and ulConnectedUs_ elements are TRUE.
+         */
+    ConnectedUesMap::const_iterator it, et;
+    RemoteSet::const_iterator ait, aet;
+
+
+    dlRevNodeIndex_.clear();
+    ulRevNodeIndex_.clear();
+
+    /* DOWNLINK */
+
+    it = dlConnectedUe_.begin();
+    et = dlConnectedUe_.end();
+
+    EV << "DL CONNECTED: " << dlConnectedUe_.size() << endl;
+
+    for (; it != et; it++)  // For all UEs (DL)
+    {
+        MacNodeId nodeId = it->first;
+        dlNodeIndex_[nodeId] = dlRevNodeIndex_.size();
+        dlRevNodeIndex_.push_back(nodeId);
+
+        EV << "Creating UE, id: " << nodeId << ", index: " << dlNodeIndex_[nodeId] << endl;
+
+        ait = remoteSet_.begin();
+        aet = remoteSet_.end();
+
+        for (; ait != aet; ait++)
+        {
+            // initialize historical feedback base for this UE (index) for all tx modes and for all RUs
+            dlFeedbackHistory_[*ait].push_back(
+                std::vector<LteSummaryBuffer>(DL_NUM_TXMODE,
+                    LteSummaryBuffer(fbhbCapacityDl_, MAXCW, numBands_, lb_, ub_)));
+        }
+    }
+
+    // Initialize user transmission parameters structures
+    ///dlTxParams_.resize(dlConnectedUe_.size(), UserTxParams());
+
+    /* UPLINK */
+    EV << "UL CONNECTED: " << dlConnectedUe_.size() << endl;
+
+    it = ulConnectedUe_.begin();
+    et = ulConnectedUe_.end();
+
+    for (; it != et; it++)  // For all UEs (UL)
+    {
+        MacNodeId nodeId = it->first;
+        ulNodeIndex_[nodeId] = ulRevNodeIndex_.size();
+        ulRevNodeIndex_.push_back(nodeId);
+
+        ait = remoteSet_.begin();
+        aet = remoteSet_.end();
+
+        for (; ait != aet; ait++)
+        {
+            // initialize historical feedback base for this UE (index) for all tx modes and for all RUs
+            ulFeedbackHistory_[*ait].push_back(
+                std::vector<LteSummaryBuffer>(UL_NUM_TXMODE,
+                    LteSummaryBuffer(fbhbCapacityUl_, MAXCW, numBands_, lb_, ub_)));
+        }
+    }
+
+    // Initialize user transmission parameters structures
+    ///ulTxParams_.resize(ulConnectedUe_.size(), UserTxParams());
+
+    //printFbhb(DL);
+    //printFbhb(UL);
+    //printTxParams(DL);
+    //printTxParams(UL);
+}
 
 void LteAmc::rescaleMcs(double rePerRb, Direction dir)
 {
@@ -369,10 +487,41 @@ void LteAmc::pushFeedback(MacNodeId id, Direction dir, LteFeedback fb)
 
 LteSummaryFeedback LteAmc::getFeedback(MacNodeId id, Remote antenna, TxMode txMode, const Direction dir)
 {
+    this->refresh();
+    EV<<NOW<<"getFB: getting next hop for ue w/ mac node id: "<< id << endl;
     MacNodeId nh = getNextHop(id);
     if (id != nh)
         EV << NOW << " LteAmc::getFeedback detected " << nh << " as nexthop for " << id << "\n";
     id = nh;
+
+    EV<<NOW<<"getFB: next hop is "<< id << endl;
+
+
+    //EV<<NOW<<"getFB: antenna is  "<< dlFeedbackHistory_.at(antenna) << endl;
+    //EV<<NOW<<"getFB: next hop is << id << endl;
+	for(std::map<short unsigned int, unsigned int>::iterator it = dlNodeIndex_.begin(); it != dlNodeIndex_.end(); ++it){
+		if(it != dlNodeIndex_.end())
+		    EV<<NOW << " DL: " << it->first<<" =>"<< it->second << '\n';
+		else
+		    EV<<NOW << "not found";
+	}
+
+	for(std::map<short unsigned int, unsigned int>::iterator it = ulNodeIndex_.begin(); it != ulNodeIndex_.end(); ++it){
+		if(it != ulNodeIndex_.end())
+		    EV<<NOW << " UL: " << it->first<<" =>"<< it->second << '\n';
+		else
+		    EV<<NOW << "not found";
+	}
+
+    
+    EV<<NOW<<"getFB: dir is  "<< dir << endl;
+    EV<<NOW<<"getFB: id is  "<< id << endl;
+    EV<<NOW<<"getFB: size of dlNodeIndex_  is  "<< dlNodeIndex_.size() << endl;
+    EV<<NOW<<"getFB: size of ulNodeIndex_  is  "<< ulNodeIndex_.size() << endl;
+    EV<<NOW<<"getFB: index is  "<<  dlNodeIndex_.at(id) << endl;
+
+    EV<<NOW<<"getFB: dltxsize is "<< dlTxParams_.size() << endl;
+    EV<<NOW<<"getFB: fbhistsize is "<< dlFeedbackHistory_.at(antenna).size() << endl;
 
     if (dir == DL)
         return dlFeedbackHistory_.at(antenna).at(dlNodeIndex_.at(id)).at(txMode).get();
@@ -408,7 +557,53 @@ bool LteAmc::existTxParams(MacNodeId id, const Direction dir)
     if (id != nh)
         EV << NOW << " LteAmc::existTxparams detected " << nh << " as nexthop for " << id << "\n";
     id = nh;
+     /*EV << NOW << "Amc existTxParams -> dlsize=" << dlNodeIndex_.size() << "; id=" << id << endl;
+     EV << NOW << "Amc existTxParams -> ulsize=" << ulNodeIndex_.size() << "; id=" << id << endl;
+     EV << NOW << "Amc existTxParams -> dlparamsize=" << dlTxParams_.size() << "; id=" << id << endl;
+     EV << NOW << "Amc existTxParams -> ulparamsize=" << ulTxParams_.size() << "; id=" << id << endl;*/
 
+    /*this->initialize();
+    
+    if(dlNodeIndex_.size()>0){
+    for(unsigned i=0; i<dlNodeIndex_.size(); i++){
+     EV << NOW << i << endl;
+     EV << NOW << "Amc existTxParams -> dlNodeIndex_[" << i << "]:" << dlNodeIndex_.at(0) << "; id=" << id << endl;
+	}
+    }
+	else{
+     EV << NOW << "Amc existTxParams - size zero"<< endl;
+	}*/
+    if(dlNodeIndex_.find(id) == dlNodeIndex_.end()) {
+	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
+	EV << NOW << "existTxParams -> node with index " << id << " was not found! -> returning false"<<  endl;
+	this->refresh();
+	return false;
+	}
+
+    if(dlTxParams_.size() <= dlNodeIndex_.at(id)) {
+	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
+	EV << NOW << "existTxParams -> no Tx Params exist for id" << id << "-> reinitializing"<<  endl;
+	///this->initialize();
+	this->refresh();
+	     EV << NOW << "Amc existTxParams post reinit -> dlparamsize=" << dlTxParams_.size() << "; id=" << id << endl;
+	     EV << NOW << "Amc existTxParams post reinit-> ulparamsize=" << ulTxParams_.size() << "; id=" << id << endl;
+	return false;
+	}
+    
+    if(dlNodeIndex_.size() != dlTxParams_.size()) {
+        EV << NOW << "Amc existTxParams post reinit PROBLEMO " << dlTxParams_.size() << "!=" << dlNodeIndex_.size() << endl;
+	return false;
+	}
+    if(dlNodeIndex_.find(id) == dlNodeIndex_.end()) return false;
+    if(ulNodeIndex_.find(id) == ulNodeIndex_.end()) return false;
+
+    /*if(dlNodeIndex_.find(id) == dlNodeIndex_.end()) {
+	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
+	EV << NOW << "existTxParams -> node with index " << id << " was not found! -> returning false"<<  endl;
+	this->initialize();
+	//return false;
+	}*/
+   
     if (dir == DL)
         return dlTxParams_.at(dlNodeIndex_.at(id)).isSet();
     else if (dir == UL)
@@ -442,6 +637,40 @@ const UserTxParams& LteAmc::setTxParams(MacNodeId id, const Direction dir, UserT
     }
     EV << endl;
 
+    /*if((dlNodeIndex_.size()<id) ||  (ulNodeIndex_.size()<id)) {
+	EV << NOW << "Amc setTxParams -> dlNodeIndex_ is too shorterino" << endl;
+	//this->initialize();
+	//return new UserTxParams();
+	}
+	*/
+
+	
+    EV << NOW << "Amc setTxParams -> dlsize=" << dlNodeIndex_.size() << "; id=" << id << endl;
+    EV << NOW << "Amc setTxParams -> ulsize=" << ulNodeIndex_.size() << "; id=" << id << endl;
+
+    if(dlNodeIndex_.find(id) == dlNodeIndex_.end()) {
+	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
+	EV << NOW << "setTxParams -> node with index " << id << " was not found! -> reinitializing"<<  endl;
+	//this->refresh();
+	//return false;
+	}
+
+    if(dlNodeIndex_.find(id) == dlNodeIndex_.end()) {
+	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
+	EV << NOW << "setTxParams -> node with index " << id << " was still not found! -> WTF?"<<  endl;
+	//this->refresh();
+	//this->initialize();
+	}
+
+    if(dlNodeIndex_.size() != dlTxParams_.size()){
+	EV << NOW << "setTxParams -> Problemo: " << dlNodeIndex_.size() << "!="<< dlTxParams_.size()<< endl;
+		//this->refresh();
+//this->initialize();
+	EV << NOW << "setTxParams -> PostProblemo: " << dlNodeIndex_.size() << "!="<< dlTxParams_.size()<< endl;
+//int index = 2;
+
+    }
+
     if (dir == DL)
         return (dlTxParams_.at(dlNodeIndex_.at(id)) = info);
     else if (dir == UL)
@@ -467,7 +696,8 @@ const UserTxParams& LteAmc::computeTxParams(MacNodeId id, const Direction dir)
     if(id != nh)
     EV << NOW << " LteAmc::computeTxParams detected " << nh << " as nexthop for " << id << "\n";
     id = nh;
-
+    getBinder()->printDebug();
+    EV << NOW << " LteAmc::Entering Pilot\n";
     const UserTxParams &info = pilot_->computeTxParams(id,dir);
     EV << NOW << " LteAmc::computeTxParams --------------::[  END  ]::--------------\n";
 
@@ -1213,6 +1443,7 @@ void LteAmc::attachUser(MacNodeId nodeId, Direction dir)
     }
     else
     {
+
         throw cRuntimeError("LteAmc::attachUser(): Unrecognized direction");
     }
 

@@ -90,6 +90,10 @@ void LtePhyEnb::handleSelfMessage(cMessage *msg)
         LteAirFrame *f = createHandoverMessage();
         sendBroadcast(f);
         scheduleAt(NOW + bdcUpdateInterval_, msg);
+
+    }
+    else {
+	delete msg;
     }
 }
 
@@ -110,7 +114,8 @@ bool LtePhyEnb::handleControlPkt(UserControlInfo* lteinfo, LteAirFrame* frame)
     if (lteinfo->getFrameType() == HANDOVERPKT)
     {
         // handover broadcast frames must not be relayed or processed by eNB
-        delete frame;
+	delete lteinfo;        
+	delete frame;
         return true;
     }
     // send H-ARQ feedback up
@@ -146,7 +151,12 @@ void LtePhyEnb::handleAirFrame(cMessage* msg)
 
     int sourceId = getBinder()->getOmnetId(connectedNodeId_);	// HACK
     int senderId = getBinder()->getOmnetId(lteInfo->getDestId());
+    EV << "LtePhy: connectedNodeId_ = " << connectedNodeId_ << " , " << "sourceId = " << sourceId << "; senderId = " << senderId << endl;
+    //sourceId = connectedNodeId_;
     if(sourceId == 0 || senderId == 0){
+	    EV << "LtePhyEnb: Error: Sender or source is 0" << endl;
+	    //EV << "LtePhyEnb: 1027:" << getBinder()->getOmnetId(1027) << endl;
+	    //EV << "LtePhyEnb: 1025:" << getBinder()->getOmnetId(1025) << endl;
     	delete msg;
     	return;
     }

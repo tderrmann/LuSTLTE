@@ -1,18 +1,14 @@
 <launch>
-  <copy file="../common/LuSTScenario/gui-settings.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.net.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.poly.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.external.mobility.rou.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.internal.mobility.033.rou.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.internal.mobility.066.rou.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.internal.mobility.100.rou.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.busLines.rou.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.busStops.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.complete.mobility.sumo.cfg"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.complete.wThreads.sumo.cfg"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.indLoops.xml"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.vtypes.add.xml"/>
-  <copy file="../common/LuSTScenario/Highway.ned"/>
-  <copy file="../common/LuSTScenario/scenario.ned"/>
-  <copy file="../common/LuSTScenario/LuSTScenario.internal.mobility.sumo.cfg" type="config"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.net.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.poly.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.transit.mobility.rou.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.busLines.rou.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.busStops.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.transit.mobility.rou.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.indLoops.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.vtypes.add.xml"/>
+  <copy file="../common/LuSTScenario2/DUERoutes/LuSTScenario.local.mobility.28800.rou.xml"/>
+  <copy file="../common/LuSTScenario2/DUERoutes/LuSTScenario.local.mobility.57600.rou.xml"/>
+  <copy file="../common/LuSTScenario2/DUERoutes/LuSTScenario.local.mobility.86400.rou.xml"/>
+  <copy file="../common/LuSTScenario2/LuSTScenario.due.complete.mobility.sumocfg" type="config"/>
  </launch>

@@ -14,6 +14,7 @@
 const UserTxParams& AmcPilotAuto::computeTxParams(MacNodeId id, const Direction dir)
 {
     EV << NOW << " AmcPilot" << getName() << "::computeTxParams for UE " << id << ", direction " << dirToA(dir) << endl;
+    EV << amc_->existTxParams(id,dir);
 
     // Check if user transmission parameters have been already allocated
     if(amc_->existTxParams(id, dir))
@@ -31,7 +32,10 @@ const UserTxParams& AmcPilotAuto::computeTxParams(MacNodeId id, const Direction 
      *  Note: this pilot is not DAS aware, so only MACRO antenna
      *  is used.
      */
+    EV << NOW << "AutoPilot - Trying to get feedback from AMC\n";
     LteSummaryFeedback sfb = amc_->getFeedback(id, MACRO, txMode, dir);
+
+    EV << NOW << "AutoPilot got feedback" << endl;
 
     if (TxMode(txMode)==MULTI_USER) // Initialize MuMiMoMatrix
     amc_->muMimoMatrixInit(dir,id);
@@ -44,8 +48,11 @@ const UserTxParams& AmcPilotAuto::computeTxParams(MacNodeId id, const Direction 
     // check if usable bands are defined for this user
     UsableBands usableB;
     UsableBandsList::iterator it = usableBandsList_.find(id);
-    if( it != usableBandsList_.end())
+    if( it != usableBandsList_.end()){
         usableB = it->second;
+        EV << "AmcPilotAuto:: Usable bands defined for this user w/ id : " << id << endl;
+	}
+    else EV << "AmcPilotAuto:: No usable bands defined for this user w/ id : " << id << endl;
 
     Band chosenBand = 0;
     double chosenCqi = 0;

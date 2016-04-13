@@ -137,6 +137,12 @@ class LtePhyUe : public LtePhyBase
         return 0.1 / fd;
     }
 
+    double getSINR();
+
+    double getRSSI()
+    {
+	return currentMasterRssi_;
+    }
     void handover();
 
     void deleteOldBuffers(MacNodeId masterId);

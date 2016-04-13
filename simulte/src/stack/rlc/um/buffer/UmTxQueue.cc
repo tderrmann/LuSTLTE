@@ -42,7 +42,7 @@ void UmTxQueue::fragment(cPacket* pkt)
     fragment->setByteLength(fragmentSize_);
 
     EV << "UmTxBuffer : " << totalFragments << " fragments created\n";
-
+    //lteInfo->setDest(getAncestorPar("masterId"));
     // Send all fragments except the last one
     for (fragmentSeqNum = 0; fragmentSeqNum < totalFragments - 1; fragmentSeqNum++)
     {

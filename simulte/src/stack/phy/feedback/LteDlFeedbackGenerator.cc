@@ -11,7 +11,7 @@
 
 #include "LteDlFeedbackGenerator.h"
 #include "LtePhyUe.h"
-
+#include "LteMacUe.h"
 Define_Module(LteDlFeedbackGenerator);
 
 /*****************************
@@ -116,7 +116,10 @@ void LteDlFeedbackGenerator::initialize(int stage)
             par("feedbackGeneratorType").stringValue());
 
         masterId_ = getAncestorPar("masterId");
-        nodeId_ = getAncestorPar("macNodeId");
+        //nodeId_ = getAncestorPar("macNodeId");
+        //TTimerMsg *tmsg = check_and_cast<TTimerMsg*>(msg);
+	LteMacUe* mac_ = check_and_cast<LteMacUe*> (getParentModule()->getSubmodule("mac"));
+	nodeId_ = mac_->getMacNodeId();
 
         /** Initialize timers **/
 

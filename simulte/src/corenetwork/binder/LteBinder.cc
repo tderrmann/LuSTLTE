@@ -779,9 +779,19 @@ MacNodeId LteBinder::getMacNodeIdFromOmnetId(OmnetId id){
 	return NULL;
 }
 
+void LteBinder::printDebug(){
+	std::cout << "BINDERINO------------------" << endl;
+	std::map<int, OmnetId>::iterator it;
+	for (it = nodeIds_.begin(); it != nodeIds_.end(); ++it ){
+	    std::cout << it->first << "=>"  << it->second << "; nextHop =" << getNextHop(it->first) << endl;
+	}
+	std::cout << "ENDERINO------------------" << endl;
+}
+
 MacNodeId LteBinder::getNextHop(MacNodeId slaveId)
 {
     Enter_Method("getNextHop");
+	//std::cout<<"slaveid: " << slaveId << "; nextHop_.size(): " << nextHop_.size() << endl;
     if (slaveId >= nextHop_.size())
         throw cRuntimeError("LteBinder::getNextHop(): bad slave id %d", slaveId);
     return nextHop_[slaveId];

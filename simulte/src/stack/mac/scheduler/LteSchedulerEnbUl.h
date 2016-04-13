@@ -47,6 +47,9 @@ class LteSchedulerEnbUl : public LteSchedulerEnb
 
   public:
 
+
+    void removeRacEntry(MacNodeId id);
+    
     //! Updates HARQ descriptor current process pointer (to be called every TTI by main loop).
     void updateHarqDescs();
 

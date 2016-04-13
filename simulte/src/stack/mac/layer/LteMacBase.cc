@@ -250,8 +250,10 @@ void LteMacBase::initialize(int stage)
         queueSize_ = par("queueSize");
         maxBytesPerTti_ = par("maxBytesPerTti");
 
-        nodeId_ = getAncestorPar("macNodeId");
-        cellId_ = getAncestorPar("macCellId");
+	//std::string nodeIdstr = getAncestorPar("macNodeId").stringValue();
+	//nodeId_ = (unsigned short) strtoul(nodeIdstr, NULL, 0);
+        nodeId_ = getAncestorPar("macNodeId").longValue();
+        cellId_ = getAncestorPar("macCellId").longValue();
 
         /* Get reference to binder */
         binder_ = getBinder();

@@ -167,9 +167,26 @@ class LteMacBase : public cSimpleModule
     {
         return nodeId_;
     }
+
     MacCellId getMacCellId()
     {
         return cellId_;
+    }
+
+    void updateCellId()
+    {
+	/*std::cout << "-----------------------" <<endl;
+	std::cout << "before: macCellId = " << cellId_;
+	std::cout << "; macNodeId =" << nodeId_;*/
+	MacCellId oldcellid = cellId_;
+        //std::cout << "now : "<< getParentModule()->getParentModule()->par("masterId").longValue();
+        cellId_ = getParentModule()->getParentModule()->par("masterId").longValue();
+        //nodeId_ = getParentModule()->getParentModule()->par("macNodeId").longValue();
+        getParentModule()->getParentModule()->par("macCellId").setLongValue(cellId_);
+
+/*	std::cout << "after: macCellId = " << cellId_ <<"; macNodeId = " << nodeId_ << endl;
+	std::cout << "-----------------------" <<endl;*/
+	std::cout << "_H_," << NOW << "," << nodeId_ << "," << oldcellid << "," << cellId_ << "\n";
     }
 
     // Returns the virtual buffers

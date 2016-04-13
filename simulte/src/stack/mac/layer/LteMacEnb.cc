@@ -56,6 +56,21 @@ LteMacEnb::~LteMacEnb()
     bsrbuf_.clear();
 }
 
+void LteMacEnb::notifyNewCid(MacCid cid)
+{
+        enbSchedulerUl_->backlog(cid);
+        //enbSchedulerDl_->notifyActiveConnection(cid);
+}
+
+void LteMacEnb::removeRacEntry(MacNodeId id)
+{
+        enbSchedulerUl_->removeRacEntry(id);
+        //enbSchedulerDl_->notifyActiveConnection(cid);
+}
+
+
+
+
 /***********************
  * PROTECTED FUNCTIONS
  ***********************/
@@ -203,7 +218,7 @@ void LteMacEnb::deleteQueues(MacNodeId nodeId)
     }
 
 
-	
+	/*
     //thierry
 	HarqTxBuffers::iterator hit;
 	for (hit = harqTxBuffers_.begin(); hit != harqTxBuffers_.end();)
@@ -228,10 +243,10 @@ void LteMacEnb::deleteQueues(MacNodeId nodeId)
 			++hit2;
 		}
 	    }
-	/*update harq status in schedulers*/
+
 	//enbSchedulerDl_->updateHarqDescs();
 	enbSchedulerUl_->updateHarqDescs();
-
+	*/
 }
 
 void LteMacEnb::initialize(int stage)
@@ -404,13 +419,15 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
         uinfo->setFrameType(GRANTPKT);
 
         grant->setControlInfo(uinfo);
-
+	//std::cout << "LteMacEnb : get/ set usertxparams" << endl;
+	
         // get and set the user's UserTxParams
         const UserTxParams& ui = getAmc()->computeTxParams(nodeId, UL);
         UserTxParams* txPara = new UserTxParams(ui);
         // FIXME: possible memory leak
         grant->setUserTxParams(txPara);
 
+	//std::cout << "LteMacEnb : remote set etc." << endl;
         // acquiring remote antennas set from user info
         const std::set<Remote>& antennas = ui.readAntennaSet();
         std::set<Remote>::const_iterator antenna_it = antennas.begin(),
@@ -672,6 +689,7 @@ void LteMacEnb::handleSelfMessage()
 
     /* Reception */
 
+
     // extract pdus from all harqrxbuffers and pass them to unmaker
     HarqRxBuffers::iterator hit = harqRxBuffers_.begin();
     HarqRxBuffers::iterator het = harqRxBuffers_.end();
@@ -689,22 +707,30 @@ void LteMacEnb::handleSelfMessage()
         }
     }
 
+
     /*UPLINK*/
+
     EV << "============================================== UPLINK ==============================================" << endl;
     //TODO enable sleep mode also for UPLINK???
     (enbSchedulerUl_->resourceBlocks()) = getNumRbUl();
 
     enbSchedulerUl_->updateHarqDescs();
 
+
     LteMacScheduleList* scheduleListUl = enbSchedulerUl_->schedule();
+    
     // send uplink grants to PHY layer
+
     sendGrants(scheduleListUl);
+
     EV << "============================================ END UPLINK ============================================" << endl;
 
     EV << "============================================ DOWNLINK ==============================================" << endl;
     /*DOWNLINK*/
+
     // Set current available OFDM space
     (enbSchedulerDl_->resourceBlocks()) = getNumRbDl();
+
 
     // use this flag to enable/disable scheduling...don't look at me, this is very useful!!!
     bool activation = true;

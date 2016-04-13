@@ -105,6 +105,7 @@ class LteMacUe : public LteMacBase
 
   public:
     LteMacUe();
+    void clearHarqBuffers();
     virtual ~LteMacUe();
 
     /*

@@ -96,6 +96,7 @@ void LtePhyBase::handleMessage(cMessage* msg)
         EV << "Unknown message received." << endl;
         delete msg;
     }
+
 }
 
 void LtePhyBase::handleControlMsg(LteAirFrame *frame,
@@ -163,6 +164,7 @@ void LtePhyBase::handleUpperMessage(cMessage* msg)
     EV << "LtePhy: " << nodeTypeToA(nodeType_) << " with id " << nodeId_
        << " sending message to the air channel. Dest=" << lteInfo->getDestId() << endl;
     sendUnicast(frame);
+
 }
 
 void LtePhyBase::initializeChannelModel(cXMLElement* xmlConfig)
@@ -243,51 +245,24 @@ void LtePhyBase::sendBroadcast(LteAirFrame *airFrame)
     ChannelControl::RadioRefVector::const_iterator i = gateList.begin();
     UserControlInfo *ci = check_and_cast<UserControlInfo *>(
             airFrame->getControlInfo());
-
-//    if (i != gateList.end()) {
-    if (true) {
-        EV << "Sending broadcast message to " << gateList.size() << " NICs"
-                << endl;
-	}
-// all gates
-/*
+    
+    
+	//LteAirFrame *af = createHandoverMessage();
+	
         for(; i != gateList.end(); ++i){
-            // gate ID of the NIC
-            int radioStart = (*i)->radioModule->gate("radioIn",0)->getId();
-	    //int radioStart = (*i)->radioInGate->getId();  //       
-            int radioEnd = radioStart + (*i)->radioModule->gateSize("radioIn");
-            // all gates' indexes (if it is a gate array)
-            for (int g = radioStart; g != radioEnd; ++g) {
-                LteAirFrame *af = airFrame->dup();
-                af->setControlInfo(ci->dup());
-                sendDirect(af, (*i)->radioInGate->getOwnerModule(), g);
-            }
+              //LteAirFrame *afd = af->dup();
+	      LteAirFrame *afd = airFrame->dup();
+              UserControlInfo *cid=ci->dup();
+              afd->setControlInfo(cid);
+              sendDirect(afd, (*i)->radioInGate);
+	      
         }
-
-//        // last receiving nic
-        int radioStart = (*i)->radioModule->gate("radioIn",0)->getId();
-        //int radioStart = (*i)->radioInGate->getId();
-        int radioEnd = radioStart + (*i)->radioModule->gateSize("radioIn");
-        // send until last - 1 gate, or doesn't enter if it is not a gate array
-        for (int g = radioStart; g != --radioEnd; ++g){
-            LteAirFrame *af = airFrame->dup();
-            af->setControlInfo(ci->dup());
-            sendDirect(af, (*i)->radioInGate->getOwnerModule(), g);
-        }
-//
-//        // send the original message to the last gate of the last NIC
-        sendDirect(airFrame, (*i)->radioInGate->getOwnerModule(), radioEnd);
-    } else {
-        EV << "NIC is not connected to any gates!" << endl;
-        delete airFrame;
-    }
-*/
-        for(; i != gateList.end(); ++i){
-              LteAirFrame *af = createHandoverMessage();//airFrame->dup();
-              //af->setControlInfo(ci->dup());
-              sendDirect(af, (*i)->radioInGate);
-        }
+	
+	//delete ci;
+	delete airFrame;
+	//delete ci;
     //error("sendBroadcast is not implemented!");
+	
 }
 
 LteAmc *LtePhyBase::getAmcModule(MacNodeId id)
@@ -322,6 +297,5 @@ void LtePhyBase::sendUnicast(LteAirFrame *frame)
     cModule *receiver = simulation.getModule(destOmnetId);
     // receiver's gate
     sendDirect(frame, 0, frame->getDuration(), receiver, "radioIn");
-
     return;
 }

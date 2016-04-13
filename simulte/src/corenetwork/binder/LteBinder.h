@@ -207,6 +207,8 @@ class LteBinder : public cSimpleModule
         return macNodeIdToIPAddress_[address];
     }
 
+    void printDebug();
+
     /**
      * Associates the given IP address with the given MacNodeId.
      *

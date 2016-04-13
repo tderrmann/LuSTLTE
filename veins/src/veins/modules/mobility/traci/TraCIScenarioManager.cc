@@ -22,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
-
+#include <sstream>
 
 #define MYDEBUG EV
 
@@ -34,6 +34,7 @@
 #include "veins/modules/mobility/traci/TraCIScenarioManagerInet.h"
 
 #include "LteMacEnb.h"
+#include "LteMacUe.h"
 #include "IMobility.h"
 
 using Veins::TraCIScenarioManager;
@@ -327,6 +328,7 @@ void TraCIScenarioManager::addModule(std::string nodeId, std::string type, std::
 	mod->getDisplayString().parse(displayString.c_str());
 	mod->buildInside();
 
+
 	// pre-initialize TraCIMobility
 	for (cModule::SubmoduleIterator iter(mod); !iter.end(); iter++) {
 		cModule* submod = iter();
@@ -336,8 +338,12 @@ void TraCIScenarioManager::addModule(std::string nodeId, std::string type, std::
 		mm->preInitialize(nodeId, position, road_id, speed, angle);
 	}
 
+
 	mod->callInitialize();
 	hosts[nodeId] = mod;
+
+	LteMacUe *mac_ = check_and_cast<LteMacUe *>(mod->getSubmodule("nic")->getSubmodule("mac"));
+	//mac_->updateCellId();
 
 	// post-initialize TraCIMobility
 	for (cModule::SubmoduleIterator iter(mod); !iter.end(); iter++) {
@@ -347,24 +353,41 @@ void TraCIScenarioManager::addModule(std::string nodeId, std::string type, std::
 		mm->changePosition();
 	}
 
-	MacNodeId macNodeId = binder->getMacNodeIdFromOmnetId(mod->getId());
+	MacNodeId macNodeId = mac_->getMacNodeId();//binder->getMacNodeIdFromOmnetId(mod->getId());
 	macNodeIds[mod->getId()] = macNodeId;
+	//mod->par("macNodeId").setLongValue(macNodeId);
+
 	idToAddress.clear();
 	for(std::map<std::string, cModule*>::iterator it = hosts.begin(); it != hosts.end(); it++){
 		IPv4Address address = IPvXAddressResolver().resolve(it->second->getFullName()).get4();
 		idToAddress[it->first] = address;
 		binder->setMacNodeId(address, binder->getMacNodeIdFromOmnetId(it->second->getId()));
 	}
+
+	//int macnodeint = macNodeId;
+
 	if(debug){
 		std::cout << "\t\t\t\tStoring id " << nodeId << ", " << mod->getFullName()
-			<< ", its address " << idToAddress[nodeId]
-			<< " and the MacNodeId " << macNodeId << std::endl;
+			<< ", its address " << idToAddress[nodeId] << ", mac_->nodeId_" << macNodeId 
+			 << " , ancestormacid" << mod->par("macNodeId").longValue() << std::endl;
 	}
+
+	int masterId = mod->par("masterId");
+	std::stringstream ss;
+        ss << masterId;
+        std::string masterIdStr = ss.str();
+        //std::string masterIdStr = std::to_string(masterId);
+        std::string masterStr = "eNodeB"+masterIdStr;
+
+
+
 	LteAmc *amc = check_and_cast<LteMacEnb *>(
-			getParentModule()->getSubmodule("eNodeB1")->getSubmodule("nic")->getSubmodule("mac")
+			getParentModule()->getSubmodule(masterStr.c_str())->getSubmodule("nic")->getSubmodule("mac")
 			)->getAmc();
-	amc->attachUser(binder->getMacNodeIdFromOmnetId(mod->getId()), UL);
-	amc->attachUser(binder->getMacNodeIdFromOmnetId(mod->getId()), DL);
+	//amc->attachUser(binder->getMacNodeIdFromOmnetId(mod->getId()), UL);
+	//amc->attachUser(binder->getMacNodeIdFromOmnetId(mod->getId()), DL);
+	amc->attachUser(macNodeId, UL);
+	amc->attachUser(macNodeId, DL);
 
 	mod->scheduleStart(simTime() + updateInterval);
 }
@@ -389,8 +412,16 @@ void TraCIScenarioManager::deleteManagedModule(std::string nodeId) {
 			<< " and MacNodeId " << macNodeIds[mod->getId()] << std::endl;
 	}
 
+	int masterId = mod->par("masterId");
+	//char *masterIdChar = itoa(masterId);
+	std::stringstream ss;
+	ss << masterId;
+	std::string masterIdStr = ss.str();
+	//std::string masterIdStr = std::to_string(masterId);
+	std::string masterStr = "eNodeB"+masterIdStr;
+	
 	cModule* macModule = getParentModule()->
-		getSubmodule("eNodeB1")->getSubmodule("nic")->getSubmodule("mac");
+		getSubmodule(masterStr.c_str())->getSubmodule("nic")->getSubmodule("mac");
 	LteMacEnb* mac = dynamic_cast<LteMacEnb*>(macModule);
 	if(!mac){
 		std::cout << "Not MAC" << std::endl;
@@ -689,7 +720,7 @@ void TraCIScenarioManager::processVehicleSubscription(std::string objectId, TraC
 			ASSERT(varType == TYPE_STRINGLIST);
 			uint32_t count; buf >> count;
 			MYDEBUG << "TraCI reports " << count << " active vehicles." << endl;
-			ASSERT(count == drivingVehicleCount);
+			//ASSERT(count == drivingVehicleCount);
 			std::set<std::string> drivingVehicles;
 			for (uint32_t i = 0; i < count; ++i) {
 				std::string idstring; buf >> idstring;

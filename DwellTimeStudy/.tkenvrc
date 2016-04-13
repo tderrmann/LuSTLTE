@@ -1,4 +1,2 @@
-# Partial OMNeT++/Tkenv config file -- see $HOME/.tkenvrc as well
-config default-configname	{handover}
-config default-runnumber	{0}
+# Partial Tkenv config file -- see $HOME/.tkenvrc as well
 
