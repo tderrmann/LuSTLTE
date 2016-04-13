@@ -44,11 +44,7 @@ module Highway
         double playgroundSizeY @unit(m); // y size of the area the nodes are in (in meters)
         double playgroundSizeZ @unit(m); // z size of the area the nodes are in (in meters)
         @display("bgb=14000,12000");
-<<<<<<< Updated upstream
-        int numUe = default(100);
-=======
         int numUe = default(100000);
->>>>>>> Stashed changes
 
     submodules:
         obstacles: ObstacleControl {
@@ -84,15 +80,10 @@ module Highway
         binder: LteBinder {
             @display("p=34,152;is=s");
         }
-<<<<<<< Updated upstream
-
         //TANGO LUXEMBOURG LTE
-
-=======
 
         //TANGO LUXEMBOURG LTE
 
->>>>>>> Stashed changes
         eNodeB1: eNodeB {
             @display("p=1517,4336;is=vl");
         }
@@ -214,7 +205,6 @@ module Highway
         routingRecorder: RoutingTableRecorder {
             @display("p=34,274;is=s");
         }
-
     connections allowunconnected:
         server.pppg++ <--> Eth10G <--> eNodeB1.ppp;
 	server.pppg++ <--> Eth10G <--> eNodeB2.ppp;

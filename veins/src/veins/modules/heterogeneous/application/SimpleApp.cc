@@ -43,8 +43,6 @@ void SimpleApp::initialize(int stage) {
 }
 
 void SimpleApp::handleMessage(cMessage *msg) {
-
-//return;
 /* hack for computing transformed coordinates of eNBs
 	//TODO thierry: update masterId to nic.phy.masterId_
 	//cModule *tmpMobility = getParentModule()->getSubmodule("veinsmobility");
@@ -62,12 +60,12 @@ void SimpleApp::handleMessage(cMessage *msg) {
 			cModule *tmpMobility = getParentModule()->getSubmodule("veinsmobility");
 			Veins::TraCIMobility* mobility = dynamic_cast<Veins::TraCIMobility *>(tmpMobility);
 			TraCIScenarioManager* mgr = mobility->getManager();
-
+			
 			std::ifstream theFile("/home/thierry/eggs.csv");
 
 
 			std::ofstream outFile("/home/thierry/eggsomnet.csv");
-
+	
 			std::string x, y, site_name, system, commune, carrier, lat, lon, sumo_x, sumo_y, line;
 			double coord_sumo_x;
 			double coord_sumo_y;
@@ -110,12 +108,13 @@ void SimpleApp::handleMessage(cMessage *msg) {
 
 			theFile.close();
 			outFile.close();
-
+			
 
 		}
-	*/
+	*/	
 	if (msg->isSelfMessage()) {
 		
+		//TODO Activate this block only for dwelltimestudy
 		cModule *tmpMobility = getParentModule()->getSubmodule("veinsmobility");
 		Veins::TraCIMobility* mobility = dynamic_cast<Veins::TraCIMobility*>(tmpMobility);
 		Coord position =  mobility->getCurrentPosition();
@@ -145,32 +144,23 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		std::map<std::string, cModule*> hosts = manager->getManagedHosts();
 		std::map<std::string, cModule*>::iterator it = hosts.begin();
 		std::advance(it, intrand(hosts.size()));
-<<<<<<< Updated upstream
-		std::string destination("node[" + it->first + "]");
-		EV << "[" << sumoId << ", " << simTime() <<  "] Sending message to " << destination << std::endl;
-=======
 		std::string destination("" + it->second->getFullPath() + "");
 		//std::string destination("node[" + it->first + "]");
 		std::cout << "[" << sumoId << ", " << simTime() <<  "] Sending message to " << destination << std::endl;
->>>>>>> Stashed changes
 		testMessage->setDestinationAddress(destination.c_str());
 
 		/* Finish the message and send it */
 		testMessage->setSourceAddress((getParentModule()->getFullPath()).c_str());//sumoId.c_str());
 		send(testMessage, toDecisionMaker);
-
+		
 		/*
 		 * At 25% of the time send also a message to the main server. This message is sent via LTE
 		 * and is then simply handed to the decision maker.
 		 */
 		if(dblrand() < 1){
-<<<<<<< Updated upstream
-			EV << "[" << sumoId << ", " << simTime() <<  "] Sending message also to server" << std::endl;
-=======
 			cModule *tmpPhy = getParentModule()->getSubmodule("nic")->getSubmodule("phy");
 			LtePhyUe* phy = dynamic_cast<LtePhyUe *>(tmpPhy);
 			std::cout << "[" << sumoId << ", " << simTime() <<  "] Sending message to server through " << (int)(phy->getMasterId()) << std::endl;
->>>>>>> Stashed changes
 			HeterogeneousMessage* serverMessage = new HeterogeneousMessage();
 			serverMessage->setName("Server Message Test");
 			testMessage->setByteLength(10);
@@ -188,7 +178,7 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		scheduleAt(simTime() + 1, new cMessage("Send"));
 	} else {
 		HeterogeneousMessage *testMessage = dynamic_cast<HeterogeneousMessage *>(msg);
-		EV << "[" << getParentModule()->getFullPath() << ", " << simTime() << "] Received message " << msg->getFullPath() << "< from " << testMessage->getSourceAddress() << std::endl;
+		std::cout << "[" << getParentModule()->getFullPath() << ", " << simTime() << "] Received message " << msg->getFullPath() << "< from " << testMessage->getSourceAddress() << std::endl;
 	}
 	delete msg;
 }

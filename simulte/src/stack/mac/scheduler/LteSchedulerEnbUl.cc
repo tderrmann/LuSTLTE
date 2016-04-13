@@ -85,7 +85,7 @@ bool LteSchedulerEnbUl::racschedule()
     EV << NOW << " LteSchedulerEnbUl::racschedule --------------------::[ START RAC-SCHEDULE ]::--------------------" << endl;
     EV << NOW << " LteSchedulerEnbUl::racschedule eNodeB: " << mac_->getMacCellId() << endl;
     EV << NOW << " LteSchedulerEnbUl::racschedule Direction: " << (direction_ == UL ? "UL" : "DL") << endl;
-    //std::cout << "racSchedule " << mac_->getMacCellId() << endl;
+
     RacStatus::iterator it=racStatus_.begin() , et=racStatus_.end();
 
     for (;it!=et;++it)
@@ -98,7 +98,6 @@ bool LteSchedulerEnbUl::racschedule()
 	}
 
         EV << NOW << " LteSchedulerEnbUl::racschedule handling RAC for node " << nodeId << endl;
-        //std::cout << " LteSchedulerEnbUl::racschedule handling RAC for node " << nodeId << endl;
 
         // Get number of logical bands
         unsigned int numBands = mac_->getDeployer()->getNumBands();
@@ -115,18 +114,15 @@ bool LteSchedulerEnbUl::racschedule()
         {
             if ( allocator_->availableBlocks(nodeId,MACRO,b) >0)
             {
-		//std::cout << "trying to allocate blockerinos" << endl;
                 allocator_->addBlocks(MACRO,b,nodeId,1, mac_->getAmc()->computeBytesOnNRbs(nodeId,b,cw,blocks,UL) );
 
                 EV << NOW << "LteSchedulerEnbUl::racschedule UE: " << nodeId << "Handled RAC on band: " << b << endl;
-                //std::cout << "LteSchedulerEnbUl::racschedule UE: " << nodeId << "Handled RAC on band: " << b << endl;
 
                 allocation=true;
                 break;
             }
         }
 
-	//std::cout << "survived 1st for loop" << endl;
         if (allocation)
         {
             // create scList id for current node/codeword
@@ -149,14 +145,9 @@ bool LteSchedulerEnbUl::racschedule()
 bool
 LteSchedulerEnbUl::rtxschedule()
 {
-    //std::cout << "begin rtxsched" << endl;
-    //try to handle RAC requests first and abort rtx scheduling if no OFDMA space is left after
+    // try to handle RAC requests first and abort rtx scheduling if no OFDMA space is left after
     if (racschedule())
         return true;
-    //std::cout << "begin rtxsched part 2" << endl;
-        /*std::cout << " LteSchedulerEnbUl::rtxschedule --------------------::[ START RTX-SCHEDULE ]::--------------------" << endl;
-        std::cout << " LteSchedulerEnbUl::rtxschedule eNodeB: " << mac_->getMacCellId() << endl;
-        std::cout << " LteSchedulerEnbUl::rtxschedule Direction: " << (direction_ == UL ? "UL" : "DL") << endl;*/
 
     try
     {
@@ -166,25 +157,11 @@ LteSchedulerEnbUl::rtxschedule()
 
         HarqRxBuffers::iterator it= harqRxBuffers_->begin() , et=harqRxBuffers_->end();
 
-        for(; it != et;)
+        for(; it != et; ++it)
         {
             // get current nodeId
             MacNodeId nodeId = it->first;
-<<<<<<< Updated upstream
 
-            // the increment has to be done here in order to avoid iterator invalid after erase.
-            ++it;
-
-=======
-		
-	    if(getBinder()->getNextHop(nodeId)!=mac_->getMacCellId()){
-	    	EV << NOW << "LteSchedulerEnbUl:: detected handed-over UE entry iduring RTX" << endl;
-	        harqRxBuffers_->erase(nodeId);
-		continue; // was handed over;
-	    }
-
-	    //if(binder_->getNextHop(nodeId))
->>>>>>> Stashed changes
             if(nodeId == 0){	// HACK
                 harqRxBuffers_->erase(nodeId);
                 continue;
@@ -205,7 +182,7 @@ LteSchedulerEnbUl::rtxschedule()
 
             unsigned int codewords = txParams.getLayers().size();// get the number of available codewords
             unsigned int allocatedBytes =0;
-	    EV << NOW << "CodeWORD TIEM" << endl;
+
             // TODO handle the codewords join case (sizeof(cw0+cw1) < currentTbs && currentLayers ==1)
 
             for(Codeword cw = 0; (cw < MAX_CODEWORDS) && (codewords>0); ++cw)

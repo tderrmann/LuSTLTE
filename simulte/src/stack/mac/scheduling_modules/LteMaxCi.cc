@@ -55,11 +55,9 @@ void LteMaxCi::prepareSchedule()
         // Current connection.
         cid = *it1;
 
-<<<<<<< Updated upstream
         // the increment has to be done here in order to avoid iterator invalid after erase.
         ++it1;
-=======
->>>>>>> Stashed changes
+
 
         MacNodeId nodeId = MacCidToNodeId(cid);
         if(nodeId == 0){    // HACK
@@ -81,7 +79,6 @@ void LteMaxCi::prepareSchedule()
         	activeConnectionTempSet_.erase(cid);
         	continue;
         }
-
         // compute available blocks for the current user
         const UserTxParams& info = eNbScheduler_->mac_->getAmc()->computeTxParams(nodeId,direction_);
         const std::set<Band>& bands = info.readBands();
