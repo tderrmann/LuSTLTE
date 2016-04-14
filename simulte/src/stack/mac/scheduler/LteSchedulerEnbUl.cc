@@ -157,10 +157,17 @@ LteSchedulerEnbUl::rtxschedule()
 
         HarqRxBuffers::iterator it= harqRxBuffers_->begin() , et=harqRxBuffers_->end();
 
-        for(; it != et; ++it)
+        for(; it != et;)
         {
             // get current nodeId
             MacNodeId nodeId = it->first;
+
+	    ++it;
+	    if(getBinder()->getNextHop(nodeId)!=mac_->getMacCellId()){
+		EV << NOW << "LteSchedulerEnbUl:: detected handed-over UE entry iduring RTX" << endl;
+		harqRxBuffers_->erase(nodeId);
+		continue; // was handed over;
+	    }
 
             if(nodeId == 0){	// HACK
                 harqRxBuffers_->erase(nodeId);
