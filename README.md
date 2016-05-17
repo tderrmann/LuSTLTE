@@ -1,15 +1,3 @@
-#LuSTLTE
-
-LuSTLTE combines the LuST scenario and VeinsLTE, which in turn uses SimuLTE on OMNet++ and SUMO.
-LuSTLTE includes eNodeBs for a Luxembourg LTE provider along with a simple implementation of handovers.
-The purpose of this project is to enable simulations of heterogeneous vehicular networks in a realistic setting
-
-##TODOs:
-* Fix communication after a handover! Currently, grants enable 0 Bytes of transmission...
-* Include a scenario for VehiLux (covers all of Luxembourg for a half-day).
-
-We have tested this version with OMNeT++ v. 4.4.1 and SUMO 0.25.0. Please refer to the VeinsLTE instructions for installation (see below).
-
 ## Veins LTE
 
 Veins LTE adds LTE support to the vehicular network simulation framework [Veins](http://veins.car2x.org/).
