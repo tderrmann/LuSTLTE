@@ -134,8 +134,9 @@ void LteRlcUm::deleteQueues(MacNodeId nodeId)
         if (MacCidToNodeId(tit->first) == nodeId)
         {
             delete tit->second;                 // Delete Queue
-            tit = txBuffers_.erase(tit);        // Delete Elem
-
+            //tit = txBuffers_.erase(tit); //C++11 map.erase() syntax       // Delete Elem
+	    txBuffers_.erase(tit);
+	    tit++;
         } else {
             tit++;
         }
@@ -145,8 +146,10 @@ void LteRlcUm::deleteQueues(MacNodeId nodeId)
         if (MacCidToNodeId(rit->first) == nodeId)
         {
             delete rit->second;                 // Delete Queue
-            rit = rxBuffers_.erase(rit);        // Delete Elem
-        } else {
+            //rit = rxBuffers_.erase(rit); //C++11 syntax        // Delete Elem
+	    rxBuffers_.erase(rit);
+	    rit++;	 
+       } else {
             rit++;
         }
     }
