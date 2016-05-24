@@ -129,105 +129,47 @@ void LtePhyUe::handover(){
         // TODO verify the amc is the relay one and remove after tests
         assert(newAmc != NULL);
 
-
-/*	try{
-	}
-	catch(...){
-	std::cout << "error detaching" << nodeId_ << " from " << masterId_ << endl;
-	}*/
-
-//        oldAmc->detachUser(binder_->getMacNodeIdFromOmnetId(getId()), DL);
-
-
-        /*oldAmc->detachUser(nodeId_, DL);
-        newAmc->attachUser(nodeId_, UL);
-        newAmc->attachUser(nodeId_, DL);*/
-
-        // binder calls
-
-	/*std::cout<<"unbinding omnet: " << getId() << " - "<< nodeId_ << " =? " << (binder_->getMacNodeIdFromOmnetId(getParentModule()->getParentModule()->getId())) << endl;
-	std::cout<<"unbinding omnet2: " << getId() << " - "<< nodeId_ << " =? " << mac_->getMacNodeId() << " =? "<< getAncestorPar("macNodeId").longValue() << endl;
-       	
-	binder_->printDebug();*/
-
         // Delete Old Buffers
         deleteOldBuffers(masterId_);
-
-	//try{
+	
+	
+	//detach from old amc, update binder and clear buffers in mac
 	oldAmc->detachUser(nodeId_, UL);
         oldAmc->detachUser(nodeId_, DL);
         binder_->unregisterNextHop(masterId_, nodeId_);
-	//binder_->unregisterNode(nodeId_);
-
-	/*}
-	catch(...){
-		std::cout<<"exception while detaching user:" << nodeId_ << " with omnet id " << binder_->getOmnetId(nodeId_) << " from master " << masterId_ <<endl;
-	}*/
-
-	//update the cell id value in the mac layer for it to send to the right master
-	//std::cout<<"updateCellId"<<endl;
 	mac_->clearHarqBuffers();
-	//binder_->printDebug();
 
-	/*nodeId_ = mac_->getMacNodeId();
-	oldAmc->detachUser(nodeId_, UL);
-        oldAmc->detachUser(nodeId_, DL);*/
-
-	//cModule *ue = getParentModule()->getParentModule();
-	//binder_->registerNode(ue, UE, candidateMasterId_);
-	
-	//std::cout<<"registerNode"<<endl;
-
+	//print binder state;
 	//binder_->printDebug();
 
 	
-
+	//update binder for new master
         binder_->registerNextHop(candidateMasterId_, nodeId_);
-        das_->setMasterRuSet(candidateMasterId_);
+	
+	//set Master remote antenna set on das filter        
+	das_->setMasterRuSet(candidateMasterId_);
 
 	//newAmc->refresh();
+	//attach user to new amc
         newAmc->attachUser(nodeId_, UL);
         newAmc->attachUser(nodeId_, DL);
 
-
+	//remove racStatus_ map entry in previous enb's scheduler
         OmnetId masterOmnetId = binder_->getOmnetId(masterId_);
-	LteMacEnb *masterMac = check_and_cast<LteMacEnb *>(simulation.getModule(masterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));
-	//masterMac->notifyNewCid(cid);
+	LteMacEnb *masterMac = check_and_cast<LteMacEnb *>(simulation.getModule(masterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));	
 	masterMac->removeRacEntry(nodeId_);
 
-
+	//update local vars
         masterId_ = candidateMasterId_;
         currentMasterRssi_ = candidateMasterRssi_;
         hysteresisTh_ = updateHysteresisTh(currentMasterRssi_);
 
-
-
-
-
-
-
-        // TODO: transfer buffers, delete MAC buffer
-        // TODO: add delay to simulate handover
-
-	//unregister UE from old master
-
-	//get connection id
-	//MacCid cid = idToMacCid(getId(), 0);
-
-	
-
-	
-
-	//set ancestor masterid in HeterogeneousCar!
-	
+	//set ancestor masterid in HeterogeneousCar (VeinsLTE only)
 	getParentModule()->getParentModule()->par("masterId").setLongValue((long)masterId_);
 	getParentModule()->getParentModule()->par("macCellId").setLongValue((long)masterId_);
 
+	//update the cellId value in mac
 	mac_->updateCellId();
-
-	//std::cout<<"handover done on ue side" << endl;
-	//ancPar=masterId_;
-	//log dwelltime
 
 	if(logDwellTimes_) {dwellTimeVector.record(masterId_);}
 }

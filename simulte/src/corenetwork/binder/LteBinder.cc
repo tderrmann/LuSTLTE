@@ -780,12 +780,12 @@ MacNodeId LteBinder::getMacNodeIdFromOmnetId(OmnetId id){
 }
 
 void LteBinder::printDebug(){
-	std::cout << "BINDERINO------------------" << endl;
+	EV << "LteBinder Debug------------------" << endl;
 	std::map<int, OmnetId>::iterator it;
 	for (it = nodeIds_.begin(); it != nodeIds_.end(); ++it ){
-	    std::cout << it->first << "=>"  << it->second << "; nextHop =" << getNextHop(it->first) << endl;
+	    EV << it->first << "=>"  << it->second << "; nextHop =" << getNextHop(it->first) << endl;
 	}
-	std::cout << "ENDERINO------------------" << endl;
+	EV << "LteBinder- Debug End------------------" << endl;
 }
 
 MacNodeId LteBinder::getNextHop(MacNodeId slaveId)

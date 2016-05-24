@@ -124,9 +124,12 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		LtePhyUe* phy = dynamic_cast<LtePhyUe*>(getParentModule()->getSubmodule("nic")->getSubmodule("phy"));
 		//type, timestamp, macId, sumoId, x, y, speed, rssi, master
 		std::cout << "_P_," << NOW << "," << getAncestorPar("macNodeId").longValue() << "," << sumoId << "," << position.x << "," << position.y << "," << curSpeed << "," << phy->getRSSI() << "," << getAncestorPar("masterId").longValue()<< "\n";
+		
+		/*		
 		delete msg;//
 		scheduleAt(simTime() + 10, new cMessage("Send"));
 		return;//handovers only
+		*/
 
 		/*
 		 * Send a message to a random node in the network. Note that only the most necessary values

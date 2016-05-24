@@ -696,7 +696,7 @@ const UserTxParams& LteAmc::computeTxParams(MacNodeId id, const Direction dir)
     if(id != nh)
     EV << NOW << " LteAmc::computeTxParams detected " << nh << " as nexthop for " << id << "\n";
     id = nh;
-    getBinder()->printDebug();
+    //getBinder()->printDebug(); //just for EXTREME debugging cases!
     EV << NOW << " LteAmc::Entering Pilot\n";
     const UserTxParams &info = pilot_->computeTxParams(id,dir);
     EV << NOW << " LteAmc::computeTxParams --------------::[  END  ]::--------------\n";
