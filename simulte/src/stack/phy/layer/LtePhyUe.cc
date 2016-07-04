@@ -156,9 +156,16 @@ void LtePhyUe::handover(){
 
 	//remove racStatus_ map entry in previous enb's scheduler
         OmnetId masterOmnetId = binder_->getOmnetId(masterId_);
+        OmnetId newMasterOmnetId = binder_->getOmnetId(candidateMasterId_);
 	LteMacEnb *masterMac = check_and_cast<LteMacEnb *>(simulation.getModule(masterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));	
+	LteMacEnb *newMasterMac = check_and_cast<LteMacEnb *>(simulation.getModule(newMasterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));	
 	masterMac->removeRacEntry(nodeId_);
-
+	
+	LteDeployer *oldDeployer = masterMac->getDeployer();
+	LteDeployer *newDeployer = newMasterMac->getDeployer();
+	if(oldDeployer->getLambda()->size()>=2) oldDeployer->lambdaErase(nodeId_);
+	newDeployer->lambdaInsert(nodeId_);
+	
 	//update local vars
         masterId_ = candidateMasterId_;
         currentMasterRssi_ = candidateMasterRssi_;
@@ -171,6 +178,9 @@ void LtePhyUe::handover(){
 	//update the cellId value in mac
 	mac_->updateCellId();
 
+
+
+	//todo: access previous and new master eNB deployers; call lambdaErase and -Insert, respectively
 	if(logDwellTimes_) {dwellTimeVector.record(masterId_);}
 }
 

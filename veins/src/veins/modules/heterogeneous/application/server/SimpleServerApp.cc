@@ -46,7 +46,7 @@ void SimpleServerApp::handleMessageWhenUp(cMessage *msg){
 	if(heterogeneousMessage){
 		receivedMessages++;
 		std::string sourceAddress = heterogeneousMessage->getSourceAddress();
-		EV << "[SimpleServerApp, " << simTime() << "] Received Heterogeneous Message from " << sourceAddress << std::endl;
+		std::cout << "[SimpleServerApp, " << simTime() << "] Received Heterogeneous Message from " << sourceAddress << std::endl;
 
 		/*
 		 * Server replies with a simple message. Note that no additional parameters (like exact
@@ -57,7 +57,7 @@ void SimpleServerApp::handleMessageWhenUp(cMessage *msg){
 		IPv4Address address = manager->getIPAddressForID(sourceAddress);
 		reply->setSourceAddress("server");
 		IPv4Address target = IPvXAddressResolver().resolve(sourceAddress.c_str()).get4();
-		EV << "[SimpleServerApp, " << simTime() << "] Sending Message back to " << target << std::endl;
+		std::cout << "[SimpleServerApp, " << simTime() << "] Sending Message back to " << target << std::endl;
 		socket.sendTo(reply, target, 4242);
 	}
 	delete msg;

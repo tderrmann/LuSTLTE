@@ -1,2 +1,3 @@
 # Partial Tkenv config file -- see $HOME/.tkenvrc as well
+inspector "scenario" "scenario" "2" "607x337+55+-4:normal"
 

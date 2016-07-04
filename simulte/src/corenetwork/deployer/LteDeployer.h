@@ -352,6 +352,16 @@ class LteDeployer : public cSimpleModule
         nodeY_ = c.y;
     }
 
+    //handover support: add & remove Lambdas
+    void lambdaErase(MacNodeId id){
+    	lambdaMap_.erase(id);
+    }
+
+    void lambdaInsert(MacNodeId id){
+    	lambdaMap_.insert(std::pair<unsigned int,Lambda>(id,Lambda()));
+    }
+    
+
     void lambdaUpdate(MacNodeId id, unsigned int index)
     {
         lambdaMap_[id].lambdaMax = binder_->phyPisaData.getLambda(index, 0);

@@ -153,9 +153,12 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		testMessage->setDestinationAddress(destination.c_str());
 
 		/* Finish the message and send it */
+
+		
 		testMessage->setSourceAddress((getParentModule()->getFullPath()).c_str());//sumoId.c_str());
 		send(testMessage, toDecisionMaker);
 		
+
 		/*
 		 * At 25% of the time send also a message to the main server. This message is sent via LTE
 		 * and is then simply handed to the decision maker.
