@@ -900,3 +900,19 @@ ActiveSet LteSchedulerEnb::readActiveConnections()
     return scheduler_->readActiveSet();
 }
 
+
+void LteSchedulerEnb::removeActiveConnections(MacNodeId nodeId)
+{
+    ActiveSet active = scheduler_->readActiveSet();
+    ActiveSet::iterator it = active.begin();
+    ActiveSet::iterator et = active.end();
+    MacCid cid;
+    for (; it != et; ++it)
+    {
+        cid = *it;
+        if (MacCidToNodeId(cid) == nodeId)
+        {
+            scheduler_->removeActiveConnection(cid);
+        }
+    }
+}

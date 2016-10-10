@@ -250,6 +250,9 @@ class LteBinder : public cSimpleModule
     {
         return &enbList_;
     }
+
+
+    void updateUeInfoCellId(MacNodeId nodeId, MacCellId cellId);
 };
 
 #endif

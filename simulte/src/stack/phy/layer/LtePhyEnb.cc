@@ -147,12 +147,32 @@ void LtePhyEnb::handleAirFrame(cMessage* msg)
 
     EV << "LtePhy: received new LteAirFrame with ID " << frame->getId()
        << " from channel" << endl;
+    
+    if (lteInfo->getFrameType() == HANDOVERPKT)
+    	{
+        EV << "LtePhyEnb::handleAirFrame - received handover packet from another eNodeB. Ignore it." << endl;
+        delete lteInfo;
+        delete frame;
+        return;
+    	}
+
     connectedNodeId_ = lteInfo->getSourceId();
 
     int sourceId = getBinder()->getOmnetId(connectedNodeId_);	// HACK
     int senderId = getBinder()->getOmnetId(lteInfo->getDestId());
     EV << "LtePhy: connectedNodeId_ = " << connectedNodeId_ << " , " << "sourceId = " << sourceId << "; senderId = " << senderId << endl;
     //sourceId = connectedNodeId_;
+
+    if (getBinder()->getNextHop(lteInfo->getSourceId()) != nodeId_)
+    {
+        EV << "WARNING: frame from a UE that is leaving this cell (handover): deleted " << endl;
+        EV << "Source MacNodeId: " << lteInfo->getSourceId() << endl;
+        EV << "Master MacNodeId: " << nodeId_ << endl;
+        delete lteInfo;
+        delete frame;
+        return;
+    }
+
     if(sourceId == 0 || senderId == 0){
 	    EV << "LtePhyEnb: Error: Sender or source is 0" << endl;
 	    //EV << "LtePhyEnb: 1027:" << getBinder()->getOmnetId(1027) << endl;

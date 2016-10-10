@@ -12,6 +12,7 @@
 #include <assert.h>
 #include "LtePhyUe.h"
 #include "LteFeedbackPkt.h"
+#include "LteDlFeedbackGenerator.h"
 
 Define_Module(LtePhyUe);
 
@@ -137,7 +138,7 @@ void LtePhyUe::handover(){
 	oldAmc->detachUser(nodeId_, UL);
         oldAmc->detachUser(nodeId_, DL);
         binder_->unregisterNextHop(masterId_, nodeId_);
-	mac_->clearHarqBuffers();
+	//mac_->clearHarqBuffers();
 
 	//print binder state;
 	//binder_->printDebug();
@@ -159,30 +160,100 @@ void LtePhyUe::handover(){
         OmnetId newMasterOmnetId = binder_->getOmnetId(candidateMasterId_);
 	LteMacEnb *masterMac = check_and_cast<LteMacEnb *>(simulation.getModule(masterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));	
 	LteMacEnb *newMasterMac = check_and_cast<LteMacEnb *>(simulation.getModule(newMasterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));	
-	masterMac->removeRacEntry(nodeId_);
+	//masterMac->removeRacEntry(nodeId_);
+
+	//set ancestor masterid in HeterogeneousCar (VeinsLTE only)
+	getParentModule()->getParentModule()->par("masterId").setLongValue((long)candidateMasterId_);
+	getParentModule()->getParentModule()->par("macCellId").setLongValue((long)candidateMasterId_);
+
+
+	//update the cellId value in mac
+	mac_->updateCellId();
 	
 	LteDeployer *oldDeployer = masterMac->getDeployer();
 	LteDeployer *newDeployer = newMasterMac->getDeployer();
-	if(oldDeployer->getLambda()->size()>=2) oldDeployer->lambdaErase(nodeId_);
-	newDeployer->lambdaInsert(nodeId_);
-	
+	//if(oldDeployer->getLambda()->size()>=2) oldDeployer->lambdaErase(nodeId_);
+	oldDeployer->detachUser(nodeId_);
+	newDeployer->detachUser(nodeId_);
+	newDeployer->attachUser(nodeId_);
+	//oldDeployer->lambdaErase(nodeId_);
+	//newDeployer->lambdaInsert(nodeId_);
+	deployer_ = newDeployer;
+	//das_->setMasterRuSet(candidateMasterId_);
+
 	//update local vars
         masterId_ = candidateMasterId_;
         currentMasterRssi_ = candidateMasterRssi_;
         hysteresisTh_ = updateHysteresisTh(currentMasterRssi_);
 
-	//set ancestor masterid in HeterogeneousCar (VeinsLTE only)
-	getParentModule()->getParentModule()->par("masterId").setLongValue((long)masterId_);
-	getParentModule()->getParentModule()->par("macCellId").setLongValue((long)masterId_);
 
-	//update the cellId value in mac
-	mac_->updateCellId();
 
+
+
+	// update DL feedback generator
+    	LteDlFeedbackGenerator* fbGen = check_and_cast<LteDlFeedbackGenerator*>(getParentModule()->getSubmodule("dlFbGen"));
+	fbGen->handleHandover(masterId_);
 
 
 	//todo: access previous and new master eNB deployers; call lambdaErase and -Insert, respectively
 	if(logDwellTimes_) {dwellTimeVector.record(masterId_);}
 }
+
+
+/*
+void LtePhyUe::handover()
+{
+    // Delete Old Buffers
+    deleteOldBuffers(masterId_);
+
+    // amc calls
+    LteAmc *oldAmc = getAmcModule(masterId_);
+    LteAmc *newAmc = getAmcModule(candidateMasterId_);
+
+    // TODO verify the amc is the relay one and remove after tests
+    assert(newAmc != NULL);
+
+    oldAmc->detachUser(nodeId_, UL);
+    oldAmc->detachUser(nodeId_, DL);
+    newAmc->attachUser(nodeId_, UL);
+    newAmc->attachUser(nodeId_, DL);
+
+    // binder calls
+    binder_->unregisterNextHop(masterId_, nodeId_);
+    binder_->registerNextHop(candidateMasterId_, nodeId_);
+    binder_->updateUeInfoCellId(nodeId_,candidateMasterId_);
+    das_->setMasterRuSet(candidateMasterId_);
+
+    // change masterId and notify handover to the MAC layer
+    MacNodeId oldMaster = masterId_;
+    masterId_ = candidateMasterId_;
+    //mac_->doHandover(candidateMasterId_);  // do MAC operations for handover
+    //set ancestor masterid in HeterogeneousCar (VeinsLTE only)
+    getParentModule()->getParentModule()->par("masterId").setLongValue((long)masterId_);
+    getParentModule()->getParentModule()->par("macCellId").setLongValue((long)masterId_);
+    mac_->updateCellId();
+    currentMasterRssi_ = candidateMasterRssi_;
+    hysteresisTh_ = updateHysteresisTh(currentMasterRssi_);
+    
+
+    // update deployer
+    OmnetId masterOmnetId = binder_->getOmnetId(oldMaster);
+    OmnetId newMasterOmnetId = binder_->getOmnetId(candidateMasterId_);
+    LteMacEnb* newMacEnb =  check_and_cast<LteMacEnb*>(simulation.getModule(binder_->getOmnetId(candidateMasterId_))->getSubmodule("nic")->getSubmodule("mac"));
+    LteMacEnb *masterMac = check_and_cast<LteMacEnb *>(simulation.getModule(masterOmnetId)->getSubmodule("nic")->getSubmodule("mac"));	
+    LteDeployer* newDeployer = newMacEnb->getDeployer();
+    LteDeployer *oldDeployer = masterMac->getDeployer();
+    deployer_->detachUser(nodeId_);
+    newDeployer->attachUser(nodeId_);
+    oldDeployer->lambdaErase(nodeId_);
+    newDeployer->lambdaInsert(nodeId_);
+    deployer_ = newDeployer;
+
+    // update DL feedback generator
+    LteDlFeedbackGenerator* fbGen = check_and_cast<LteDlFeedbackGenerator*>(getParentModule()->getSubmodule("dlFbGen"));
+    fbGen->handleHandover(masterId_);
+    //mac_->updateCellId();
+}*/
 
 void LtePhyUe::handleSelfMessage(cMessage *msg) {
     if (msg->isName("handoverStarter")) {

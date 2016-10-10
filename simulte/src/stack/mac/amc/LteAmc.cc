@@ -1361,8 +1361,7 @@ void LteAmc::detachUser(MacNodeId nodeId, Direction dir)
     EV << "##################################" << endl;
     EV << "# LteAmc::detachUser. Id: " << nodeId << ", direction: " << dirToA(dir) << endl;
     EV << "##################################" << endl;
-    try
-    {
+
         ConnectedUesMap *connectedUe;
         std::vector<UserTxParams> *userInfoVec;
         History_ *history;
@@ -1399,11 +1398,12 @@ void LteAmc::detachUser(MacNodeId nodeId, Direction dir)
 
         // clear user transmission parameters for this UE
         (*userInfoVec).at(nodeIndex).restoreDefaultValues();
-    }
+    /*
+}
     catch(std::exception& e)
     {
         throw cRuntimeError("Exception in LteAmc::detachUser(): %s", e.what());
-    }
+    }*/
 }
 
 void LteAmc::attachUser(MacNodeId nodeId, Direction dir)
@@ -1455,8 +1455,9 @@ void LteAmc::attachUser(MacNodeId nodeId, Direction dir)
 
     // check if the UE is known (it has been here before)
     if( (*connectedUe).find(nodeId) != (*connectedUe).end() )
+    //if(false)
     {
-        EV << "LteAmc::attachUser. Id " << nodeId << " is known (he has been here before)." << endl;
+        std::cout << "LteAmc::attachUser. Id " << nodeId << " is known (he has been here before)." << endl;
 
         // user is known, get his index
         nodeIndex = (*nodeIndexMap).at(nodeId);
@@ -1472,7 +1473,7 @@ void LteAmc::attachUser(MacNodeId nodeId, Direction dir)
     }
     else
     {
-        EV << "LteAmc::attachUser. Id " << nodeId << " is not known (it is the first time we see him)." << endl;
+        std::cout << "LteAmc::attachUser. Id " << nodeId << " is not known (it is the first time we see him)." << endl;
 
         // new user: [] operator insert a new element in the map
         (*nodeIndexMap)[nodeId] = (*revIndexVec).size();

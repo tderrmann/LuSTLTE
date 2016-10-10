@@ -352,15 +352,8 @@ class LteDeployer : public cSimpleModule
         nodeY_ = c.y;
     }
 
-    //handover support: add & remove Lambdas
-    void lambdaErase(MacNodeId id){
-    	lambdaMap_.erase(id);
-    }
 
-    void lambdaInsert(MacNodeId id){
-    	lambdaMap_.insert(std::pair<unsigned int,Lambda>(id,Lambda()));
-    }
-    
+
 
     void lambdaUpdate(MacNodeId id, unsigned int index)
     {
@@ -451,9 +444,6 @@ class LteDeployer : public cSimpleModule
         return &microList_;
     }
     //---------------------------------------------------------------
-
-    void detachUser(MacNodeId nodeId);
-    void attachUser(MacNodeId nodeId);
 
     ~LteDeployer();
 };

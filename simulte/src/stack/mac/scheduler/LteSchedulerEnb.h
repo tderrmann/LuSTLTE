@@ -241,6 +241,8 @@ class LteSchedulerEnb
      */
     ActiveSet readActiveConnections();
 
+    void removeActiveConnections(MacNodeId nodeId);
+
   protected:
 
     /**

@@ -803,3 +803,19 @@ ConnectedUesMap LteBinder::getDeployedUes(MacNodeId localId, Direction dir)
     return dMap_[localId];
 }
 
+
+void LteBinder::updateUeInfoCellId(MacNodeId id, MacCellId newCellId)
+{
+    /*
+    std::vector<UeInfo*>::iterator it = ueList_.begin();
+    for (; it != ueList_.end(); ++it)
+    {
+        if ((*it)->id == id)
+        {
+            (*it)->cellId = newCellId;
+            return;
+        }
+    }
+    */
+}
+

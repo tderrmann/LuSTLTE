@@ -247,6 +247,10 @@ void LteMacEnb::deleteQueues(MacNodeId nodeId)
 	//enbSchedulerDl_->updateHarqDescs();
 	enbSchedulerUl_->updateHarqDescs();
 	*/
+     enbSchedulerDl_->removeActiveConnections(nodeId);
+     enbSchedulerUl_->removeActiveConnections(nodeId);
+     // remove pending RAC requests
+     enbSchedulerUl_->removePendingRac(nodeId);
 }
 
 void LteMacEnb::initialize(int stage)
@@ -760,14 +764,18 @@ void LteMacEnb::handleSelfMessage()
 
 void LteMacEnb::macHandleFeedbackPkt(cPacket *pkt)
 {
+
     LteFeedbackPkt* fb = check_and_cast<LteFeedbackPkt*>(pkt);
+
+    
     LteFeedbackDoubleVector fbMapDl = fb->getLteFeedbackDoubleVectorDl();
     LteFeedbackDoubleVector fbMapUl = fb->getLteFeedbackDoubleVectorUl();
     //get Source Node Id<
     MacNodeId id = fb->getSourceNodeId();
     LteFeedbackDoubleVector::iterator it;
     LteFeedbackVector::iterator jt;
-
+    try{
+    //if(id==1025) std::cout << "DL" << endl;
     for (it = fbMapDl.begin(); it != fbMapDl.end(); ++it)
     {
         unsigned int i = 0;
@@ -781,7 +789,14 @@ void LteMacEnb::macHandleFeedbackPkt(cPacket *pkt)
             }
             i++;
         }
+    	}
     }
+    catch(...){
+       std::cout << "LteMacEnb:: Exception in downlink direction, nodeid: "<< id <<std::endl;
+       amc_->attachUser(id,DL);
+    }
+    //if(id==1025) std::cout << "UL" << endl;
+try{
     for (it = fbMapUl.begin(); it != fbMapUl.end(); ++it)
     {
         for (jt = it->begin(); jt != it->end(); ++jt)
@@ -790,6 +805,16 @@ void LteMacEnb::macHandleFeedbackPkt(cPacket *pkt)
                 amc_->pushFeedback(id, UL, (*jt));
         }
     }
+}
+    catch(...){
+       std::cout << "LteMacEnb:: Exception in downlink direction, nodeid: "<< id <<std::endl;
+       amc_->attachUser(id,UL);
+    }
+    
+    
+    
+    //std::cout << "Exception on uplink feedback packet" << std::endl;
+    
     delete fb;
 }
 
