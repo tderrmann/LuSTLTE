@@ -310,6 +310,7 @@ void LteAmc::initialize()
 }
 void LteAmc::refresh()
 {
+    
     /** Get MacNodeId and MacCellId **/
     nodeId_ = mac_->getMacNodeId();
     cellId_ = mac_->getMacCellId();
@@ -487,7 +488,7 @@ void LteAmc::pushFeedback(MacNodeId id, Direction dir, LteFeedback fb)
 
 LteSummaryFeedback LteAmc::getFeedback(MacNodeId id, Remote antenna, TxMode txMode, const Direction dir)
 {
-    this->refresh();
+    //this->refresh();
     EV<<NOW<<"getFB: getting next hop for ue w/ mac node id: "<< id << endl;
     MacNodeId nh = getNextHop(id);
     if (id != nh)
@@ -576,7 +577,7 @@ bool LteAmc::existTxParams(MacNodeId id, const Direction dir)
     if(dlNodeIndex_.find(id) == dlNodeIndex_.end()) {
 	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
 	EV << NOW << "existTxParams -> node with index " << id << " was not found! -> returning false"<<  endl;
-	this->refresh();
+	//this->refresh();
 	return false;
 	}
 
@@ -584,9 +585,9 @@ bool LteAmc::existTxParams(MacNodeId id, const Direction dir)
 	//EV << NOW << "existTxParams -> dlNodeIndex_ is too shorterino" << endl;
 	EV << NOW << "existTxParams -> no Tx Params exist for id" << id << "-> reinitializing"<<  endl;
 	///this->initialize();
-	this->refresh();
-	     EV << NOW << "Amc existTxParams post reinit -> dlparamsize=" << dlTxParams_.size() << "; id=" << id << endl;
-	     EV << NOW << "Amc existTxParams post reinit-> ulparamsize=" << ulTxParams_.size() << "; id=" << id << endl;
+	//this->refresh();
+	//     EV << NOW << "Amc existTxParams post reinit -> dlparamsize=" << dlTxParams_.size() << "; id=" << id << endl;
+	//     EV << NOW << "Amc existTxParams post reinit-> ulparamsize=" << ulTxParams_.size() << "; id=" << id << endl;
 	return false;
 	}
     
