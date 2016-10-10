@@ -1078,9 +1078,10 @@ bool LteRealisticChannelModel::error(LteAirFrame *frame,
             continue;
 
             //Get the Bler
-            //if (cqi == 0 || cqi > 15)
-            //throw cRuntimeError("A packet has been transmitted with a cqi equal to 0 or greater than 15 cqi:%d txmode:%d dir:%d rb:%d cw:%d rtx:%d", cqi,lteInfo->getTxMode(),dir,jt->second,cw,nTx);
-            int snr = snrV[jt->first];//XXX because jt->first is a Band (=unsigned short)
+            if (cqi == 0 || cqi > 15)
+            	//throw cRuntimeError("A packet has been transmitted with a cqi equal to 0 or greater than 15 cqi:%d txmode:%d dir:%d rb:%d cw:%d rtx:%d", cqi,lteInfo->getTxMode(),dir,jt->second,cw,nTx);
+            	return false;
+	    int snr = snrV[jt->first];//XXX because jt->first is a Band (=unsigned short)
             if (snr < 0)
             return false;
             else if (snr > binder_->phyPisaData.maxSnr())
