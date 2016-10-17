@@ -138,7 +138,7 @@ void LtePhyUe::handover(){
 	oldAmc->detachUser(nodeId_, UL);
         oldAmc->detachUser(nodeId_, DL);
         binder_->unregisterNextHop(masterId_, nodeId_);
-	//mac_->clearHarqBuffers();
+	mac_->clearHarqBuffers();
 
 	//print binder state;
 	//binder_->printDebug();
@@ -177,7 +177,7 @@ void LtePhyUe::handover(){
 	newDeployer->detachUser(nodeId_);
 	newDeployer->attachUser(nodeId_);
 	//oldDeployer->lambdaErase(nodeId_);
-	//newDeployer->lambdaInsert(nodeId_);
+	newDeployer->lambdaInsert(nodeId_);
 	deployer_ = newDeployer;
 	//das_->setMasterRuSet(candidateMasterId_);
 

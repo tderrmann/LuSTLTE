@@ -311,6 +311,7 @@ void LteMacUe::handleSelfMessage()
     // no grant available - if user has backlogged data, it will trigger scheduling request
     // no harq counter is updated since no transmission is sent.
 
+
     if (schedulingGrant_==NULL)
     {
         EV << NOW << " LteMacUe::handleSelfMessage " << nodeId_ << " NO configured grant" << endl;
@@ -358,7 +359,7 @@ void LteMacUe::handleSelfMessage()
         }
         LteMacScheduleList* scheduleList =NULL;
         EV << "\t " << schedulingGrant_ << endl;
-
+	if(schedulingGrant_->getGrantedCwBytes(0)==0) return;
 //        //! \TEST  Grant Synchronization check
 //        if (!(schedulingGrant_->getPeriodic()))
 //        {
@@ -461,28 +462,30 @@ void LteMacUe::handleSelfMessage()
     EV << "--- END UE MAIN LOOP ---" << endl;
 }
 
-void
-LteMacUe::clearHarqBuffers(){
-/*
- HarqTxBuffers::iterator it;
+void LteMacUe::clearHarqBuffers(){
 
-    for(it = harqTxBuffers_.begin(); it != harqTxBuffers_.end(); it++)
+    for(HarqTxBuffers::iterator it = harqTxBuffers_.begin(); it != harqTxBuffers_.end(); it++)
     {
         LteHarqBufferTx* currHarq = it->second;
-	currHarq->clear();
-        }
+	//currHarq->clear(harqProcesses_);
+	for(int i=0; i < harqProcesses_; i++)
+		{
+        	currHarq->dropProcess(i);
+		}
     }
 
- HarqRxBuffers::iterator it;
 
-    for(it = harqRxBuffers_.begin(); it != harqRxBuffers_.end(); it++)
+    for(HarqRxBuffers::iterator it = harqRxBuffers_.begin(); it != harqRxBuffers_.end(); it++)
     {
         LteHarqBufferRx* currHarq = it->second;
 	currHarq->clear();
-        }
+	/*	for(int i=0; i < harqProcesses_; i++)
+		{
+        	currHarq->dropProcess(i)
+		}*/        
     }
 
-EV<<NOW<<" LteMacUe::clearHarqBuffers - cleared Harq Buffers on Handover" << endl;*/
+    EV<<NOW<<" LteMacUe::clearHarqBuffers - cleared Harq Buffers on Handover" << endl;
 }
 
 void
@@ -499,6 +502,8 @@ LteMacUe::macHandleGrant(cPacket* pkt)
         delete schedulingGrant_;
     }
 
+    if(grant->getGrantedCwBytes(0)==0) return;
+
     // store received grant
     schedulingGrant_=grant;
 
@@ -508,7 +513,7 @@ LteMacUe::macHandleGrant(cPacket* pkt)
         expirationCounter_=grant->getExpiration();
     }
 
-    EV << NOW << "Node " << nodeId_ << " received grant of blocks " << grant->getTotalGrantedBlocks()
+    std::cout << NOW << "Node " << nodeId_ << " received grant of blocks " << grant->getTotalGrantedBlocks()
        << ", bytes " << grant->getGrantedCwBytes(0) << endl;
 //        TODO if (!grant_->isNewTx())
 //            {

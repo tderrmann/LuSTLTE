@@ -57,6 +57,24 @@ int64 LteHarqBufferTx::pduLength(unsigned char acid, Codeword cw)
     return (*processes_)[acid]->getPduLength(cw);
 }
 
+void LteHarqBufferTx::clear(unsigned int nprocesses)
+{
+    for (unsigned int i = 0; i < nprocesses; i++)
+    {
+        for (Codeword cw = 0; cw < MAX_CODEWORDS; ++cw)
+        {
+                EV << "LteHarqBufferTx::clear - emptying buffers w/ acid " << i << endl;
+                //processes_[i]->forceDropUnit(cw);
+		forceDropUnit(i,cw);
+                //processes_[i]->resetCodeword(cw);
+        }
+    }
+}
+
+
+
+
+
 void LteHarqBufferTx::markSelected(UnitList unitIds, unsigned char availableTbs)
 {
     if (unitIds.second.size() == 0)
@@ -126,7 +144,9 @@ void LteHarqBufferTx::insertPdu(unsigned char acid, Codeword cw, LteMacPdu *pdu)
 
     if (!(*processes_)[acid]->isUnitEmpty(cw))
         throw cRuntimeError("LteHarqBufferTx::insertPdu(): unit is not empty");
-
+	//HACK
+        //(*processes_)[acid]->forceDropUnit(cw);
+	
     selectedAcid_ = acid;
     numEmptyProc_--;
     (*processes_)[acid]->insertPdu(pdu, cw);

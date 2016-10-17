@@ -92,6 +92,21 @@ void LteHarqBufferRx::sendFeedback()
     }
 }
 
+void LteHarqBufferRx::clear()
+{
+    for (unsigned int i = 0; i < numHarqProcesses_; i++)
+    {
+        for (Codeword cw = 0; cw < MAX_CODEWORDS; ++cw)
+        {
+                EV << "LteHarqBufferRx::clear - emptying buffers w/ acid " << i << endl;
+                //processes_[i]->forceDropUnit(cw);
+                //processes_[i]->resetCodeword(cw);
+            
+        }
+    }
+}
+
+
 unsigned int LteHarqBufferRx::purgeCorruptedPdus()
 {
     unsigned int purged = 0;

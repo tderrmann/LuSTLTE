@@ -153,7 +153,10 @@ const UserTxParams& AmcPilotAuto::computeTxParams(MacNodeId id, const Direction 
     UserTxParams info;
     info.writeTxMode(txMode);
     info.writeRank(sfb.getRi());
-    info.writeCqi(std::vector<Cqi>(1, sfb.getCqi(0, chosenBand)));
+    //info.writeCqi(std::vector<Cqi>(1, sfb.getCqi(0, chosenBand)));
+    //HACK
+    if(chosenCqi==0) chosenCqi=1;
+    info.writeCqi(std::vector<Cqi>(1, chosenCqi));
     info.writePmi(sfb.getPmi(chosenBand));
     info.writeBands(bandSet);
     RemoteSet antennas;

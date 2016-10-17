@@ -364,6 +364,10 @@ void LteMacEnb::bufferizeBsr(MacBsr* bsr, MacCid cid)
 void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
 {
     EV << NOW << "LteMacEnb::sendGrants " << endl;
+    if(scheduleList->size()>0)
+	{
+	    std::cout << NOW << "LteMacEnb" << nodeId_ << "::sendGrants of list w/ len "<< scheduleList->size() << endl;
+	}
 
     while (!scheduleList->empty())
     {
@@ -438,6 +442,8 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
         antenna_et = antennas.end();
         const unsigned int logicalBands = deployer_->getNumBands();
 
+        unsigned int totalGrantedBytes = 0;
+
         //  HANDLE MULTICW
         for (; cw <= codewords; ++cw)
         {
@@ -457,8 +463,10 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
                     bandAllocatedBlocks, UL);
             }
 
+	    grantedBytes+=8;//HACK
+	    totalGrantedBytes += grantedBytes;
             grant->setGrantedCwBytes(cw, grantedBytes);
-            EV << NOW << " LteMacEnb::sendGrants - granting " << grantedBytes << " on cw " << cw << endl;
+            std::cout << NOW << " LteMacEnb::sendGrants - granting " << grantedBytes << " on cw " << cw << endl;
         }
 
         RbMap map;
@@ -466,6 +474,10 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
         enbSchedulerUl_->readRbOccupation(nodeId, map);
 
         grant->setGrantedBlocks(map);
+
+	if(totalGrantedBytes==0) {
+		continue;
+	}
 
         // send grant to PHY layer
         sendLowerPackets(grant);

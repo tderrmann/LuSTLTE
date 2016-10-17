@@ -168,7 +168,7 @@ void LtePhyEnb::handleAirFrame(cMessage* msg)
         EV << "WARNING: frame from a UE that is leaving this cell (handover): deleted " << endl;
         EV << "Source MacNodeId: " << lteInfo->getSourceId() << endl;
         EV << "Master MacNodeId: " << nodeId_ << endl;
-        delete lteInfo;
+        //delete lteInfo;
         delete frame;
         return;
     }
@@ -267,7 +267,7 @@ void LtePhyEnb::requestFeedback(UserControlInfo* lteinfo, LteAirFrame* frame,
     std::map<Remote, int> antennaCws = deployer_->getAntennaCws();
     unsigned int numPreferredBand = deployer_->getNumPreferredBands();
     
-   try{
+  // try{
     for (Direction dir = UL; dir != UNKNOWN_DIRECTION;
         dir = ((dir == UL )? DL : UNKNOWN_DIRECTION))
     {
@@ -318,11 +318,11 @@ void LtePhyEnb::requestFeedback(UserControlInfo* lteinfo, LteAirFrame* frame,
         else
         pkt->setLteFeedbackDoubleVectorDl(fb_);
     }
-   }catch(std::exception& e){
-    EV << "EXCEPTION IN LtePhyEnb::requestFeedback - ";
-    EV << e.what() <<endl;
+   /*}catch(std::exception& e){
+    std::cout << "EXCEPTION IN LtePhyEnb::requestFeedback - ";
+    std::cout << e.what() <<endl;
 
-}
+   }*/
 
     EV << "LtePhyEnb::requestFeedback : Pisa Feedback Generated for nodeId: "
        << nodeId_ << " with generator type "

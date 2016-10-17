@@ -163,7 +163,7 @@ void SimpleApp::handleMessage(cMessage *msg) {
 		 * At 25% of the time send also a message to the main server. This message is sent via LTE
 		 * and is then simply handed to the decision maker.
 		 */
-		if(dblrand() < 1){
+		if(dblrand() < .25 & !(getAncestorPar("masterId").longValue()==1)){
 			cModule *tmpPhy = getParentModule()->getSubmodule("nic")->getSubmodule("phy");
 			LtePhyUe* phy = dynamic_cast<LtePhyUe *>(tmpPhy);
 			std::cout << "[" << sumoId << ", " << simTime() <<  "] Sending message to server through " << (int)(phy->getMasterId()) << std::endl;

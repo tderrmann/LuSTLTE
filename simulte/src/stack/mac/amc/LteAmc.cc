@@ -1490,6 +1490,11 @@ void LteAmc::attachUser(MacNodeId nodeId, Direction dir)
             (*history)[*it].push_back(v); // XXX DEBUG THIS!!
         }
     }
+    
+    short unsigned int vv[1] = { 0};
+    std::vector<short unsigned int> bands(&vv[0], &vv[0]+1);
+    setPilotUsableBands(nodeId,bands);
+    std::cout << "setting usable band" << endl;
     // Operation done in any case: use [] because new elements may be created
     (*connectedUe)[nodeId] = true;
 }

@@ -166,7 +166,18 @@ class LteHarqBufferTx
      *
      * @param unitId unit id.
      */
+
+    
+
     void forceDropUnit(unsigned char acid, Codeword cw);
+
+    /*
+     * Clear all processes
+     *
+    */
+
+    void clear(unsigned int nprocesses);
+
 
     BufferStatus getBufferStatus();
 

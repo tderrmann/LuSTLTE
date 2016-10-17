@@ -76,6 +76,12 @@ class LteHarqBufferRx
      * @return number of purged corrupted PDUs or zero if none
      */
     unsigned int purgeCorruptedPdus();
+    /**
+    *
+    * Clears Buffers on Handover
+    *
+    */
+    void clear();
 
     /*
      * Returns pointer to <acid> process.
