@@ -261,7 +261,17 @@ void LteMacUe::macPduMake(LteMacScheduleList* scheduleList)
         }
         else
         {
-            txBuf->insertPdu(txList.first,cw, macPkt);
+            try{
+		txBuf->insertPdu(txList.first,cw, macPkt);
+		}
+	    catch(...)
+		{
+		std::cout << NOW << "Exception: " << nodeId_ << " cannot send to " << destId << " because of Harq Buffer Overflow (long period of insufficient signal strength?)" << endl; 
+
+		for(int i=0; i<harqProcesses_; i++){
+			txBuf->dropProcess(i);
+			}
+		}
         }
     }
 }
@@ -502,6 +512,7 @@ LteMacUe::macHandleGrant(cPacket* pkt)
         delete schedulingGrant_;
     }
 
+    //skip 0-byte grants (shouldn't happen anyway, though)
     if(grant->getGrantedCwBytes(0)==0) return;
 
     // store received grant

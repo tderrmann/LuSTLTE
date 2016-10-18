@@ -364,10 +364,10 @@ void LteMacEnb::bufferizeBsr(MacBsr* bsr, MacCid cid)
 void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
 {
     EV << NOW << "LteMacEnb::sendGrants " << endl;
-    if(scheduleList->size()>0)
+/*    if(scheduleList->size()>0)
 	{
 	    std::cout << NOW << "LteMacEnb" << nodeId_ << "::sendGrants of list w/ len "<< scheduleList->size() << endl;
-	}
+	}*/
 
     while (!scheduleList->empty())
     {
@@ -383,6 +383,7 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
 
         // removing visited element from scheduleList.
         scheduleList->erase(it);
+
 
         if (granted > 0)
         {
@@ -435,7 +436,6 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
         // FIXME: possible memory leak
         grant->setUserTxParams(txPara);
 
-	//std::cout << "LteMacEnb : remote set etc." << endl;
         // acquiring remote antennas set from user info
         const std::set<Remote>& antennas = ui.readAntennaSet();
         std::set<Remote>::const_iterator antenna_it = antennas.begin(),
@@ -463,11 +463,16 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
                     bandAllocatedBlocks, UL);
             }
 
-	    grantedBytes+=8;//HACK
 	    totalGrantedBytes += grantedBytes;
             grant->setGrantedCwBytes(cw, grantedBytes);
-            std::cout << NOW << " LteMacEnb::sendGrants - granting " << grantedBytes << " on cw " << cw << endl;
+            //std::cout << NOW << " LteMacEnb::sendGrants - granting " << grantedBytes << " on cw " << cw << endl;
         }
+
+	if(totalGrantedBytes==0) {
+		delete grant;
+		//scheduleList->pop();
+		continue;
+	}
 
         RbMap map;
 
@@ -475,9 +480,6 @@ void LteMacEnb::sendGrants(LteMacScheduleList* scheduleList)
 
         grant->setGrantedBlocks(map);
 
-	if(totalGrantedBytes==0) {
-		continue;
-	}
 
         // send grant to PHY layer
         sendLowerPackets(grant);
