@@ -1,16 +1,16 @@
 #LuSTLTE
-* LuSTLTE combinews the LuST scenario and VeinsLTE, which in turn is based on SimuLTE for OMNeT++ and SUMO.
+* LuSTLTE combines the LuST scenario and VeinsLTE, which in turn is based on SimuLTE for OMNeT++ and SUMO.
 * LuSTLTE includes eNodeB locations for a single Luxembourg LTE carrier along with a simple handover mechanism implementation.
 * The purpose of this fork of VeinsLTE is to provide a ready-to-use package for evaluating services on LTE and DSRC/802.11p in a more or less realistic setting
-
-##TODOs:
-* !!!! Fix communication after a handover! Currently, grants sent by the new selected eNB allocate 0 Bytes, so that needs to be fixed.
-* Include a premade VehiLux scenario w/ eNBs (to cover the entire country, but only over half a day)
-* Adjust emission power level for the different eNBs (data not yet available, but possibly in the future)
-
+* Communication is now mostly working, although we have yet to evaluate if the signal outages are realistic.
 
 ##Remarks:
 * This version was tested w/ OMNeT++ 4.4.1 and SUMO 0.25.0; Please refer to the instructions of VeinsLTE installation below.
+* Communication after handovers is working more or less, i.e. there is still some trouble while UEs are out of range of eNBs, so we have to set the usable band manually in the LteAmc::attachUser. Also, 0 byte grants are created, but deleted before being sent within LteMacEnb::sendGrants.
+
+##Potential TODOs:
+* Include a premade VehiLux scenario w/ eNBs (to cover the entire country, but only over half a day)
+* Adjust emission power level for the different eNBs (data not yet available, but possibly in the future)
 
 ## Veins LTE
 
